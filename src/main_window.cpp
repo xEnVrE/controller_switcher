@@ -119,17 +119,17 @@ namespace controller_switcher {
 	field_error_msg_box("kd_f");
 	return;
       }
-    // lwr_controllers::CartesianPositionCommand command;
-    // command.x = position_x;
-    // command.y = position_y;
-    // command.z = force_z;
-    // command.kp = kp;
-    // command.kd = kd;
-    // command.km_f = km_f;
-    // command.kd_f = kd_f;
+    lwr_controllers::HybridImpedanceCommand command;
+    command.x = position_x;
+    command.y = position_y;
+    command.z = force_z;
+    command.kp = kp;
+    command.kd = kd;
+    command.km_f = km_f;
+    command.kd_f = kd_f;
 						      
-    // outcome = qnode.set_command<lwr_controllers::SetHybridImpedanceCommand,\
-    // 				lwr_controllers::HybridImpedanceCommand>(command);
+    outcome = qnode.set_command<lwr_controllers::SetHybridImpedanceCommand,\
+    				lwr_controllers::HybridImpedanceCommand>(command);
     if(!outcome)
       service_error_msg_box("HybridImpedanceController");
     
