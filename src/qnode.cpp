@@ -51,6 +51,10 @@ namespace controller_switcher {
     }
     ros::start();
     start();
+
+    // sleep so that controller spawner can load all the controllers
+    ros::Duration(3).sleep();
+
     return true;
   }
 
@@ -75,10 +79,13 @@ namespace controller_switcher {
   bool QNode::get_controllers_list(std::vector<std::string>& running_list, std::vector<std::string>& stopped_list)
   {
     ros::NodeHandle n;
-    ros::ServiceClient client = n.serviceClient<controller_manager_msgs::ListControllers>("/lwr/controller_manager/list_controllers");
+    ros::ServiceClient client;
     controller_manager_msgs::ListControllers service;
     std::vector<controller_manager_msgs::ControllerState> controller_list;
 
+    ros::service::waitForService("/lwr/controller_manager/list_controllers");
+
+    client = n.serviceClient<controller_manager_msgs::ListControllers>("/lwr/controller_manager/list_controllers");
     if(!client.call(service))
       return false;
     controller_list = service.response.controller;
@@ -91,7 +98,7 @@ namespace controller_switcher {
 	else if (it->state == "stopped")
 	  stopped_list.push_back(it->name);
       }
-    
+
     return true;
   }
 
@@ -117,20 +124,10 @@ namespace controller_switcher {
 
   void QNode::run() {
     // ros::Rate loop_rate(1);
-    // int count = 0;
     // while ( ros::ok() ) {
-
-    // 	std_msgs::String msg;
-    // 	std::stringstream ss;
-    // 	ss << "hello world " << count;
-    // 	msg.data = ss.str();
-    // 	chatter_publisher.publish(msg);
-    // 	log(Info,std::string("I sent: ")+msg.data);
     // 	ros::spinOnce();
     // 	loop_rate.sleep();
-    // 	++count;
     // }
-    // std::cout << "Ros shutdown, proceeding to close the gui." << std::endl;
     // Q_EMIT rosShutdown(); // used to signal the gui for a shutdown (useful to roslaunch)
   }
 
