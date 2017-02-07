@@ -21,6 +21,9 @@
 #include <QThread>
 #include <QStringListModel>
 
+#include <lwr_controllers/HybridSetCmd.h>
+#include <lwr_controllers/SetCartesianPositionCommand.h>
+#include <lwr_controllers/CartesianPositionCommand.h>
 
 /*****************************************************************************
  ** Namespaces
@@ -40,20 +43,44 @@ namespace controller_switcher {
     bool init();
     void run();
 
-    //QStringListModel* loggingModel() { return &logging_model; }
-    //void log( const LogLevel &level, const std::string &msg);
-    bool set_command (float position_x, float position_y, float force_z);
+    template <class ServiceType, class ServiceMessageType>
+    bool set_command(ServiceMessageType command);
+    // bool set_command(lwr_controllers::CartesianPositionCommand command);
     bool get_controllers_list(std::vector<std::string>& running_list, std::vector<std::string>& stopped_list);
     bool switch_controllers(const std::string start_controller, const std::string stop_controller);
 
   Q_SIGNALS:
-    //void loggingUpdated();
     void rosShutdown();
 
   private:
     int init_argc;
     char** init_argv;
   };
+
+  template <class ServiceType, class ServiceMessageType>
+    bool QNode::set_command(ServiceMessageType command)
+  {
+    ros::NodeHandle n;
+    ros::ServiceClient client;
+    ServiceType service;
+    std::string service_name;
+
+    // Choose the service name depending on the ServiceType type
+    if(std::is_same<ServiceType, lwr_controllers::SetCartesianPositionCommand>::value)
+      service_name = "/lwr/cartesian_position_controller/set_cartesian_position_command";
+    else if (std::is_same<ServiceType, lwr_controllers::HybridSetCmd>::value)
+      //SetHybridImpedanceCommand  
+      service_name = "/lwr/hybrid_impedance_controller/set_cmd";
+    client = n.serviceClient<ServiceType>(service_name);
+
+    service.request.command = command;
+
+    if (client.call(service))
+      return true;
+    else
+      return false;
+  }
+
 
 }  // namespace controller_switcher
 

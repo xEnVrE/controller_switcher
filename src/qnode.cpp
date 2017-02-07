@@ -16,7 +16,6 @@
 #include <std_msgs/String.h>
 #include <sstream>
 #include "../include/controller_switcher/qnode.hpp"
-#include <lwr_controllers/HybridSetCmd.h>
 #include <controller_manager_msgs/ListControllers.h>
 #include <controller_manager_msgs/SwitchController.h>
 #include <controller_manager_msgs/ControllerState.h>
@@ -58,23 +57,20 @@ namespace controller_switcher {
     return true;
   }
 
-  bool QNode::set_command(float position_x, float position_y, float force_z)
-  {
-    ros::NodeHandle n;
-    ros::ServiceClient client = n.serviceClient<lwr_controllers::HybridSetCmd>("/lwr/hybrid_impedance_controller/set_cmd");
-    lwr_controllers::HybridSetCmd service;
-    std::vector<double> commands;
-    commands.push_back(position_x);
-    commands.push_back(position_y);
-    commands.push_back(force_z);
+  // bool QNode::set_command(lwr_controllers::CartesianPositionCommand command)
+  // {
+  //   ros::NodeHandle n;
+  //   ros::ServiceClient client;
+  //   lwr_controllers::SetCartesianPositionCommand service;
+  //   client = n.serviceClient<lwr_controllers::SetCartesianPositionCommand>("/lwr/cartesian_position_controller/set_cartesian_position_command");
 
-    service.request.command = commands;
+  //   service.request.command = command;
 
-    if (client.call(service))
-      return true;
-    else
-      return false;
-  }
+  //   if (client.call(service))
+  //     return true;
+  //   else
+  //     return false;
+  // }
 
   bool QNode::get_controllers_list(std::vector<std::string>& running_list, std::vector<std::string>& stopped_list)
   {

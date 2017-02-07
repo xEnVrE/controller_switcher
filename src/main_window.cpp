@@ -13,6 +13,7 @@
 #include <QMessageBox>
 #include <iostream>
 #include "../include/controller_switcher/main_window.hpp"
+#include <lwr_controllers/SetCartesianPositionCommand.h>
 
 /*****************************************************************************
  ** Namespaces
@@ -64,48 +65,116 @@ namespace controller_switcher {
     close();    
   }
 
-  void MainWindow::on_buttonSet_clicked(bool check)
+  void MainWindow::on_buttonSet_hybrid_clicked(bool check)
   {
-    QMessageBox msg_box;
-    msg_box.setGeometry(QStyle::alignedRect(Qt::LeftToRight,
-					    Qt::AlignCenter,
-					    msg_box.size(),
-					    qApp->desktop()->availableGeometry()));
-    float position_x, position_y, force_z;
+    double position_x, position_y, force_z;
     bool outcome;
-    QString error_pre = "The value inserted in the field ";
-    QString error_post = " is invalid.";
 
-    position_x = ui.textPositionX->text().toFloat(&outcome);
+    position_x = ui.textPositionX_hybrid->text().toDouble(&outcome);
     if (!outcome)
       {
-	msg_box.setText(error_pre + "Position X" + error_post);
-	msg_box.exec();
+	field_error_msg_box("PositionX");
 	return;
       }
 
-    position_y = ui.textPositionY->text().toFloat(&outcome);
+    position_y = ui.textPositionY_hybrid->text().toDouble(&outcome);
     if (!outcome)
       {
-	msg_box.setText(error_pre + "Position Y" + error_post);
-	msg_box.exec();
+	field_error_msg_box("PositionY");
 	return;
       }
 
-    force_z = ui.textForceZ->text().toFloat(&outcome);
+
+    force_z = ui.textForceZ_hybrid->text().toDouble(&outcome);
     if (!outcome)
       {
-	msg_box.setText(error_pre + "Force Z" + error_post);
-	msg_box.exec();
+	field_error_msg_box("ForceZ");
 	return;
       }
 
-    outcome = qnode.set_command(position_x, position_y, force_z);
+    //outcome = qnode.set_command(position_x, position_y, force_z);
     if(!outcome)
+      service_error_msg_box("HybridImpedanceController");
+    
+  }
+
+  void MainWindow::on_buttonSet_cartpos_clicked(bool check)
+  {
+    double position_x, position_y, position_z;
+    double yaw, pitch, roll;
+    double kp, kd;
+    bool outcome;
+
+    position_x = ui.textPositionX_cartpos->text().toDouble(&outcome);
+    if (!outcome)
       {
-	msg_box.setText("Service execution failed!");
-	msg_box.exec();
-      }    
+	field_error_msg_box("PositionX");
+	return;
+      }
+
+    position_y = ui.textPositionY_cartpos->text().toDouble(&outcome);
+    if (!outcome)
+      {
+	field_error_msg_box("PositionY");
+	return;
+      }
+
+    position_z = ui.textPositionZ_cartpos->text().toDouble(&outcome);
+    if (!outcome)
+      {
+	field_error_msg_box("PositionZ");
+	return;
+      }
+
+    yaw = ui.textYaw_cartpos->text().toDouble(&outcome);
+    if (!outcome)
+      {
+	field_error_msg_box("Yaw");
+	return;
+      }
+
+    pitch = ui.textPitch_cartpos->text().toDouble(&outcome);
+    if (!outcome)
+      {
+	field_error_msg_box("Pitch");
+	return;
+      }
+
+    roll = ui.textRoll_cartpos->text().toDouble(&outcome);
+    if (!outcome)
+      {
+	field_error_msg_box("Roll");
+	return;
+      }
+
+    kp = ui.textKp_cartpos->text().toDouble(&outcome);
+    if (!outcome)
+      {
+	field_error_msg_box("kp");
+	return;
+      }
+
+    kd = ui.textKd_cartpos->text().toDouble(&outcome);
+    if (!outcome)
+      {
+	field_error_msg_box("kd");
+	return;
+      }
+
+    lwr_controllers::CartesianPositionCommand command;
+    command.x = position_x;
+    command.y = position_y;
+    command.z = position_z;
+    command.yaw = yaw;
+    command.pitch = pitch;
+    command.roll = roll;
+    command.kp = kp;
+    command.kd = kd;
+						      
+    outcome = qnode.set_command<lwr_controllers::SetCartesianPositionCommand,\
+    				lwr_controllers::CartesianPositionCommand>(command);
+    if(!outcome)
+      service_error_msg_box("CartesianPositionController");
   }
 
   void MainWindow::on_buttonSwitch_clicked(bool check)
@@ -145,13 +214,34 @@ namespace controller_switcher {
 	 it != stopped_controllers.end(); ++it)
       ui.comboStoppedCtl->addItem(QString::fromStdString(*it));
   }
-  
-  void MainWindow::enable_hybrid_controller_pane(bool state)
+
+  void MainWindow::field_error_msg_box(std::string field_name)
   {
-    ui.textPositionX->setEnabled(state);
-    ui.textPositionY->setEnabled(state);
-    ui.textForceZ->setEnabled(state);
-    ui.buttonSet->setEnabled(state);
+    QMessageBox msg_box;
+    msg_box.setGeometry(QStyle::alignedRect(Qt::LeftToRight,
+					    Qt::AlignCenter,
+					    msg_box.size(),
+					    qApp->desktop()->availableGeometry()));
+    QString error_pre = "The value inserted in the field ";
+    QString error_post = " is invalid.";
+    
+    msg_box.setText(error_pre + QString::fromStdString(field_name) + error_post);
+    msg_box.exec();
   }
+
+  void MainWindow::service_error_msg_box(std::string controller_name)
+  {
+    QMessageBox msg_box;
+    msg_box.setGeometry(QStyle::alignedRect(Qt::LeftToRight,
+					    Qt::AlignCenter,
+					    msg_box.size(),
+					    qApp->desktop()->availableGeometry()));
+    QString error_pre = "Service execution for controller ";
+    QString error_post = " failed!.";
+    
+    msg_box.setText(error_pre + QString::fromStdString(controller_name) + error_post);
+    msg_box.exec();
+  }
+
 }  // namespace controller_switcher
 
