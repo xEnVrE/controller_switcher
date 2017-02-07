@@ -57,21 +57,6 @@ namespace controller_switcher {
     return true;
   }
 
-  // bool QNode::set_command(lwr_controllers::CartesianPositionCommand command)
-  // {
-  //   ros::NodeHandle n;
-  //   ros::ServiceClient client;
-  //   lwr_controllers::SetCartesianPositionCommand service;
-  //   client = n.serviceClient<lwr_controllers::SetCartesianPositionCommand>("/lwr/cartesian_position_controller/set_cartesian_position_command");
-
-  //   service.request.command = command;
-
-  //   if (client.call(service))
-  //     return true;
-  //   else
-  //     return false;
-  // }
-
   bool QNode::get_controllers_list(std::vector<std::string>& running_list, std::vector<std::string>& stopped_list)
   {
     ros::NodeHandle n;

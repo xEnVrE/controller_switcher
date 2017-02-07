@@ -21,9 +21,10 @@
 #include <QThread>
 #include <QStringListModel>
 
-#include <lwr_controllers/HybridSetCmd.h>
 #include <lwr_controllers/SetCartesianPositionCommand.h>
 #include <lwr_controllers/CartesianPositionCommand.h>
+// #include <lwr_controllers/SetHybridImpedanceCommand.h>
+// #include <lwr_controllers/HybridImpedanceCommand.h>
 
 /*****************************************************************************
  ** Namespaces
@@ -68,8 +69,8 @@ namespace controller_switcher {
     // Choose the service name depending on the ServiceType type
     if(std::is_same<ServiceType, lwr_controllers::SetCartesianPositionCommand>::value)
       service_name = "/lwr/cartesian_position_controller/set_cartesian_position_command";
-    else if (std::is_same<ServiceType, lwr_controllers::HybridSetCmd>::value)
-      //SetHybridImpedanceCommand  
+    // else if (std::is_same<ServiceType, lwr_controllers::SetHybridImpedanceCommand>::value)
+    //   //SetHybridImpedanceCommand  
       service_name = "/lwr/hybrid_impedance_controller/set_cmd";
     client = n.serviceClient<ServiceType>(service_name);
 

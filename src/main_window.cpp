@@ -68,6 +68,7 @@ namespace controller_switcher {
   void MainWindow::on_buttonSet_hybrid_clicked(bool check)
   {
     double position_x, position_y, force_z;
+    double kp, kd, km_f, kd_f;
     bool outcome;
 
     position_x = ui.textPositionX_hybrid->text().toDouble(&outcome);
@@ -84,7 +85,6 @@ namespace controller_switcher {
 	return;
       }
 
-
     force_z = ui.textForceZ_hybrid->text().toDouble(&outcome);
     if (!outcome)
       {
@@ -92,7 +92,44 @@ namespace controller_switcher {
 	return;
       }
 
-    //outcome = qnode.set_command(position_x, position_y, force_z);
+    kp = ui.textKp_hybrid->text().toDouble(&outcome);
+    if (!outcome)
+      {
+	field_error_msg_box("kp");
+	return;
+      }
+
+    kd = ui.textKd_hybrid->text().toDouble(&outcome);
+    if (!outcome)
+      {
+	field_error_msg_box("kd");
+	return;
+      }
+
+    km_f = ui.textKmf_hybrid->text().toDouble(&outcome);
+    if (!outcome)
+      {
+	field_error_msg_box("km_f");
+	return;
+      }
+
+    kd_f = ui.textKdf_hybrid->text().toDouble(&outcome);
+    if (!outcome)
+      {
+	field_error_msg_box("kd_f");
+	return;
+      }
+    // lwr_controllers::CartesianPositionCommand command;
+    // command.x = position_x;
+    // command.y = position_y;
+    // command.z = force_z;
+    // command.kp = kp;
+    // command.kd = kd;
+    // command.km_f = km_f;
+    // command.kd_f = kd_f;
+						      
+    // outcome = qnode.set_command<lwr_controllers::SetHybridImpedanceCommand,\
+    // 				lwr_controllers::HybridImpedanceCommand>(command);
     if(!outcome)
       service_error_msg_box("HybridImpedanceController");
     
