@@ -69,6 +69,7 @@ namespace controller_switcher {
   {
     double position_x, position_y, force_z;
     double kp, kd, km_f, kd_f;
+    bool circle_trj;
     bool outcome;
 
     position_x = ui.textPositionX_hybrid->text().toDouble(&outcome);
@@ -119,6 +120,9 @@ namespace controller_switcher {
 	field_error_msg_box("kd_f");
 	return;
       }
+
+    circle_trj = ui.radioButton_circle_trj->isChecked();
+
     lwr_controllers::HybridImpedanceCommand command;
     command.x = position_x;
     command.y = position_y;
@@ -127,6 +131,7 @@ namespace controller_switcher {
     command.kd = kd;
     command.km_f = km_f;
     command.kd_f = kd_f;
+    command.circle_trj = circle_trj;
 						      
     outcome = qnode.set_command<lwr_controllers::SetHybridImpedanceCommand,\
     				lwr_controllers::HybridImpedanceCommand>(command);

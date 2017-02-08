@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>816</width>
-    <height>481</height>
+    <width>857</width>
+    <height>494</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -365,6 +365,16 @@
                </widget>
               </item>
              </layout>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="radioButton_circle_trj">
+              <property name="layoutDirection">
+               <enum>Qt::RightToLeft</enum>
+              </property>
+              <property name="text">
+               <string>circle trajectory              </string>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>
