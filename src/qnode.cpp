@@ -64,9 +64,9 @@ namespace controller_switcher {
     controller_manager_msgs::ListControllers service;
     std::vector<controller_manager_msgs::ControllerState> controller_list;
 
-    ros::service::waitForService("/lwr/controller_manager/list_controllers");
+    ros::service::waitForService("/" + robot_namespace_ + "/controller_manager/list_controllers");
 
-    client = n.serviceClient<controller_manager_msgs::ListControllers>("/lwr/controller_manager/list_controllers");
+    client = n.serviceClient<controller_manager_msgs::ListControllers>("/" + robot_namespace_ + "/controller_manager/list_controllers");
     if(!client.call(service))
       return false;
     controller_list = service.response.controller;
@@ -86,7 +86,7 @@ namespace controller_switcher {
   bool QNode::switch_controllers(const std::string start_controller, const std::string stop_controller)
   {
     ros::NodeHandle n;
-    ros::ServiceClient client = n.serviceClient<controller_manager_msgs::SwitchController>("/lwr/controller_manager/switch_controller");
+    ros::ServiceClient client = n.serviceClient<controller_manager_msgs::SwitchController>("/" + robot_namespace_ + "/controller_manager/switch_controller");
     controller_manager_msgs::SwitchController service;
     std::vector<std::string> start_controllers;
     std::vector<std::string> stop_controllers;
@@ -103,6 +103,11 @@ namespace controller_switcher {
 
   }
 
+  void QNode::set_robot_namespace(std::string name)
+  {
+    robot_namespace_ = name;
+  }
+  
   void QNode::run() {
     // ros::Rate loop_rate(1);
     // while ( ros::ok() ) {

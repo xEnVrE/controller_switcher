@@ -33,12 +33,13 @@ namespace controller_switcher {
   {
     ui.setupUi(this); // Calling this incidentally connects all ui's triggers to on_...() callbacks in this class.
     qnode.init();
+    qnode.set_robot_namespace(argv[1]);
     setGeometry(QStyle::alignedRect(Qt::LeftToRight,
 				    Qt::AlignCenter,
 				    size(),
 				    qApp->desktop()->availableGeometry()));
 
-    // Fill controller lists from lwr/controller_manager/ListControllers
+    // Fill controller lists from robot_namespace_/controller_manager/ListControllers
     fill_controllers_list();
   }
 
@@ -69,6 +70,8 @@ namespace controller_switcher {
   {
     double position_x, position_y, force_z;
     double kp, kd, km_f, kd_f;
+    double frequency, radius;
+    double center_x, center_y;
     bool circle_trj;
     bool outcome;
 
@@ -96,28 +99,56 @@ namespace controller_switcher {
     kp = ui.textKp_hybrid->text().toDouble(&outcome);
     if (!outcome)
       {
-	field_error_msg_box("kp");
+	field_error_msg_box("Kp");
 	return;
       }
 
     kd = ui.textKd_hybrid->text().toDouble(&outcome);
     if (!outcome)
       {
-	field_error_msg_box("kd");
+	field_error_msg_box("Kd");
 	return;
       }
 
     km_f = ui.textKmf_hybrid->text().toDouble(&outcome);
     if (!outcome)
       {
-	field_error_msg_box("km_f");
+	field_error_msg_box("Km Force");
 	return;
       }
 
     kd_f = ui.textKdf_hybrid->text().toDouble(&outcome);
     if (!outcome)
       {
-	field_error_msg_box("kd_f");
+	field_error_msg_box("Kd Force");
+	return;
+      }
+
+    center_x = ui.textCenterX_hybrid->text().toDouble(&outcome);
+    if (!outcome)
+      {
+	field_error_msg_box("Center X");
+	return;
+      }
+
+    center_y = ui.textCenterY_hybrid->text().toDouble(&outcome);
+    if (!outcome)
+      {
+	field_error_msg_box("Center Y");
+	return;
+      }
+
+    frequency = ui.textFrequency_hybrid->text().toDouble(&outcome);
+    if (!outcome)
+      {
+	field_error_msg_box("Frequency");
+	return;
+      }
+
+    radius = ui.textRadius_hybrid->text().toDouble(&outcome);
+    if (!outcome)
+      {
+	field_error_msg_box("Radius");
 	return;
       }
 
@@ -132,7 +163,11 @@ namespace controller_switcher {
     command.km_f = km_f;
     command.kd_f = kd_f;
     command.circle_trj = circle_trj;
-						      
+    command.center_x = center_x;
+    command.center_y = center_y;
+    command.frequency = frequency;
+    command.radius = radius;	
+					      
     outcome = qnode.set_command<lwr_controllers::SetHybridImpedanceCommand,\
     				lwr_controllers::HybridImpedanceCommand>(command);
     if(!outcome)
@@ -279,7 +314,7 @@ namespace controller_switcher {
 					    msg_box.size(),
 					    qApp->desktop()->availableGeometry()));
     QString error_pre = "Service execution for controller ";
-    QString error_post = " failed!.";
+    QString error_post = " failed!";
     
     msg_box.setText(error_pre + QString::fromStdString(controller_name) + error_post);
     msg_box.exec();

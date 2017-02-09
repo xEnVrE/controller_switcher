@@ -6,12 +6,18 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>857</width>
-    <height>494</height>
+    <width>831</width>
+    <height>600</height>
    </rect>
   </property>
+  <property name="maximumSize">
+   <size>
+    <width>857</width>
+    <height>600</height>
+   </size>
+  </property>
   <property name="windowTitle">
-   <string>QRosApp</string>
+   <string>Controller Manager</string>
   </property>
   <property name="windowIcon">
    <iconset resource="../resources/images.qrc">
@@ -223,7 +229,7 @@
               <item>
                <widget class="QLabel" name="label_15">
                 <property name="text">
-                 <string>kp            </string>
+                 <string>Kp            </string>
                 </property>
                </widget>
               </item>
@@ -260,7 +266,7 @@
               <item>
                <widget class="QLabel" name="label_19">
                 <property name="text">
-                 <string>kd            </string>
+                 <string>Kd            </string>
                 </property>
                </widget>
               </item>
@@ -297,7 +303,7 @@
               <item>
                <widget class="QLabel" name="label_20">
                 <property name="text">
-                 <string>km_f         </string>
+                 <string>Km Force  </string>
                 </property>
                </widget>
               </item>
@@ -330,16 +336,16 @@
              </layout>
             </item>
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_22">
+             <layout class="QHBoxLayout" name="horizontalLayout_36">
               <item>
-               <widget class="QLabel" name="label_21">
+               <widget class="QLabel" name="label_35">
                 <property name="text">
-                 <string>kd_f          </string>
+                 <string>Kd Force   </string>
                 </property>
                </widget>
               </item>
               <item>
-               <spacer name="horizontalSpacer_23">
+               <spacer name="horizontalSpacer_37">
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
                 </property>
@@ -367,14 +373,186 @@
              </layout>
             </item>
             <item>
-             <widget class="QRadioButton" name="radioButton_circle_trj">
-              <property name="layoutDirection">
-               <enum>Qt::RightToLeft</enum>
-              </property>
+             <widget class="QLabel" name="label_33">
               <property name="text">
-               <string>circle trajectory              </string>
+               <string>Circular trajectory</string>
               </property>
              </widget>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_32">
+              <item>
+               <widget class="QLabel" name="label_31">
+                <property name="text">
+                 <string>Center X    </string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_33">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="textCenterX_hybrid">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>50</width>
+                  <height>30</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_33">
+              <item>
+               <widget class="QLabel" name="label_32">
+                <property name="text">
+                 <string>Center Y    </string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_34">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="textCenterY_hybrid">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>50</width>
+                  <height>30</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_22">
+              <item>
+               <widget class="QLabel" name="label_21">
+                <property name="text">
+                 <string>Frequency  </string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_23">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="textFrequency_hybrid">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>50</width>
+                  <height>30</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_23">
+              <item>
+               <widget class="QLabel" name="label_22">
+                <property name="text">
+                 <string>Radius        </string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_24">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="textRadius_hybrid">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>50</width>
+                  <height>30</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_35">
+              <item>
+               <widget class="QRadioButton" name="radioButton_circle_trj">
+                <property name="layoutDirection">
+                 <enum>Qt::RightToLeft</enum>
+                </property>
+                <property name="text">
+                 <string>Enable trajectory              </string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_36">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
             </item>
            </layout>
           </item>

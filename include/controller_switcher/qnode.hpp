@@ -49,6 +49,7 @@ namespace controller_switcher {
     // bool set_command(lwr_controllers::CartesianPositionCommand command);
     bool get_controllers_list(std::vector<std::string>& running_list, std::vector<std::string>& stopped_list);
     bool switch_controllers(const std::string start_controller, const std::string stop_controller);
+    void set_robot_namespace(std::string name);
 
   Q_SIGNALS:
     void rosShutdown();
@@ -56,6 +57,7 @@ namespace controller_switcher {
   private:
     int init_argc;
     char** init_argv;
+    std::string robot_namespace_;
   };
 
   template <class ServiceType, class ServiceMessageType>
@@ -68,9 +70,9 @@ namespace controller_switcher {
 
     // Choose the service name depending on the ServiceType type
     if(std::is_same<ServiceType, lwr_controllers::SetCartesianPositionCommand>::value)
-      service_name = "/lwr/cartesian_position_controller/set_cartesian_position_command";
+      service_name = "/" + robot_namespace_ + "/cartesian_position_controller/set_cartesian_position_command";
     else if (std::is_same<ServiceType, lwr_controllers::SetHybridImpedanceCommand>::value)
-      service_name = "/lwr/hybrid_impedance_controller/set_hybrid_impedance_command";
+      service_name = "/" + robot_namespace_ + "/hybrid_impedance_controller/set_hybrid_impedance_command";
     client = n.serviceClient<ServiceType>(service_name);
 
     service.request.command = command;
