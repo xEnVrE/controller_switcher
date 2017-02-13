@@ -9,16 +9,16 @@
 /*****************************************************************************
  ** Includes
  *****************************************************************************/
-
+#include "../include/controller_switcher/qnode.hpp"
 #include <ros/ros.h>
 #include <ros/network.h>
 #include <string>
 #include <std_msgs/String.h>
 #include <sstream>
-#include "../include/controller_switcher/qnode.hpp"
 #include <controller_manager_msgs/ListControllers.h>
 #include <controller_manager_msgs/SwitchController.h>
 #include <controller_manager_msgs/ControllerState.h>
+
 
 /*****************************************************************************
  ** Namespaces
