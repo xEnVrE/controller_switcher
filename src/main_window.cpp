@@ -13,7 +13,7 @@
 #include <QMessageBox>
 #include <iostream>
 #include "../include/controller_switcher/main_window.hpp"
-#include <lwr_force_position_controllers/SetCartesianPositionCommand.h>
+//#include <lwr_force_position_controllers/SetCartesianPositionCommand.h>
 
 /*****************************************************************************
  ** Namespaces
@@ -159,7 +159,7 @@ namespace controller_switcher {
 
     circle_trj = ui.radioButton_circle_trj->isChecked();
 
-    lwr_force_position_controllers::HybridImpedanceCommand command;
+    lwr_force_position_controllers::HybridImpedanceCommandMsg command;
     command.x = position_x;
     command.y = position_y;
     command.z = force_z;
@@ -173,8 +173,8 @@ namespace controller_switcher {
     command.frequency = frequency;
     command.radius = radius;	
 					      
-    outcome = qnode.set_command<lwr_force_position_controllers::SetHybridImpedanceCommand,\
-    				lwr_force_position_controllers::HybridImpedanceCommand>(command);
+    outcome = qnode.set_command<lwr_force_position_controllers::HybridImpedanceCommand,\
+    				lwr_force_position_controllers::HybridImpedanceCommandMsg>(command);
     if(!outcome)
       service_error_msg_box("HybridImpedanceController");
     
@@ -243,7 +243,7 @@ namespace controller_switcher {
 	return;
       }
 
-    lwr_force_position_controllers::CartesianPositionCommand command;
+    lwr_force_position_controllers::CartesianPositionCommandMsg command;
     command.x = position_x;
     command.y = position_y;
     command.z = position_z;
@@ -253,8 +253,8 @@ namespace controller_switcher {
     command.kp = kp;
     command.kd = kd;
 						      
-    outcome = qnode.set_command<lwr_force_position_controllers::SetCartesianPositionCommand,\
-    				lwr_force_position_controllers::CartesianPositionCommand>(command);
+    outcome = qnode.set_command<lwr_force_position_controllers::CartesianPositionCommand,\
+    				lwr_force_position_controllers::CartesianPositionCommandMsg>(command);
     if(!outcome)
       service_error_msg_box("CartesianPositionController");
   }

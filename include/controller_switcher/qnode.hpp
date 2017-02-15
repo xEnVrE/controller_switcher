@@ -22,10 +22,10 @@
 #include <QThread>
 #include <QStringListModel>
 
-#include <lwr_force_position_controllers/SetCartesianPositionCommand.h>
 #include <lwr_force_position_controllers/CartesianPositionCommand.h>
-#include <lwr_force_position_controllers/SetHybridImpedanceCommand.h>
+#include <lwr_force_position_controllers/CartesianPositionCommandMsg.h>
 #include <lwr_force_position_controllers/HybridImpedanceCommand.h>
+#include <lwr_force_position_controllers/HybridImpedanceCommandMsg.h>
 
 /*****************************************************************************
  ** Namespaces
@@ -70,9 +70,9 @@ namespace controller_switcher {
     std::string service_name;
 
     // Choose the service name depending on the ServiceType type
-    if(std::is_same<ServiceType, lwr_force_position_controllers::SetCartesianPositionCommand>::value)
+    if(std::is_same<ServiceType, lwr_force_position_controllers::CartesianPositionCommand>::value)
       service_name = "/" + robot_namespace_ + "/cartesian_position_controller/set_cartesian_position_command";
-    else if (std::is_same<ServiceType, lwr_force_position_controllers::SetHybridImpedanceCommand>::value)
+    else if (std::is_same<ServiceType, lwr_force_position_controllers::HybridImpedanceCommand>::value)
       service_name = "/" + robot_namespace_ + "/hybrid_impedance_controller/set_hybrid_impedance_command";
     client = n.serviceClient<ServiceType>(service_name);
 
