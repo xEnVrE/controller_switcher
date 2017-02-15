@@ -31,15 +31,21 @@ namespace controller_switcher {
     : QMainWindow(parent)
     , qnode(argc,argv)
   {
-    ui.setupUi(this); // Calling this incidentally connects all ui's triggers to on_...() callbacks in this class.
+    // setup the ui and
+    // connect all ui's triggers to on_...() callbacks
+    ui.setupUi(this); 
+
+    // init ros node
     qnode.init();
     qnode.set_robot_namespace(argv[1]);
+
+    // move the window to the center
     setGeometry(QStyle::alignedRect(Qt::LeftToRight,
 				    Qt::AlignCenter,
 				    size(),
 				    qApp->desktop()->availableGeometry()));
 
-    // Fill controller lists from robot_namespace_/controller_manager/ListControllers
+    // fill controller lists from robot_namespace_/controller_manager/ListControllers
     fill_controllers_list();
   }
 
@@ -49,13 +55,6 @@ namespace controller_switcher {
    ** Implementation [Slots]
    *****************************************************************************/
 
-  // void MainWindow::showNoMasterMessage() {
-  //   QMessageBox msgBox;
-  //   msgBox.setText("Couldn't find the ros master.");
-  //   msgBox.exec();
-  //   close();
-  // }
-
   /*
    * These triggers whenever the button is clicked, regardless of whether it
    * is already checked or not.
@@ -64,6 +63,12 @@ namespace controller_switcher {
   void MainWindow::on_buttonQuit_clicked(bool check)
   {
     close();    
+  }
+
+  void MainWindow::on_buttonSet_ftsensor_clicked(bool check)
+  {
+    if(!qnode.set_ftsensor())
+      service_error_msg_box("FtSensorController");
   }
 
   void MainWindow::on_buttonSet_hybrid_clicked(bool check)

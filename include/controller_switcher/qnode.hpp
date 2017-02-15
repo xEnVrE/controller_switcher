@@ -47,7 +47,7 @@ namespace controller_switcher {
 
     template <class ServiceType, class ServiceMessageType>
     bool set_command(ServiceMessageType command);
-    // bool set_command(lwr_force_position_controllers::CartesianPositionCommand command);
+    bool set_ftsensor();
     bool get_controllers_list(std::vector<std::string>& running_list, std::vector<std::string>& stopped_list);
     bool switch_controllers(const std::string start_controller, const std::string stop_controller);
     void set_robot_namespace(std::string name);

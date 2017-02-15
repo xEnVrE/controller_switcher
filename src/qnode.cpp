@@ -14,6 +14,7 @@
 #include <ros/network.h>
 #include <string>
 #include <std_msgs/String.h>
+#include <std_srvs/Empty.h>
 #include <sstream>
 #include <controller_manager_msgs/ListControllers.h>
 #include <controller_manager_msgs/SwitchController.h>
@@ -106,6 +107,19 @@ namespace controller_switcher {
   void QNode::set_robot_namespace(std::string name)
   {
     robot_namespace_ = name;
+  }
+
+  bool QNode::set_ftsensor()
+  {
+    ros::NodeHandle n;
+    ros::ServiceClient client;
+    std_srvs::Empty service;
+
+    client = n.serviceClient<std_srvs::Empty>("/" + robot_namespace_ + "/ft_sensor_controller/sensor_ctl_init");
+    if (client.call(service))
+      return true;
+    else
+      return false;
   }
   
   void QNode::run() {

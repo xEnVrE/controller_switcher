@@ -50,6 +50,7 @@ namespace controller_switcher {
     void on_buttonQuit_clicked(bool check);
     void on_buttonSet_hybrid_clicked(bool check);
     void on_buttonSet_cartpos_clicked(bool check);
+    void on_buttonSet_ftsensor_clicked(bool check);
     void on_buttonSwitch_clicked(bool check);
 
   private:
