@@ -14,12 +14,11 @@
 #include <ros/network.h>
 #include <string>
 #include <std_msgs/String.h>
-#include <std_srvs/Empty.h>
 #include <sstream>
 #include <controller_manager_msgs/ListControllers.h>
 #include <controller_manager_msgs/SwitchController.h>
 #include <controller_manager_msgs/ControllerState.h>
-
+#include <lwr_force_position_controllers/FtSensorInit.h>
 
 /*****************************************************************************
  ** Namespaces
@@ -109,19 +108,46 @@ namespace controller_switcher {
     robot_namespace_ = name;
   }
 
-  bool QNode::set_ftsensor()
+  bool QNode::set_ftsensor(lwr_force_position_controllers::FtSensorInitMsg& response)
   {
     ros::NodeHandle n;
     ros::ServiceClient client;
-    std_srvs::Empty service;
+    lwr_force_position_controllers::FtSensorInit service;
+    bool outcome;
 
-    client = n.serviceClient<std_srvs::Empty>("/" + robot_namespace_ + "/ft_sensor_controller/sensor_ctl_init");
-    if (client.call(service))
-      return true;
-    else
-      return false;
+    client = n.serviceClient<lwr_force_position_controllers::FtSensorInit>("/" + robot_namespace_ + "/ft_sensor_controller/sensor_ctl_init");
+
+    outcome = client.call(service);
+    
+    if (outcome)
+      response = service.response.message;
+    
+    return outcome;
   }
-  
+
+  bool QNode::get_ftsensor_config(lwr_force_position_controllers::FtSensorInitMsg& response)
+  {
+    // FIXME:
+    // add a field in FtSensorInitMsg so that we can use one service to get the current
+    // configuration AND (if needed) update it using new sensor data
+    //
+
+    ros::NodeHandle n;
+    ros::ServiceClient client;
+    lwr_force_position_controllers::FtSensorInit service;
+    bool outcome;
+
+    client = n.serviceClient<lwr_force_position_controllers::FtSensorInit>("/" + robot_namespace_ + "/ft_sensor_controller/get_sensor_config");
+
+    outcome = client.call(service);
+    
+    if (outcome)
+      response = service.response.message;
+    
+    return outcome;
+
+  }  
+
   void QNode::run() {
     // ros::Rate loop_rate(1);
     // while ( ros::ok() ) {

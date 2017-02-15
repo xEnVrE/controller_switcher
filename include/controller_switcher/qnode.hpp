@@ -24,6 +24,7 @@
 
 #include <lwr_force_position_controllers/CartesianPositionCommand.h>
 #include <lwr_force_position_controllers/HybridImpedanceCommand.h>
+#include <lwr_force_position_controllers/FtSensorInitMsg.h>
 
 /*****************************************************************************
  ** Namespaces
@@ -47,7 +48,8 @@ namespace controller_switcher {
     bool set_command(ServiceMessageType command);
     template <class ServiceType, class ServiceMessageType>
     bool get_current_cmd(ServiceMessageType& current_command);
-    bool set_ftsensor();
+    bool set_ftsensor(lwr_force_position_controllers::FtSensorInitMsg& response);
+    bool get_ftsensor_config(lwr_force_position_controllers::FtSensorInitMsg& response);
     bool get_controllers_list(std::vector<std::string>& running_list, std::vector<std::string>& stopped_list);
     bool switch_controllers(const std::string start_controller, const std::string stop_controller);
     void set_robot_namespace(std::string name);

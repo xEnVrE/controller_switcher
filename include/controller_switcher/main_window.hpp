@@ -41,6 +41,7 @@ namespace controller_switcher {
   private:
     void fill_controllers_list();
     void fill_controllers_command_fields();
+    void fill_sensor_configuration();
     void field_error_msg_box(std::string field_name);
     void service_error_msg_box(std::string controller_name);
 

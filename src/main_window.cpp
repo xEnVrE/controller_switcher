@@ -14,6 +14,7 @@
 #include <iostream>
 #include "../include/controller_switcher/main_window.hpp"
 //#include <lwr_force_position_controllers/SetCartesianPositionCommand.h>
+#include <lwr_force_position_controllers/FtSensorInitMsg.h>
 
 /*****************************************************************************
  ** Namespaces
@@ -48,8 +49,11 @@ namespace controller_switcher {
     // fill controller lists from robot_namespace_/controller_manager/ListControllers
     fill_controllers_list();
 
-    // fill controllers command fields withf current commands
+    // fill controllers command fields with current commands
     fill_controllers_command_fields();
+
+    // fill sensor configuration
+    fill_sensor_configuration();
    
   }
 
@@ -71,8 +75,15 @@ namespace controller_switcher {
 
   void MainWindow::on_buttonSet_ftsensor_clicked(bool check)
   {
-    if(!qnode.set_ftsensor())
+    lwr_force_position_controllers::FtSensorInitMsg response;
+
+    if(!qnode.set_ftsensor(response))
       service_error_msg_box("FtSensorController(set)");
+
+    ui.labelWristToolComX->setText(QString::number(response.arm_x));
+    ui.labelWristToolComY->setText(QString::number(response.arm_y));
+    ui.labelWristToolComZ->setText(QString::number(response.arm_z));
+    ui.labelToolMass->setText(QString::number(response.mass));
   }
 
   void MainWindow::on_buttonSet_hybrid_clicked(bool check)
@@ -371,6 +382,19 @@ namespace controller_switcher {
     ui.textRadius_hybrid->setText(QString::number(hybrid_curr_cmd.radius,'f', 3));
     ui.radioButton_circle_trj->setChecked(hybrid_curr_cmd.circle_trj);
 
+  }
+
+  void MainWindow::fill_sensor_configuration()
+  {
+    lwr_force_position_controllers::FtSensorInitMsg response;
+
+    if(!qnode.get_ftsensor_config(response))
+      service_error_msg_box("FtSensorController(get)");
+
+    ui.labelWristToolComX->setText(QString::number(response.arm_x));
+    ui.labelWristToolComY->setText(QString::number(response.arm_y));
+    ui.labelWristToolComZ->setText(QString::number(response.arm_z));
+    ui.labelToolMass->setText(QString::number(response.mass));
   }
 
   void MainWindow::field_error_msg_box(std::string field_name)
