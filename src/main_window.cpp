@@ -47,6 +47,10 @@ namespace controller_switcher {
 
     // fill controller lists from robot_namespace_/controller_manager/ListControllers
     fill_controllers_list();
+
+    // fill controllers command fields withf current commands
+    fill_controllers_command_fields();
+   
   }
 
   MainWindow::~MainWindow() {}
@@ -68,12 +72,13 @@ namespace controller_switcher {
   void MainWindow::on_buttonSet_ftsensor_clicked(bool check)
   {
     if(!qnode.set_ftsensor())
-      service_error_msg_box("FtSensorController");
+      service_error_msg_box("FtSensorController(set)");
   }
 
   void MainWindow::on_buttonSet_hybrid_clicked(bool check)
   {
     double position_x, position_y, force_z;
+    double yaw, pitch, roll;
     double kp, kd, km_f, kd_f;
     double frequency, radius;
     double center_x, center_y;
@@ -91,6 +96,27 @@ namespace controller_switcher {
     if (!outcome)
       {
 	field_error_msg_box("PositionY");
+	return;
+      }
+
+    yaw = ui.textYaw_hybrid->text().toDouble(&outcome);
+    if (!outcome)
+      {
+	field_error_msg_box("Yaw");
+	return;
+      }
+
+    pitch = ui.textPitch_hybrid->text().toDouble(&outcome);
+    if (!outcome)
+      {
+	field_error_msg_box("Pitch");
+	return;
+      }
+
+    roll = ui.textRoll_hybrid->text().toDouble(&outcome);
+    if (!outcome)
+      {
+	field_error_msg_box("Roll");
 	return;
       }
 
@@ -162,7 +188,10 @@ namespace controller_switcher {
     lwr_force_position_controllers::HybridImpedanceCommandMsg command;
     command.x = position_x;
     command.y = position_y;
-    command.z = force_z;
+    command.yaw = yaw;
+    command.pitch = pitch;
+    command.roll = roll;
+    command.forcez = force_z;
     command.kp = kp;
     command.kd = kd;
     command.km_f = km_f;
@@ -176,7 +205,7 @@ namespace controller_switcher {
     outcome = qnode.set_command<lwr_force_position_controllers::HybridImpedanceCommand,\
     				lwr_force_position_controllers::HybridImpedanceCommandMsg>(command);
     if(!outcome)
-      service_error_msg_box("HybridImpedanceController");
+      service_error_msg_box("HybridImpedanceController(set)");
     
   }
 
@@ -256,7 +285,7 @@ namespace controller_switcher {
     outcome = qnode.set_command<lwr_force_position_controllers::CartesianPositionCommand,\
     				lwr_force_position_controllers::CartesianPositionCommandMsg>(command);
     if(!outcome)
-      service_error_msg_box("CartesianPositionController");
+      service_error_msg_box("CartesianPositionController(set)");
   }
 
   void MainWindow::on_buttonSwitch_clicked(bool check)
@@ -295,6 +324,53 @@ namespace controller_switcher {
     for (std::vector<std::string>::iterator it = stopped_controllers.begin();
 	 it != stopped_controllers.end(); ++it)
       ui.comboStoppedCtl->addItem(QString::fromStdString(*it));
+  }
+
+  void MainWindow::fill_controllers_command_fields()
+  {
+    bool outcome;
+
+    // Cartesian Position Controller
+    lwr_force_position_controllers::CartesianPositionCommandMsg cartpos_current_cmd;
+						      
+    outcome = qnode.get_current_cmd<lwr_force_position_controllers::CartesianPositionCommand,\
+    				    lwr_force_position_controllers::CartesianPositionCommandMsg>(cartpos_current_cmd);
+    if(!outcome)
+      service_error_msg_box("CartesianPositionController(get)");
+
+    ui.textPositionX_cartpos->setText(QString::number(cartpos_current_cmd.x,'f', 3));
+    ui.textPositionY_cartpos->setText(QString::number(cartpos_current_cmd.y,'f', 3));
+    ui.textPositionZ_cartpos->setText(QString::number(cartpos_current_cmd.z,'f', 3));
+    ui.textYaw_cartpos->setText(QString::number(cartpos_current_cmd.yaw,'f', 3));
+    ui.textPitch_cartpos->setText(QString::number(cartpos_current_cmd.pitch,'f', 3));
+    ui.textRoll_cartpos->setText(QString::number(cartpos_current_cmd.roll,'f', 3));
+    ui.textKp_cartpos->setText(QString::number(cartpos_current_cmd.kp,'f', 3));
+    ui.textKd_cartpos->setText(QString::number(cartpos_current_cmd.kd,'f', 3));
+
+    // Hybrid Impedance Controller
+    lwr_force_position_controllers::HybridImpedanceCommandMsg hybrid_curr_cmd;
+					      
+    outcome = qnode.get_current_cmd<lwr_force_position_controllers::HybridImpedanceCommand,\
+    				    lwr_force_position_controllers::HybridImpedanceCommandMsg>(hybrid_curr_cmd);
+    if(!outcome)
+      service_error_msg_box("HybridImpedanceController(get)");
+
+    ui.textPositionX_hybrid->setText(QString::number(hybrid_curr_cmd.x,'f', 3));
+    ui.textPositionY_hybrid->setText(QString::number(hybrid_curr_cmd.y,'f', 3));
+    ui.textYaw_hybrid->setText(QString::number(hybrid_curr_cmd.yaw,'f', 3));
+    ui.textPitch_hybrid->setText(QString::number(hybrid_curr_cmd.pitch,'f', 3));
+    ui.textRoll_hybrid->setText(QString::number(hybrid_curr_cmd.roll,'f', 3));
+    ui.textForceZ_hybrid->setText(QString::number(hybrid_curr_cmd.forcez,'f', 3));
+    ui.textKp_hybrid->setText(QString::number(hybrid_curr_cmd.kp,'f', 3));
+    ui.textKd_hybrid->setText(QString::number(hybrid_curr_cmd.kd,'f', 3));
+    ui.textKmf_hybrid->setText(QString::number(hybrid_curr_cmd.km_f,'f', 3));
+    ui.textKdf_hybrid->setText(QString::number(hybrid_curr_cmd.kd_f,'f', 3));
+    ui.textCenterX_hybrid->setText(QString::number(hybrid_curr_cmd.center_x,'f', 3));
+    ui.textCenterY_hybrid->setText(QString::number(hybrid_curr_cmd.center_y,'f', 3));
+    ui.textFrequency_hybrid->setText(QString::number(hybrid_curr_cmd.frequency,'f', 3));
+    ui.textRadius_hybrid->setText(QString::number(hybrid_curr_cmd.radius,'f', 3));
+    ui.radioButton_circle_trj->setChecked(hybrid_curr_cmd.circle_trj);
+
   }
 
   void MainWindow::field_error_msg_box(std::string field_name)

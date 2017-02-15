@@ -23,9 +23,7 @@
 #include <QStringListModel>
 
 #include <lwr_force_position_controllers/CartesianPositionCommand.h>
-#include <lwr_force_position_controllers/CartesianPositionCommandMsg.h>
 #include <lwr_force_position_controllers/HybridImpedanceCommand.h>
-#include <lwr_force_position_controllers/HybridImpedanceCommandMsg.h>
 
 /*****************************************************************************
  ** Namespaces
@@ -47,6 +45,8 @@ namespace controller_switcher {
 
     template <class ServiceType, class ServiceMessageType>
     bool set_command(ServiceMessageType command);
+    template <class ServiceType, class ServiceMessageType>
+    bool get_current_cmd(ServiceMessageType& current_command);
     bool set_ftsensor();
     bool get_controllers_list(std::vector<std::string>& running_list, std::vector<std::string>& stopped_list);
     bool switch_controllers(const std::string start_controller, const std::string stop_controller);
@@ -62,7 +62,7 @@ namespace controller_switcher {
   };
 
   template <class ServiceType, class ServiceMessageType>
-    bool QNode::set_command(ServiceMessageType command)
+  bool QNode::set_command(ServiceMessageType command)
   {
     ros::NodeHandle n;
     ros::ServiceClient client;
@@ -84,6 +84,29 @@ namespace controller_switcher {
       return false;
   }
 
+  template <class ServiceType, class ServiceMessageType>
+  bool QNode::get_current_cmd(ServiceMessageType& current_command)
+  {
+    ros::NodeHandle n;
+    ros::ServiceClient client;
+    ServiceType service;
+    std::string service_name;
+    double outcome;
+
+    // Choose the service name depending on the ServiceType type
+    if(std::is_same<ServiceType, lwr_force_position_controllers::CartesianPositionCommand>::value)
+      service_name = "/" + robot_namespace_ + "/cartesian_position_controller/get_cartesian_position_command";
+    else if (std::is_same<ServiceType, lwr_force_position_controllers::HybridImpedanceCommand>::value)
+      service_name = "/" + robot_namespace_ + "/hybrid_impedance_controller/get_hybrid_impedance_command";
+    client = n.serviceClient<ServiceType>(service_name);
+    
+    outcome = client.call(service);
+
+    if (outcome)
+      current_command = service.response.command;
+    
+    return outcome;
+  }
 
 }  // namespace controller_switcher
 
