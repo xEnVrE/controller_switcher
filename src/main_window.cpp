@@ -86,6 +86,11 @@ namespace controller_switcher {
     ui.labelToolMass->setText(QString::number(response.mass));
   }
 
+  void MainWindow::on_buttonReload_cartpos_clicked(bool check)
+  {
+    fill_cartpos_command_fields();
+  }
+
   void MainWindow::on_buttonSet_hybrid_clicked(bool check)
   {
     double position_x, position_y, force_z;
@@ -337,7 +342,7 @@ namespace controller_switcher {
       ui.comboStoppedCtl->addItem(QString::fromStdString(*it));
   }
 
-  void MainWindow::fill_controllers_command_fields()
+  void MainWindow::fill_cartpos_command_fields()
   {
     bool outcome;
 
@@ -357,8 +362,17 @@ namespace controller_switcher {
     ui.textRoll_cartpos->setText(QString::number(cartpos_current_cmd.roll,'f', 3));
     ui.textKp_cartpos->setText(QString::number(cartpos_current_cmd.kp,'f', 3));
     ui.textKd_cartpos->setText(QString::number(cartpos_current_cmd.kd,'f', 3));
+  }
+
+  void MainWindow::fill_controllers_command_fields()
+  {
+    // Cartesian Position Controller
+    fill_cartpos_command_fields();
 
     // Hybrid Impedance Controller
+
+    bool outcome;
+
     lwr_force_position_controllers::HybridImpedanceCommandMsg hybrid_curr_cmd;
 					      
     outcome = qnode.get_current_cmd<lwr_force_position_controllers::HybridImpedanceCommand,\
