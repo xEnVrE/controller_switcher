@@ -14,7 +14,7 @@
 #include <iostream>
 #include "../include/controller_switcher/main_window.hpp"
 //#include <lwr_force_position_controllers/SetCartesianPositionCommand.h>
-#include <lwr_force_position_controllers/FtSensorInitMsg.h>
+#include <lwr_force_position_controllers/FtSensorToolEstimationMsg.h>
 
 /*****************************************************************************
  ** Namespaces
@@ -37,8 +37,8 @@ namespace controller_switcher {
     ui.setupUi(this); 
 
     // init ros node
-    qnode.init();
     qnode.set_robot_namespace(argv[1]);
+    qnode.init();
 
     // move the window to the center
     setGeometry(QStyle::alignedRect(Qt::LeftToRight,
@@ -54,10 +54,63 @@ namespace controller_switcher {
 
     // fill sensor configuration
     fill_sensor_configuration();
+
+    // connect joints state view update to joints state topic callback
+    QObject::connect(&qnode, SIGNAL(jointsStateArrived()), this, SLOT(updateJointsState()));
+
+    // connect joints error view update to joints error topic callback
+    QObject::connect(&qnode, SIGNAL(cartPosErrorArrived()), this, SLOT(updateJointsError()));
+
    
   }
 
   MainWindow::~MainWindow() {}
+
+  /*****************************************************************************
+   ** Implementation [Slots][manually connected]
+   *****************************************************************************/
+  
+  void MainWindow::updateJointsState()
+  {
+    std::vector<QLabel*> labels_list;
+    std::vector<double> joints_position;
+
+    // get new joints state
+    qnode.get_joints_state(joints_position);
+
+    labels_list.push_back(ui.textJoint_a1);
+    labels_list.push_back(ui.textJoint_a2);
+    labels_list.push_back(ui.textJoint_a3);
+    labels_list.push_back(ui.textJoint_a4);
+    labels_list.push_back(ui.textJoint_a5);
+    labels_list.push_back(ui.textJoint_a6);
+    labels_list.push_back(ui.textJoint_e1); // <-- ORDERING HERE IS IMPORTANT
+
+    for (int i=0; i<7; i++)
+      labels_list.at(i)->setText(QString::number(180.0/3.14 * joints_position.at(i), 'f', 3));
+  }
+
+  void MainWindow::updateJointsError()
+  {
+    std::vector<QLabel*> labels_list;
+    std::vector<double> cartpos_error;
+
+    // get new joints state
+    qnode.get_cartpos_error(cartpos_error);
+
+    labels_list.push_back(ui.textJoint_a1_err);
+    labels_list.push_back(ui.textJoint_a2_err);
+    labels_list.push_back(ui.textJoint_e1_err); // <-- ORDERING HERE IS IMPORTANT
+    labels_list.push_back(ui.textJoint_a3_err);
+    labels_list.push_back(ui.textJoint_a4_err);
+    labels_list.push_back(ui.textJoint_a5_err);
+    labels_list.push_back(ui.textJoint_a6_err);
+
+    for (int i=0; i<7; i++)
+      labels_list.at(i)->setText(QString::number(180.0/3.14 * cartpos_error.at(i), 'f', 3));
+  }
+
+
 
   /*****************************************************************************
    ** Implementation [Slots]
@@ -73,17 +126,24 @@ namespace controller_switcher {
     close();    
   }
 
-  void MainWindow::on_buttonSet_ftsensor_clicked(bool check)
+  void MainWindow::on_buttonEstimateTool_ftsensor_clicked(bool check)
   {
-    lwr_force_position_controllers::FtSensorInitMsg response;
+    lwr_force_position_controllers::FtSensorToolEstimationMsg response;
 
-    if(!qnode.set_ftsensor(response))
-      service_error_msg_box("FtSensorController(set)");
-
+    if(!qnode.request_ftsensor_tool_estimation(response))
+      service_error_msg_box("FtSensorToolEstimation");
+    
+    // Update with the new estimation
     ui.labelWristToolComX->setText(QString::number(response.arm_x));
     ui.labelWristToolComY->setText(QString::number(response.arm_y));
     ui.labelWristToolComZ->setText(QString::number(response.arm_z));
     ui.labelToolMass->setText(QString::number(response.mass));
+  }
+
+  void MainWindow::on_buttonSetBias_ftsensor_clicked(bool check)
+  {
+    if(!qnode.request_ftsensor_bias_setup())
+      service_error_msg_box("FtSensorBiasSetup");
   }
 
   void MainWindow::on_buttonReload_cartpos_clicked(bool check)
@@ -199,7 +259,7 @@ namespace controller_switcher {
 	return;
       }
 
-    circle_trj = ui.radioButton_circle_trj->isChecked();
+    circle_trj = ui.checkBoxEnableTraj_hybrid->isChecked();
 
     lwr_force_position_controllers::HybridImpedanceCommandMsg command;
     command.x = position_x;
@@ -230,6 +290,8 @@ namespace controller_switcher {
     double position_x, position_y, position_z;
     double yaw, pitch, roll;
     double kp, kd;
+    bool use_inverse_dynamics;
+    bool hold_last_qdes_found;
     bool outcome;
 
     position_x = ui.textPositionX_cartpos->text().toDouble(&outcome);
@@ -288,6 +350,9 @@ namespace controller_switcher {
 	return;
       }
 
+    use_inverse_dynamics = ui.checkBoxUseInverseDyn_cartpos->isChecked();
+    hold_last_qdes_found = ui.checkBoxUseLastQ_cartpos->isChecked();
+
     lwr_force_position_controllers::CartesianPositionCommandMsg command;
     command.x = position_x;
     command.y = position_y;
@@ -297,7 +362,9 @@ namespace controller_switcher {
     command.roll = roll;
     command.kp = kp;
     command.kd = kd;
-						      
+    command.use_inverse_dynamics_controller = use_inverse_dynamics;
+    command.hold_last_qdes_found = hold_last_qdes_found;
+
     outcome = qnode.set_command<lwr_force_position_controllers::CartesianPositionCommand,\
     				lwr_force_position_controllers::CartesianPositionCommandMsg>(command);
     if(!outcome)
@@ -313,6 +380,9 @@ namespace controller_switcher {
       {
 	// if controller switch succeded reload controller list in combo boxes
 	fill_controllers_list();
+	// Let the ros node knows that cartesian position controller is started
+	// so that it can signal when new errors are available on each topic callback
+	qnode.set_cartpos_controller_state(start_controller == "cartesian_position_controller");
       }
   }
     
@@ -362,6 +432,7 @@ namespace controller_switcher {
     ui.textRoll_cartpos->setText(QString::number(cartpos_current_cmd.roll,'f', 3));
     ui.textKp_cartpos->setText(QString::number(cartpos_current_cmd.kp,'f', 3));
     ui.textKd_cartpos->setText(QString::number(cartpos_current_cmd.kd,'f', 3));
+    ui.checkBoxUseInverseDyn_cartpos->setChecked(cartpos_current_cmd.use_inverse_dynamics_controller);
   }
 
   void MainWindow::fill_controllers_command_fields()
@@ -394,17 +465,18 @@ namespace controller_switcher {
     ui.textCenterY_hybrid->setText(QString::number(hybrid_curr_cmd.center_y,'f', 3));
     ui.textFrequency_hybrid->setText(QString::number(hybrid_curr_cmd.frequency,'f', 3));
     ui.textRadius_hybrid->setText(QString::number(hybrid_curr_cmd.radius,'f', 3));
-    ui.radioButton_circle_trj->setChecked(hybrid_curr_cmd.circle_trj);
+    ui.checkBoxEnableTraj_hybrid->setChecked(hybrid_curr_cmd.circle_trj);
 
   }
 
   void MainWindow::fill_sensor_configuration()
   {
-    lwr_force_position_controllers::FtSensorInitMsg response;
+    lwr_force_position_controllers::FtSensorToolEstimationMsg response;
 
-    if(!qnode.get_ftsensor_config(response))
+    if(!qnode.get_ftsensor_estimated_tool(response))
       service_error_msg_box("FtSensorController(get)");
 
+    // Show the last tool estimation
     ui.labelWristToolComX->setText(QString::number(response.arm_x));
     ui.labelWristToolComY->setText(QString::number(response.arm_y));
     ui.labelWristToolComZ->setText(QString::number(response.arm_z));
@@ -432,7 +504,7 @@ namespace controller_switcher {
 					    Qt::AlignCenter,
 					    msg_box.size(),
 					    qApp->desktop()->availableGeometry()));
-    QString error_pre = "Service execution for controller ";
+    QString error_pre = "Service execution related to ";
     QString error_post = " failed!";
     
     msg_box.setText(error_pre + QString::fromStdString(controller_name) + error_post);

@@ -54,8 +54,15 @@ namespace controller_switcher {
     void on_buttonSet_hybrid_clicked(bool check);
     void on_buttonSet_cartpos_clicked(bool check);
     void on_buttonReload_cartpos_clicked(bool check);
-    void on_buttonSet_ftsensor_clicked(bool check);
+    void on_buttonEstimateTool_ftsensor_clicked(bool check);
+    void on_buttonSetBias_ftsensor_clicked(bool check);
     void on_buttonSwitch_clicked(bool check);
+
+    /******************************************
+     ** manual connection
+     *******************************************/
+    void updateJointsState();
+    void updateJointsError();
 
   private:
     Ui::MainWindowDesign ui;

@@ -18,7 +18,8 @@
 #include <controller_manager_msgs/ListControllers.h>
 #include <controller_manager_msgs/SwitchController.h>
 #include <controller_manager_msgs/ControllerState.h>
-#include <lwr_force_position_controllers/FtSensorInit.h>
+#include <lwr_force_position_controllers/FtSensorToolEstimation.h>
+#include <lwr_force_position_controllers/FtSensorSetBias.h>
 
 /*****************************************************************************
  ** Namespaces
@@ -51,11 +52,57 @@ namespace controller_switcher {
     ros::start();
     start();
 
+    ros::NodeHandle n;
+    sub_joints_state_ = n.subscribe("/" + robot_namespace_ + "/joint_states", 1000,\
+    				    &controller_switcher::QNode::joints_state_callback, this);
+
+    sub_cartpos_error_ = n.subscribe("/" + robot_namespace_ + "/cartesian_position_controller/error", 1000,\
+				     &controller_switcher::QNode::cartpos_error_callback, this);
+
     // sleep so that controller spawner can load all the controllers
     ros::Duration(3).sleep();
 
     return true;
   }
+
+  void QNode::joints_state_callback(const sensor_msgs::JointState::ConstPtr& msg)
+  {
+
+    joints_state_mutex_.lock();
+    joints_state_ = *msg;
+    joints_state_mutex_.unlock();
+
+    // Signal the UI that there is a new joints state message
+    Q_EMIT jointsStateArrived();
+  }
+
+  void QNode::get_joints_state(std::vector<double>& positions)
+  {
+    joints_state_mutex_.lock();
+    positions = joints_state_.position;
+    joints_state_mutex_.unlock();
+  }
+
+  void QNode::cartpos_error_callback(const lwr_force_position_controllers::CartesianPositionErrorMsg::ConstPtr& msg)
+  {
+
+    cartpos_error_mutex_.lock();
+    cartpos_error_ = *msg;
+    cartpos_error_mutex_.unlock();
+
+    // Signal the UI that there is a cartesian position error  message
+    // only if Cartesian Position Controller is active
+    if (is_cartpos_controller_active_)
+      Q_EMIT cartPosErrorArrived();
+  }
+
+  void QNode::get_cartpos_error(std::vector<double>& errors)
+  {
+    cartpos_error_mutex_.lock();
+    errors = cartpos_error_.q_error;
+    cartpos_error_mutex_.unlock();
+  }
+
 
   bool QNode::get_controllers_list(std::vector<std::string>& running_list, std::vector<std::string>& stopped_list)
   {
@@ -108,14 +155,14 @@ namespace controller_switcher {
     robot_namespace_ = name;
   }
 
-  bool QNode::set_ftsensor(lwr_force_position_controllers::FtSensorInitMsg& response)
+  bool QNode::request_ftsensor_tool_estimation(lwr_force_position_controllers::FtSensorToolEstimationMsg& response)
   {
     ros::NodeHandle n;
     ros::ServiceClient client;
-    lwr_force_position_controllers::FtSensorInit service;
+    lwr_force_position_controllers::FtSensorToolEstimation service;
     bool outcome;
 
-    client = n.serviceClient<lwr_force_position_controllers::FtSensorInit>("/" + robot_namespace_ + "/ft_sensor_controller/sensor_ctl_init");
+    client = n.serviceClient<lwr_force_position_controllers::FtSensorToolEstimation>("/" + robot_namespace_ + "/ft_sensor_controller/estimate_tool");
 
     outcome = client.call(service);
     
@@ -125,19 +172,26 @@ namespace controller_switcher {
     return outcome;
   }
 
-  bool QNode::get_ftsensor_config(lwr_force_position_controllers::FtSensorInitMsg& response)
+  bool QNode::request_ftsensor_bias_setup()
   {
-    // FIXME:
-    // add a field in FtSensorInitMsg so that we can use one service to get the current
-    // configuration AND (if needed) update it using new sensor data
-    //
-
     ros::NodeHandle n;
     ros::ServiceClient client;
-    lwr_force_position_controllers::FtSensorInit service;
+    lwr_force_position_controllers::FtSensorSetBias service;
+    
+    client = n.serviceClient<lwr_force_position_controllers::FtSensorSetBias>("/" + robot_namespace_ + "/ft_sensor_controller/set_sensor_bias");
+
+    return client.call(service);
+  }
+
+
+  bool QNode::get_ftsensor_estimated_tool(lwr_force_position_controllers::FtSensorToolEstimationMsg& response)
+  {
+    ros::NodeHandle n;
+    ros::ServiceClient client;
+    lwr_force_position_controllers::FtSensorToolEstimation service;
     bool outcome;
 
-    client = n.serviceClient<lwr_force_position_controllers::FtSensorInit>("/" + robot_namespace_ + "/ft_sensor_controller/get_sensor_config");
+    client = n.serviceClient<lwr_force_position_controllers::FtSensorToolEstimation>("/" + robot_namespace_ + "/ft_sensor_controller/get_estimated_tool");
 
     outcome = client.call(service);
     
@@ -148,13 +202,15 @@ namespace controller_switcher {
 
   }  
 
-  void QNode::run() {
-    // ros::Rate loop_rate(1);
-    // while ( ros::ok() ) {
-    // 	ros::spinOnce();
-    // 	loop_rate.sleep();
-    // }
-    // Q_EMIT rosShutdown(); // used to signal the gui for a shutdown (useful to roslaunch)
+  void QNode::run()
+  {
+    //ros::Rate loop_rate(1);
+    //while ( ros::ok() ) {
+    //ros::spinOnce();
+    //loop_rate.sleep();
+    //}
+    ros::spin();
+    //Q_EMIT rosShutdown(); // used to signal the gui for a shutdown (useful to roslaunch)
   }
 
 }  // namespace controller_switcher
