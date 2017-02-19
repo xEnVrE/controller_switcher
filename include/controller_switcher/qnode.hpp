@@ -53,6 +53,7 @@ namespace controller_switcher {
     bool get_current_cmd(ServiceMessageType& current_command);
     bool request_ftsensor_tool_estimation(lwr_force_position_controllers::FtSensorToolEstimationMsg& response);
     bool request_ftsensor_bias_setup();
+    bool request_ftsensor_calibration();
     bool get_ftsensor_estimated_tool(lwr_force_position_controllers::FtSensorToolEstimationMsg& response);
     bool get_controllers_list(std::vector<std::string>& running_list, std::vector<std::string>& stopped_list);
     bool switch_controllers(const std::string start_controller, const std::string stop_controller);

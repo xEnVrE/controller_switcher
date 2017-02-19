@@ -20,6 +20,7 @@
 #include <controller_manager_msgs/ControllerState.h>
 #include <lwr_force_position_controllers/FtSensorToolEstimation.h>
 #include <lwr_force_position_controllers/FtSensorSetBias.h>
+#include <std_srvs/Empty.h>
 
 /*****************************************************************************
  ** Namespaces
@@ -170,6 +171,19 @@ namespace controller_switcher {
       response = service.response.message;
     
     return outcome;
+  }
+
+
+  bool QNode::request_ftsensor_calibration()
+  {
+    ros::NodeHandle n;
+    ros::ServiceClient client;
+    std_srvs::Empty service;
+
+    client = n.serviceClient<std_srvs::Empty>("/my_sensor/calibration");
+   
+    return client.call(service);
+
   }
 
   bool QNode::request_ftsensor_bias_setup()

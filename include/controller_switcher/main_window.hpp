@@ -56,6 +56,7 @@ namespace controller_switcher {
     void on_buttonReload_cartpos_clicked(bool check);
     void on_buttonEstimateTool_ftsensor_clicked(bool check);
     void on_buttonSetBias_ftsensor_clicked(bool check);
+    void on_buttonCalibrate_ftsensor_clicked(bool check);
     void on_buttonSwitch_clicked(bool check);
 
     /******************************************

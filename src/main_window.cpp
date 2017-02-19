@@ -46,6 +46,9 @@ namespace controller_switcher {
 				    size(),
 				    qApp->desktop()->availableGeometry()));
 
+    // force size of the window
+    setFixedSize(750,700);
+
     // fill controller lists from robot_namespace_/controller_manager/ListControllers
     fill_controllers_list();
 
@@ -124,6 +127,12 @@ namespace controller_switcher {
   void MainWindow::on_buttonQuit_clicked(bool check)
   {
     close();    
+  }
+
+  void MainWindow::on_buttonCalibrate_ftsensor_clicked(bool check)
+  {
+    if(!qnode.request_ftsensor_calibration())
+      service_error_msg_box("FtSensorCalibration");
   }
 
   void MainWindow::on_buttonEstimateTool_ftsensor_clicked(bool check)
