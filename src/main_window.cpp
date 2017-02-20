@@ -47,7 +47,7 @@ namespace controller_switcher {
 				    qApp->desktop()->availableGeometry()));
 
     // force size of the window
-    setFixedSize(750,700);
+    setFixedSize(800,750);
 
     // fill controller lists from robot_namespace_/controller_manager/ListControllers
     fill_controllers_list();
