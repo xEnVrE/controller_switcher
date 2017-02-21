@@ -299,7 +299,6 @@ namespace controller_switcher {
     double position_x, position_y, position_z;
     double yaw, pitch, roll;
     double kp, kd;
-    bool use_inverse_dynamics;
     bool hold_last_qdes_found;
     bool outcome;
 
@@ -359,7 +358,6 @@ namespace controller_switcher {
 	return;
       }
 
-    use_inverse_dynamics = ui.checkBoxUseInverseDyn_cartpos->isChecked();
     hold_last_qdes_found = ui.checkBoxUseLastQ_cartpos->isChecked();
 
     lwr_force_position_controllers::CartesianPositionCommandMsg command;
@@ -371,7 +369,6 @@ namespace controller_switcher {
     command.roll = roll;
     command.kp = kp;
     command.kd = kd;
-    command.use_inverse_dynamics_controller = use_inverse_dynamics;
     command.hold_last_qdes_found = hold_last_qdes_found;
 
     outcome = qnode.set_command<lwr_force_position_controllers::CartesianPositionCommand,\
@@ -441,7 +438,6 @@ namespace controller_switcher {
     ui.textRoll_cartpos->setText(QString::number(cartpos_current_cmd.roll,'f', 3));
     ui.textKp_cartpos->setText(QString::number(cartpos_current_cmd.kp,'f', 3));
     ui.textKd_cartpos->setText(QString::number(cartpos_current_cmd.kd,'f', 3));
-    ui.checkBoxUseInverseDyn_cartpos->setChecked(cartpos_current_cmd.use_inverse_dynamics_controller);
   }
 
   void MainWindow::fill_controllers_command_fields()
