@@ -64,6 +64,7 @@ namespace controller_switcher {
      *******************************************/
     void updateJointsState();
     void updateJointsError();
+    void updateCartesianError();
 
   private:
     Ui::MainWindowDesign ui;

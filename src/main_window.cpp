@@ -13,7 +13,6 @@
 #include <QMessageBox>
 #include <iostream>
 #include "../include/controller_switcher/main_window.hpp"
-//#include <lwr_force_position_controllers/SetCartesianPositionCommand.h>
 #include <lwr_force_position_controllers/FtSensorToolEstimationMsg.h>
 
 /*****************************************************************************
@@ -47,7 +46,7 @@ namespace controller_switcher {
 				    qApp->desktop()->availableGeometry()));
 
     // force size of the window
-    setFixedSize(800,750);
+    setFixedSize(800, 850);
 
     // fill controller lists from robot_namespace_/controller_manager/ListControllers
     fill_controllers_list();
@@ -62,9 +61,10 @@ namespace controller_switcher {
     QObject::connect(&qnode, SIGNAL(jointsStateArrived()), this, SLOT(updateJointsState()));
 
     // connect joints error view update to joints error topic callback
-    QObject::connect(&qnode, SIGNAL(cartPosErrorArrived()), this, SLOT(updateJointsError()));
+    QObject::connect(&qnode, SIGNAL(jointsErrorArrived()), this, SLOT(updateJointsError()));
 
-   
+    // connect cartesian error view update to joints error topic callback
+    QObject::connect(&qnode, SIGNAL(cartesianErrorArrived()), this, SLOT(updateCartesianError()));
   }
 
   MainWindow::~MainWindow() {}
@@ -96,10 +96,10 @@ namespace controller_switcher {
   void MainWindow::updateJointsError()
   {
     std::vector<QLabel*> labels_list;
-    std::vector<double> cartpos_error;
+    std::vector<double> joints_error;
 
-    // get new joints state
-    qnode.get_cartpos_error(cartpos_error);
+    // get new joints error
+    qnode.get_joints_error(joints_error);
 
     labels_list.push_back(ui.textJoint_a1_err);
     labels_list.push_back(ui.textJoint_a2_err);
@@ -110,10 +110,28 @@ namespace controller_switcher {
     labels_list.push_back(ui.textJoint_a6_err);
 
     for (int i=0; i<7; i++)
-      labels_list.at(i)->setText(QString::number(180.0/3.14 * cartpos_error.at(i), 'f', 3));
+      labels_list.at(i)->setText(QString::number(180.0/3.14 * joints_error.at(i), 'f', 3));
   }
 
+  void MainWindow::updateCartesianError()
+  {
+    std::vector<QLabel*> labels_list;
+    std::vector<double> cartesian_error;
 
+    // get new cartesian error
+    qnode.get_cartesian_error(cartesian_error);
+
+    labels_list.push_back(ui.textCart_x_err);
+    labels_list.push_back(ui.textCart_y_err);
+    labels_list.push_back(ui.textCart_Fz_err);
+    labels_list.push_back(ui.textCart_yaw_err);
+    labels_list.push_back(ui.textCart_pitch_err);
+    labels_list.push_back(ui.textCart_roll_err);
+
+    // position error
+    for (int i=0; i<6; i++)
+      labels_list.at(i)->setText(QString::number(cartesian_error.at(i), 'f', 3));
+  }
 
   /*****************************************************************************
    ** Implementation [Slots]
@@ -389,6 +407,7 @@ namespace controller_switcher {
 	// Let the ros node knows that cartesian position controller is started
 	// so that it can signal when new errors are available on each topic callback
 	qnode.set_cartpos_controller_state(start_controller == "cartesian_position_controller");
+	qnode.set_hybrid_controller_state(start_controller == "hybrid_impedance_controller");
       }
   }
     

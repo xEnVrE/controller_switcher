@@ -57,8 +57,12 @@ namespace controller_switcher {
     sub_joints_state_ = n.subscribe("/" + robot_namespace_ + "/joint_states", 1000,\
     				    &controller_switcher::QNode::joints_state_callback, this);
 
-    sub_cartpos_error_ = n.subscribe("/" + robot_namespace_ + "/cartesian_position_controller/error", 1000,\
-				     &controller_switcher::QNode::cartpos_error_callback, this);
+    sub_joints_error_ = n.subscribe("/" + robot_namespace_ + "/cartesian_position_controller/error", 1000,\
+				     &controller_switcher::QNode::joints_error_callback, this);
+
+    sub_cartesian_error_ = n.subscribe("/" + robot_namespace_ + "/hybrid_impedance_controller/error", 1000,\
+				     &controller_switcher::QNode::cartesian_error_callback, this);
+
 
     // sleep so that controller spawner can load all the controllers
     ros::Duration(3).sleep();
@@ -84,26 +88,50 @@ namespace controller_switcher {
     joints_state_mutex_.unlock();
   }
 
-  void QNode::cartpos_error_callback(const lwr_force_position_controllers::CartesianPositionErrorMsg::ConstPtr& msg)
+  void QNode::joints_error_callback(const lwr_force_position_controllers::CartesianPositionErrorMsg::ConstPtr& msg)
   {
 
-    cartpos_error_mutex_.lock();
-    cartpos_error_ = *msg;
-    cartpos_error_mutex_.unlock();
+    joints_error_mutex_.lock();
+    joints_error_ = *msg;
+    joints_error_mutex_.unlock();
 
-    // Signal the UI that there is a cartesian position error  message
+    // Signal the UI that there is a joint position error message
     // only if Cartesian Position Controller is active
     if (is_cartpos_controller_active_)
-      Q_EMIT cartPosErrorArrived();
+      Q_EMIT jointsErrorArrived();
   }
 
-  void QNode::get_cartpos_error(std::vector<double>& errors)
+  void QNode::cartesian_error_callback(const geometry_msgs::WrenchStamped::ConstPtr& msg)
   {
-    cartpos_error_mutex_.lock();
-    errors = cartpos_error_.q_error;
-    cartpos_error_mutex_.unlock();
+
+    cartesian_error_mutex_.lock();
+    cartesian_error_ = *msg;
+    cartesian_error_mutex_.unlock();
+
+    // Signal the UI that there is a cartesian position error message
+    // only if Cartesian Position Controller is active
+    if (is_hybrid_controller_active_)
+      Q_EMIT cartesianErrorArrived();
   }
 
+  void QNode::get_joints_error(std::vector<double>& errors)
+  {
+    joints_error_mutex_.lock();
+    errors = joints_error_.q_error;
+    joints_error_mutex_.unlock();
+  }
+
+  void QNode::get_cartesian_error(std::vector<double>& errors)
+  {
+    cartesian_error_mutex_.lock();
+    errors.push_back(cartesian_error_.wrench.force.x);
+    errors.push_back(cartesian_error_.wrench.force.y);
+    errors.push_back(cartesian_error_.wrench.force.z);
+    errors.push_back(cartesian_error_.wrench.torque.x);
+    errors.push_back(cartesian_error_.wrench.torque.y);
+    errors.push_back(cartesian_error_.wrench.torque.z);
+    cartesian_error_mutex_.unlock();
+  }
 
   bool QNode::get_controllers_list(std::vector<std::string>& running_list, std::vector<std::string>& stopped_list)
   {
