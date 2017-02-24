@@ -23,6 +23,7 @@
 #include <QStringListModel>
 #include <QMutex>
 
+#include <lwr_force_position_controllers/CartesianInverseCommand.h>
 #include <lwr_force_position_controllers/CartesianPositionCommand.h>
 #include <lwr_force_position_controllers/HybridImpedanceCommand.h>
 #include <lwr_force_position_controllers/FtSensorToolEstimationMsg.h>
@@ -105,6 +106,8 @@ namespace controller_switcher {
       service_name = "/" + robot_namespace_ + "/cartesian_position_controller/set_cartesian_position_command";
     else if (std::is_same<ServiceType, lwr_force_position_controllers::HybridImpedanceCommand>::value)
       service_name = "/" + robot_namespace_ + "/hybrid_impedance_controller/set_hybrid_impedance_command";
+    else if(std::is_same<ServiceType, lwr_force_position_controllers::CartesianInverseCommand>::value)
+      service_name= "/" + robot_namespace_ + "/hybrid_impedance_controller/set_cartesian_inverse_command";
     client = n.serviceClient<ServiceType>(service_name);
 
     service.request.command = command;
@@ -129,6 +132,8 @@ namespace controller_switcher {
       service_name = "/" + robot_namespace_ + "/cartesian_position_controller/get_cartesian_position_command";
     else if (std::is_same<ServiceType, lwr_force_position_controllers::HybridImpedanceCommand>::value)
       service_name = "/" + robot_namespace_ + "/hybrid_impedance_controller/get_hybrid_impedance_command";
+    else if(std::is_same<ServiceType, lwr_force_position_controllers::CartesianInverseCommand>::value)
+      service_name= "/" + robot_namespace_ + "/hybrid_impedance_controller/get_cartesian_inverse_command";
     client = n.serviceClient<ServiceType>(service_name);
     
     outcome = client.call(service);

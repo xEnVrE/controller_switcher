@@ -182,7 +182,7 @@ namespace controller_switcher {
   {
     double position_x, position_y, force_z;
     double yaw, pitch, roll;
-    double kp, kd, km_f, kd_f;
+    double kp, kd, km_f, kd_f, kp_im, kd_im;
     double frequency, radius;
     double center_x, center_y;
     bool circle_trj;
@@ -258,6 +258,20 @@ namespace controller_switcher {
 	return;
       }
 
+    kp_im = ui.textKp_null_hybrid->text().toDouble(&outcome);
+    if (!outcome)
+      {
+	field_error_msg_box("Kp Null");
+	return;
+      }
+
+    kd_im = ui.textKd_null_hybrid->text().toDouble(&outcome);
+    if (!outcome)
+      {
+	field_error_msg_box("Kd Null");
+	return;
+      }
+
     center_x = ui.textCenterX_hybrid->text().toDouble(&outcome);
     if (!outcome)
       {
@@ -288,27 +302,36 @@ namespace controller_switcher {
 
     circle_trj = ui.checkBoxEnableTraj_hybrid->isChecked();
 
-    lwr_force_position_controllers::HybridImpedanceCommandMsg command;
-    command.x = position_x;
-    command.y = position_y;
-    command.yaw = yaw;
-    command.pitch = pitch;
-    command.roll = roll;
-    command.forcez = force_z;
-    command.kp = kp;
-    command.kd = kd;
-    command.km_f = km_f;
-    command.kd_f = kd_f;
-    command.circle_trj = circle_trj;
-    command.center_x = center_x;
-    command.center_y = center_y;
-    command.frequency = frequency;
-    command.radius = radius;	
+    lwr_force_position_controllers::HybridImpedanceCommandMsg command_hybrid;
+    command_hybrid.x = position_x;
+    command_hybrid.y = position_y;
+    command_hybrid.yaw = yaw;
+    command_hybrid.pitch = pitch;
+    command_hybrid.roll = roll;
+    command_hybrid.forcez = force_z;
+    command_hybrid.kp = kp;
+    command_hybrid.kd = kd;
+    command_hybrid.km_f = km_f;
+    command_hybrid.kd_f = kd_f;
+    command_hybrid.circle_trj = circle_trj;
+    command_hybrid.center_x = center_x;
+    command_hybrid.center_y = center_y;
+    command_hybrid.frequency = frequency;
+    command_hybrid.radius = radius;	
+
+    lwr_force_position_controllers::CartesianInverseCommandMsg command_cartesian_inverse;
+    command_cartesian_inverse.kp_im = kp_im;
+    command_cartesian_inverse.kd_im = kd_im;
 					      
     outcome = qnode.set_command<lwr_force_position_controllers::HybridImpedanceCommand,\
-    				lwr_force_position_controllers::HybridImpedanceCommandMsg>(command);
+    				lwr_force_position_controllers::HybridImpedanceCommandMsg>(command_hybrid);
     if(!outcome)
       service_error_msg_box("HybridImpedanceController(set)");
+
+    outcome = qnode.set_command<lwr_force_position_controllers::CartesianInverseCommand,\
+    				lwr_force_position_controllers::CartesianInverseCommandMsg>(command_cartesian_inverse);
+    // if(!outcome)
+    //   service_error_msg_box("CartesianInverseController(set)");
     
   }
 
@@ -459,21 +482,24 @@ namespace controller_switcher {
     ui.textKd_cartpos->setText(QString::number(cartpos_current_cmd.kd,'f', 3));
   }
 
-  void MainWindow::fill_controllers_command_fields()
+  void MainWindow::fill_hybrid_command_fields()
   {
-    // Cartesian Position Controller
-    fill_cartpos_command_fields();
-
-    // Hybrid Impedance Controller
 
     bool outcome;
 
     lwr_force_position_controllers::HybridImpedanceCommandMsg hybrid_curr_cmd;
-					      
+    lwr_force_position_controllers::CartesianInverseCommandMsg cartesian_inverse_curr_cmd;
+
     outcome = qnode.get_current_cmd<lwr_force_position_controllers::HybridImpedanceCommand,\
     				    lwr_force_position_controllers::HybridImpedanceCommandMsg>(hybrid_curr_cmd);
     if(!outcome)
       service_error_msg_box("HybridImpedanceController(get)");
+
+    outcome = qnode.get_current_cmd<lwr_force_position_controllers::CartesianInverseCommand,\
+    				    lwr_force_position_controllers::CartesianInverseCommandMsg>(cartesian_inverse_curr_cmd);
+
+    if(!outcome)
+      service_error_msg_box("CartesianInverseController(get)");
 
     ui.textPositionX_hybrid->setText(QString::number(hybrid_curr_cmd.x,'f', 3));
     ui.textPositionY_hybrid->setText(QString::number(hybrid_curr_cmd.y,'f', 3));
@@ -490,6 +516,18 @@ namespace controller_switcher {
     ui.textFrequency_hybrid->setText(QString::number(hybrid_curr_cmd.frequency,'f', 3));
     ui.textRadius_hybrid->setText(QString::number(hybrid_curr_cmd.radius,'f', 3));
     ui.checkBoxEnableTraj_hybrid->setChecked(hybrid_curr_cmd.circle_trj);
+    ui.textKp_null_hybrid->setText(QString::number(cartesian_inverse_curr_cmd.kp_im));
+    ui.textKd_null_hybrid->setText(QString::number(cartesian_inverse_curr_cmd.kd_im));
+
+  }
+
+  void MainWindow::fill_controllers_command_fields()
+  {
+    // Cartesian Position Controller
+    fill_cartpos_command_fields();
+
+    // Hybrid Impedance Controller
+    fill_hybrid_command_fields();
 
   }
 
