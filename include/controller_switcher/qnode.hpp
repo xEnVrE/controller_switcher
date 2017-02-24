@@ -27,7 +27,7 @@
 #include <lwr_force_position_controllers/CartesianPositionCommand.h>
 #include <lwr_force_position_controllers/HybridImpedanceCommand.h>
 #include <lwr_force_position_controllers/FtSensorToolEstimationMsg.h>
-#include <lwr_force_position_controllers/CartesianPositionErrorMsg.h>
+#include <lwr_force_position_controllers/CartesianPositionJointsMsg.h>
 #include <sensor_msgs/JointState.h>
 #include <geometry_msgs/WrenchStamped.h>
 
@@ -82,10 +82,10 @@ namespace controller_switcher {
     ros::Subscriber sub_joints_error_;
     ros::Subscriber sub_cartesian_error_;
     void joints_state_callback(const sensor_msgs::JointState::ConstPtr& msg);
-    void joints_error_callback(const lwr_force_position_controllers::CartesianPositionErrorMsg::ConstPtr& msg);
+    void joints_error_callback(const lwr_force_position_controllers::CartesianPositionJointsMsg::ConstPtr& msg);
     void cartesian_error_callback(const geometry_msgs::WrenchStamped::ConstPtr& msg);
     sensor_msgs::JointState joints_state_;
-    lwr_force_position_controllers::CartesianPositionErrorMsg joints_error_;
+    lwr_force_position_controllers::CartesianPositionJointsMsg joints_error_;
     geometry_msgs::WrenchStamped cartesian_error_;
 
     QMutex joints_state_mutex_;

@@ -72,7 +72,6 @@ namespace controller_switcher {
 
   void QNode::joints_state_callback(const sensor_msgs::JointState::ConstPtr& msg)
   {
-
     joints_state_mutex_.lock();
     joints_state_ = *msg;
     joints_state_mutex_.unlock();
@@ -88,9 +87,8 @@ namespace controller_switcher {
     joints_state_mutex_.unlock();
   }
 
-  void QNode::joints_error_callback(const lwr_force_position_controllers::CartesianPositionErrorMsg::ConstPtr& msg)
+  void QNode::joints_error_callback(const lwr_force_position_controllers::CartesianPositionJointsMsg::ConstPtr& msg)
   {
-
     joints_error_mutex_.lock();
     joints_error_ = *msg;
     joints_error_mutex_.unlock();
@@ -103,7 +101,6 @@ namespace controller_switcher {
 
   void QNode::cartesian_error_callback(const geometry_msgs::WrenchStamped::ConstPtr& msg)
   {
-
     cartesian_error_mutex_.lock();
     cartesian_error_ = *msg;
     cartesian_error_mutex_.unlock();
@@ -117,7 +114,13 @@ namespace controller_switcher {
   void QNode::get_joints_error(std::vector<double>& errors)
   {
     joints_error_mutex_.lock();
-    errors = joints_error_.q_error;
+    errors.push_back(joints_error_.a1);
+    errors.push_back(joints_error_.a2);
+    errors.push_back(joints_error_.e1);
+    errors.push_back(joints_error_.a3);
+    errors.push_back(joints_error_.a4);
+    errors.push_back(joints_error_.a5);
+    errors.push_back(joints_error_.a6);
     joints_error_mutex_.unlock();
   }
 
