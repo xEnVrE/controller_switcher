@@ -46,7 +46,7 @@ namespace controller_switcher {
 				    qApp->desktop()->availableGeometry()));
 
     // force size of the window
-    setFixedSize(965, 720);
+    setFixedSize(965, 800);
 
     // fill controller lists from robot_namespace_/controller_manager/ListControllers
     fill_controllers_list();
@@ -185,6 +185,7 @@ namespace controller_switcher {
     double kp, kd, km_f, kd_f, kp_im, kd_im;
     double frequency, radius;
     double center_x, center_y;
+    double p2p_traj_duration, force_ref_duration;
     bool circle_trj;
     bool outcome;
 
@@ -272,6 +273,20 @@ namespace controller_switcher {
 	return;
       }
 
+    p2p_traj_duration = ui.textTraj_duration_hybrid->text().toDouble(&outcome);
+    if (!outcome)
+      {
+	field_error_msg_box("Trajectory Duration");
+	return;
+      }
+
+    force_ref_duration = ui.textForce_duration_hybrid->text().toDouble(&outcome);
+    if (!outcome)
+      {
+	field_error_msg_box("Force reference Duration");
+	return;
+      }
+
     center_x = ui.textCenterX_hybrid->text().toDouble(&outcome);
     if (!outcome)
       {
@@ -313,6 +328,8 @@ namespace controller_switcher {
     command_hybrid.kd = kd;
     command_hybrid.km_f = km_f;
     command_hybrid.kd_f = kd_f;
+    command_hybrid.p2p_traj_duration = p2p_traj_duration;
+    command_hybrid.force_ref_duration = force_ref_duration;
     command_hybrid.circle_trj = circle_trj;
     command_hybrid.center_x = center_x;
     command_hybrid.center_y = center_y;
@@ -522,6 +539,8 @@ namespace controller_switcher {
     ui.textKd_hybrid->setText(QString::number(hybrid_curr_cmd.kd,'f', 3));
     ui.textKmf_hybrid->setText(QString::number(hybrid_curr_cmd.km_f,'f', 3));
     ui.textKdf_hybrid->setText(QString::number(hybrid_curr_cmd.kd_f,'f', 3));
+    ui.textTraj_duration_hybrid->setText(QString::number(hybrid_curr_cmd.p2p_traj_duration));
+    ui.textForce_duration_hybrid->setText(QString::number(hybrid_curr_cmd.force_ref_duration));
     ui.textCenterX_hybrid->setText(QString::number(hybrid_curr_cmd.center_x,'f', 3));
     ui.textCenterY_hybrid->setText(QString::number(hybrid_curr_cmd.center_y,'f', 3));
     ui.textFrequency_hybrid->setText(QString::number(hybrid_curr_cmd.frequency,'f', 3));
@@ -529,7 +548,6 @@ namespace controller_switcher {
     ui.checkBoxEnableTraj_hybrid->setChecked(hybrid_curr_cmd.circle_trj);
     ui.textKp_null_hybrid->setText(QString::number(cartesian_inverse_curr_cmd.kp_im));
     ui.textKd_null_hybrid->setText(QString::number(cartesian_inverse_curr_cmd.kd_im));
-
   }
 
   void MainWindow::fill_controllers_command_fields()
