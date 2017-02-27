@@ -340,6 +340,7 @@ namespace controller_switcher {
     double position_x, position_y, position_z;
     double yaw, pitch, roll;
     double kp, kd;
+    double p2p_traj_duration;
     bool hold_last_qdes_found;
     bool outcome;
 
@@ -399,6 +400,14 @@ namespace controller_switcher {
 	return;
       }
 
+    p2p_traj_duration = ui.textDuration_cartpos->text().toDouble(&outcome);
+    if (!outcome)
+      {
+	field_error_msg_box("Duration");
+	return;
+      }
+
+
     hold_last_qdes_found = ui.checkBoxUseLastQ_cartpos->isChecked();
 
     lwr_force_position_controllers::CartesianPositionCommandMsg command;
@@ -410,6 +419,7 @@ namespace controller_switcher {
     command.roll = roll;
     command.kp = kp;
     command.kd = kd;
+    command.p2p_traj_duration = p2p_traj_duration;
     command.hold_last_qdes_found = hold_last_qdes_found;
 
     outcome = qnode.set_command<lwr_force_position_controllers::CartesianPositionCommand,\
@@ -480,6 +490,7 @@ namespace controller_switcher {
     ui.textRoll_cartpos->setText(QString::number(cartpos_current_cmd.roll,'f', 3));
     ui.textKp_cartpos->setText(QString::number(cartpos_current_cmd.kp,'f', 3));
     ui.textKd_cartpos->setText(QString::number(cartpos_current_cmd.kd,'f', 3));
+    ui.textDuration_cartpos->setText(QString::number(cartpos_current_cmd.p2p_traj_duration,'f', 3));
   }
 
   void MainWindow::fill_hybrid_command_fields()

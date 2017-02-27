@@ -897,7 +897,7 @@
               <item>
                <widget class="QLabel" name="label_4">
                 <property name="text">
-                 <string>Position X</string>
+                 <string>Position X </string>
                 </property>
                </widget>
               </item>
@@ -934,7 +934,7 @@
               <item>
                <widget class="QLabel" name="label_11">
                 <property name="text">
-                 <string>Position Y</string>
+                 <string>Position Y </string>
                 </property>
                </widget>
               </item>
@@ -971,7 +971,7 @@
               <item>
                <widget class="QLabel" name="label_12">
                 <property name="text">
-                 <string>Position Z</string>
+                 <string>Position Z </string>
                 </property>
                </widget>
               </item>
@@ -1008,7 +1008,7 @@
               <item>
                <widget class="QLabel" name="label_13">
                 <property name="text">
-                 <string>Yaw          </string>
+                 <string>Yaw            </string>
                 </property>
                </widget>
               </item>
@@ -1045,7 +1045,7 @@
               <item>
                <widget class="QLabel" name="label_14">
                 <property name="text">
-                 <string>Pitch        </string>
+                 <string>Pitch          </string>
                 </property>
                </widget>
               </item>
@@ -1082,7 +1082,7 @@
               <item>
                <widget class="QLabel" name="label_16">
                 <property name="text">
-                 <string>Roll          </string>
+                 <string>Roll            </string>
                 </property>
                </widget>
               </item>
@@ -1119,7 +1119,7 @@
               <item>
                <widget class="QLabel" name="label_17">
                 <property name="text">
-                 <string>kp            </string>
+                 <string>kp              </string>
                 </property>
                </widget>
               </item>
@@ -1156,7 +1156,7 @@
               <item>
                <widget class="QLabel" name="label_18">
                 <property name="text">
-                 <string>kd            </string>
+                 <string>kd              </string>
                 </property>
                </widget>
               </item>
@@ -1175,6 +1175,43 @@
               </item>
               <item>
                <widget class="QLineEdit" name="textKd_cartpos">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>60</width>
+                  <height>30</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_28">
+              <item>
+               <widget class="QLabel" name="label_30">
+                <property name="text">
+                 <string>Duration  </string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_32">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="textDuration_cartpos">
                 <property name="enabled">
                  <bool>true</bool>
                 </property>
