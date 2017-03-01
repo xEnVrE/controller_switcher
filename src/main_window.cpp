@@ -458,6 +458,12 @@ namespace controller_switcher {
 	// so that it can signal when new errors are available on each topic callback
 	qnode.set_cartpos_controller_state(start_controller == "cartesian_position_controller");
 	qnode.set_hybrid_controller_state(start_controller == "hybrid_impedance_controller");
+
+	if(start_controller == "cartesian_position_controller")
+	  fill_cartpos_command_fields();
+	if(start_controller == "hybrid_impedance_controller")
+	  fill_hybrid_command_fields();
+
       }
   }
     
