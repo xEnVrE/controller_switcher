@@ -598,7 +598,7 @@
               <item>
                <widget class="QLabel" name="label_38">
                 <property name="text">
-                 <string>Traj duration</string>
+                 <string>Traj D       </string>
                 </property>
                </widget>
               </item>
@@ -635,7 +635,7 @@
               <item>
                <widget class="QLabel" name="label_39">
                 <property name="text">
-                 <string>Force duration</string>
+                 <string>Force D    </string>
                 </property>
                </widget>
               </item>
@@ -851,6 +851,9 @@
               </item>
               <item>
                <widget class="QCheckBox" name="checkBoxEnableTraj_hybrid">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
                 <property name="layoutDirection">
                  <enum>Qt::RightToLeft</enum>
                 </property>
@@ -1008,7 +1011,7 @@
               <item>
                <widget class="QLabel" name="label_11">
                 <property name="text">
-                 <string>Position Y </string>
+                 <string>Position Y  </string>
                 </property>
                </widget>
               </item>
@@ -1045,7 +1048,7 @@
               <item>
                <widget class="QLabel" name="label_12">
                 <property name="text">
-                 <string>Position Z </string>
+                 <string>Position Z  </string>
                 </property>
                </widget>
               </item>
@@ -1267,7 +1270,7 @@
               <item>
                <widget class="QLabel" name="label_30">
                 <property name="text">
-                 <string>Duration  </string>
+                 <string>Duration    </string>
                 </property>
                </widget>
               </item>
