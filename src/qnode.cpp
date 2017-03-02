@@ -211,7 +211,7 @@ namespace controller_switcher {
     ros::ServiceClient client;
     std_srvs::Empty service;
 
-    client = n.serviceClient<std_srvs::Empty>("/my_sensor/calibration");
+    client = n.serviceClient<std_srvs::Empty>("/my_sensor/ft_sensor_hw/calibrate");
    
     return client.call(service);
 
