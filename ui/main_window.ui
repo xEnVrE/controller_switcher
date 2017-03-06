@@ -265,7 +265,7 @@
               <item>
                <widget class="QLabel" name="label_26">
                 <property name="text">
-                 <string>Yaw          </string>
+                 <string>α (Z)        </string>
                 </property>
                </widget>
               </item>
@@ -283,7 +283,7 @@
                </spacer>
               </item>
               <item>
-               <widget class="QLineEdit" name="textYaw_hybrid">
+               <widget class="QLineEdit" name="textAlpha_hybrid">
                 <property name="enabled">
                  <bool>true</bool>
                 </property>
@@ -302,7 +302,7 @@
               <item>
                <widget class="QLabel" name="label_25">
                 <property name="text">
-                 <string>Pitch        </string>
+                 <string>ß (Y)        </string>
                 </property>
                </widget>
               </item>
@@ -320,7 +320,7 @@
                </spacer>
               </item>
               <item>
-               <widget class="QLineEdit" name="textPitch_hybrid">
+               <widget class="QLineEdit" name="textBeta_hybrid">
                 <property name="enabled">
                  <bool>true</bool>
                 </property>
@@ -339,7 +339,7 @@
               <item>
                <widget class="QLabel" name="label_24">
                 <property name="text">
-                 <string>Roll          </string>
+                 <string>γ (Z)        </string>
                 </property>
                </widget>
               </item>
@@ -357,7 +357,7 @@
                </spacer>
               </item>
               <item>
-               <widget class="QLineEdit" name="textRoll_hybrid">
+               <widget class="QLineEdit" name="textGamma_hybrid">
                 <property name="enabled">
                  <bool>true</bool>
                 </property>
@@ -2374,7 +2374,7 @@
               <item>
                <widget class="QLabel" name="labelCart_yaw">
                 <property name="text">
-                 <string>Yaw (rad)</string>
+                 <string>α (rad)</string>
                 </property>
                </widget>
               </item>
@@ -2392,7 +2392,7 @@
                </spacer>
               </item>
               <item>
-               <widget class="QLabel" name="textCart_yaw_err">
+               <widget class="QLabel" name="textCart_alpha_err">
                 <property name="text">
                  <string>?</string>
                 </property>
@@ -2405,7 +2405,7 @@
               <item>
                <widget class="QLabel" name="labelCart_pitch">
                 <property name="text">
-                 <string>Pitch (rad)</string>
+                 <string>ß (rad)</string>
                 </property>
                </widget>
               </item>
@@ -2423,7 +2423,7 @@
                </spacer>
               </item>
               <item>
-               <widget class="QLabel" name="textCart_pitch_err">
+               <widget class="QLabel" name="textCart_beta_err">
                 <property name="text">
                  <string>?</string>
                 </property>
@@ -2436,7 +2436,7 @@
               <item>
                <widget class="QLabel" name="labelCart_roll">
                 <property name="text">
-                 <string>Roll (rad)</string>
+                 <string>γ (rad)</string>
                 </property>
                </widget>
               </item>
@@ -2454,7 +2454,7 @@
                </spacer>
               </item>
               <item>
-               <widget class="QLabel" name="textCart_roll_err">
+               <widget class="QLabel" name="textCart_gamma_err">
                 <property name="text">
                  <string>?</string>
                 </property>

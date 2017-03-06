@@ -124,9 +124,9 @@ namespace controller_switcher {
     labels_list.push_back(ui.textCart_x_err);
     labels_list.push_back(ui.textCart_y_err);
     labels_list.push_back(ui.textCart_Fz_err);
-    labels_list.push_back(ui.textCart_yaw_err);
-    labels_list.push_back(ui.textCart_pitch_err);
-    labels_list.push_back(ui.textCart_roll_err);
+    labels_list.push_back(ui.textCart_alpha_err);
+    labels_list.push_back(ui.textCart_beta_err);
+    labels_list.push_back(ui.textCart_gamma_err);
 
     // position error
     for (int i=0; i<6; i++)
@@ -181,7 +181,7 @@ namespace controller_switcher {
   void MainWindow::on_buttonSet_hybrid_clicked(bool check)
   {
     double position_x, position_y, force_z;
-    double yaw, pitch, roll;
+    double alpha, beta, gamma;
     double kp, kd, km_f, kd_f, kp_im, kd_im;
     double frequency, radius;
     double center_x, center_y;
@@ -203,24 +203,24 @@ namespace controller_switcher {
 	return;
       }
 
-    yaw = ui.textYaw_hybrid->text().toDouble(&outcome);
+    alpha = ui.textAlpha_hybrid->text().toDouble(&outcome);
     if (!outcome)
       {
-	field_error_msg_box("Yaw");
+	field_error_msg_box("Alpha");
 	return;
       }
 
-    pitch = ui.textPitch_hybrid->text().toDouble(&outcome);
+    beta = ui.textBeta_hybrid->text().toDouble(&outcome);
     if (!outcome)
       {
-	field_error_msg_box("Pitch");
+	field_error_msg_box("Beta");
 	return;
       }
 
-    roll = ui.textRoll_hybrid->text().toDouble(&outcome);
+    gamma = ui.textGamma_hybrid->text().toDouble(&outcome);
     if (!outcome)
       {
-	field_error_msg_box("Roll");
+	field_error_msg_box("Gamma");
 	return;
       }
 
@@ -320,9 +320,9 @@ namespace controller_switcher {
     lwr_force_position_controllers::HybridImpedanceCommandMsg command_hybrid;
     command_hybrid.x = position_x;
     command_hybrid.y = position_y;
-    command_hybrid.yaw = yaw;
-    command_hybrid.pitch = pitch;
-    command_hybrid.roll = roll;
+    command_hybrid.alpha = alpha;
+    command_hybrid.beta = beta;
+    command_hybrid.gamma = gamma;
     command_hybrid.forcez = force_z;
     command_hybrid.kp = kp;
     command_hybrid.kd = kd;
@@ -537,9 +537,9 @@ namespace controller_switcher {
 
     ui.textPositionX_hybrid->setText(QString::number(hybrid_curr_cmd.x,'f', 3));
     ui.textPositionY_hybrid->setText(QString::number(hybrid_curr_cmd.y,'f', 3));
-    ui.textYaw_hybrid->setText(QString::number(hybrid_curr_cmd.yaw,'f', 3));
-    ui.textPitch_hybrid->setText(QString::number(hybrid_curr_cmd.pitch,'f', 3));
-    ui.textRoll_hybrid->setText(QString::number(hybrid_curr_cmd.roll,'f', 3));
+    ui.textAlpha_hybrid->setText(QString::number(hybrid_curr_cmd.alpha,'f', 3));
+    ui.textBeta_hybrid->setText(QString::number(hybrid_curr_cmd.beta,'f', 3));
+    ui.textGamma_hybrid->setText(QString::number(hybrid_curr_cmd.gamma,'f', 3));
     ui.textForceZ_hybrid->setText(QString::number(hybrid_curr_cmd.forcez,'f', 3));
     ui.textKp_hybrid->setText(QString::number(hybrid_curr_cmd.kp,'f', 3));
     ui.textKd_hybrid->setText(QString::number(hybrid_curr_cmd.kd,'f', 3));
