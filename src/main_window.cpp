@@ -232,56 +232,56 @@ namespace controller_switcher {
       }
 
     kp = ui.textKp_hybrid->text().toDouble(&outcome);
-    if (!outcome)
+    if (!outcome || (kp <= 0))
       {
 	field_error_msg_box("Kp");
 	return;
       }
 
     kd = ui.textKd_hybrid->text().toDouble(&outcome);
-    if (!outcome)
+    if (!outcome || (kd <= 0))
       {
 	field_error_msg_box("Kd");
 	return;
       }
 
     km_f = ui.textKmf_hybrid->text().toDouble(&outcome);
-    if (!outcome)
+    if (!outcome || (km_f <= 0))
       {
 	field_error_msg_box("Km Force");
 	return;
       }
 
     kd_f = ui.textKdf_hybrid->text().toDouble(&outcome);
-    if (!outcome)
+    if (!outcome || (kd_f <= 0))
       {
 	field_error_msg_box("Kd Force");
 	return;
       }
 
     kp_im = ui.textKp_null_hybrid->text().toDouble(&outcome);
-    if (!outcome)
+    if (!outcome || (kp_im <= 0))
       {
 	field_error_msg_box("Kp Null");
 	return;
       }
 
     kd_im = ui.textKd_null_hybrid->text().toDouble(&outcome);
-    if (!outcome)
+    if (!outcome || (kd_im <= 0))
       {
 	field_error_msg_box("Kd Null");
 	return;
       }
 
     p2p_traj_duration = ui.textTraj_duration_hybrid->text().toDouble(&outcome);
-    if (!outcome)
+    if (!outcome || (p2p_traj_duration <= 0))
       {
 	field_error_msg_box("Trajectory Duration");
 	return;
       }
 
     force_ref_duration = ui.textForce_duration_hybrid->text().toDouble(&outcome);
-    if (!outcome)
+    if (!outcome || (force_ref_duration <= 0))
       {
 	field_error_msg_box("Force reference Duration");
 	return;
@@ -376,7 +376,7 @@ namespace controller_switcher {
       }
 
     position_z = ui.textPositionZ_cartpos->text().toDouble(&outcome);
-    if (!outcome)
+    if (!outcome || (position_z < 0.09))
       {
 	field_error_msg_box("PositionZ");
 	return;
@@ -404,21 +404,21 @@ namespace controller_switcher {
       }
 
     kp = ui.textKp_cartpos->text().toDouble(&outcome);
-    if (!outcome)
+    if (!outcome || (kp <= 0))
       {
 	field_error_msg_box("kp");
 	return;
       }
 
     kd = ui.textKd_cartpos->text().toDouble(&outcome);
-    if (!outcome)
+    if (!outcome || (kd <= 0))
       {
 	field_error_msg_box("kd");
 	return;
       }
 
     p2p_traj_duration = ui.textDuration_cartpos->text().toDouble(&outcome);
-    if (!outcome)
+    if (!outcome || (p2p_traj_duration <= 0))
       {
 	field_error_msg_box("Duration");
 	return;
