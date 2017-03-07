@@ -301,11 +301,14 @@ namespace controller_switcher {
     if(!outcome)
       service_error_msg_box("CartesianInverseController(set)");
 
+    // change the UI depending on the enable force condition
     if (enable_force)
       change_error_z_label("Fz (N)");
     else
       change_error_z_label("z (m)");
-    
+
+    // reload controller configuration
+    fill_hybrid_command_fields();
   }
 
   void MainWindow::on_buttonSet_cartpos_clicked(bool check)
