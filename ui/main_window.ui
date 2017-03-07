@@ -2034,9 +2034,12 @@
             <item>
              <layout class="QHBoxLayout" name="HybridFzHorizontal">
               <item>
-               <widget class="QLabel" name="HybridFzLabel">
+               <widget class="QLabel" name="HybridZLabel">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
                 <property name="text">
-                 <string>Fz (N)</string>
+                 <string>z (m)</string>
                 </property>
                </widget>
               </item>
@@ -2054,7 +2057,7 @@
                </spacer>
               </item>
               <item>
-               <widget class="QLabel" name="textCart_Fz_err">
+               <widget class="QLabel" name="textCart_z_err">
                 <property name="text">
                  <string>?</string>
                 </property>

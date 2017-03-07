@@ -120,7 +120,7 @@ namespace controller_switcher {
 
     labels_list.push_back(ui.textCart_x_err);
     labels_list.push_back(ui.textCart_y_err);
-    labels_list.push_back(ui.textCart_Fz_err);
+    labels_list.push_back(ui.textCart_z_err);
     labels_list.push_back(ui.textCart_alpha_err);
     labels_list.push_back(ui.textCart_beta_err);
     labels_list.push_back(ui.textCart_gamma_err);
@@ -298,8 +298,13 @@ namespace controller_switcher {
 
     outcome = qnode.set_command<lwr_force_position_controllers::CartesianInverseCommand,\
     				lwr_force_position_controllers::CartesianInverseCommandMsg>(command_cartesian_inverse);
-    // if(!outcome)
-    //   service_error_msg_box("CartesianInverseController(set)");
+    if(!outcome)
+      service_error_msg_box("CartesianInverseController(set)");
+
+    if (enable_force)
+      change_error_z_label("Fz (N)");
+    else
+      change_error_z_label("z (m)");
     
   }
 
@@ -502,6 +507,11 @@ namespace controller_switcher {
     ui.checkBoxEnableForce_hybrid->setChecked(hybrid_curr_cmd.enable_force);
     ui.textKp_null_hybrid->setText(QString::number(cartesian_inverse_curr_cmd.kp_im));
     ui.textKd_null_hybrid->setText(QString::number(cartesian_inverse_curr_cmd.kd_im));
+  }
+
+  void MainWindow::change_error_z_label(std::string label_text)
+  {
+    ui.HybridZLabel->setText(QString::fromStdString(label_text));
   }
 
   void MainWindow::fill_controllers_command_fields()

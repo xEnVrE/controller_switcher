@@ -43,6 +43,7 @@ namespace controller_switcher {
     void fill_controllers_command_fields();
     void fill_cartpos_command_fields();
     void fill_hybrid_command_fields();
+    void change_error_z_label(std::string label_text);
     void field_error_msg_box(std::string field_name);
     void service_error_msg_box(std::string controller_name);
 
