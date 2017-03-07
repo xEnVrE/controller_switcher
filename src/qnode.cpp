@@ -187,24 +187,6 @@ namespace controller_switcher {
     robot_namespace_ = name;
   }
 
-  bool QNode::request_ftsensor_tool_estimation(lwr_force_position_controllers::FtSensorToolEstimationMsg& response)
-  {
-    ros::NodeHandle n;
-    ros::ServiceClient client;
-    lwr_force_position_controllers::FtSensorToolEstimation service;
-    bool outcome;
-
-    client = n.serviceClient<lwr_force_position_controllers::FtSensorToolEstimation>("/" + robot_namespace_ + "/ft_sensor_controller/estimate_tool");
-
-    outcome = client.call(service);
-    
-    if (outcome)
-      response = service.response.message;
-    
-    return outcome;
-  }
-
-
   bool QNode::request_ftsensor_calibration()
   {
     ros::NodeHandle n;
@@ -216,36 +198,6 @@ namespace controller_switcher {
     return client.call(service);
 
   }
-
-  bool QNode::request_ftsensor_bias_setup()
-  {
-    ros::NodeHandle n;
-    ros::ServiceClient client;
-    lwr_force_position_controllers::FtSensorSetBias service;
-    
-    client = n.serviceClient<lwr_force_position_controllers::FtSensorSetBias>("/" + robot_namespace_ + "/ft_sensor_controller/set_sensor_bias");
-
-    return client.call(service);
-  }
-
-
-  bool QNode::get_ftsensor_estimated_tool(lwr_force_position_controllers::FtSensorToolEstimationMsg& response)
-  {
-    ros::NodeHandle n;
-    ros::ServiceClient client;
-    lwr_force_position_controllers::FtSensorToolEstimation service;
-    bool outcome;
-
-    client = n.serviceClient<lwr_force_position_controllers::FtSensorToolEstimation>("/" + robot_namespace_ + "/ft_sensor_controller/get_estimated_tool");
-
-    outcome = client.call(service);
-    
-    if (outcome)
-      response = service.response.message;
-    
-    return outcome;
-
-  }  
 
   void QNode::run()
   {

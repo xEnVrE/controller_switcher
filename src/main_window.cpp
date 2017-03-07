@@ -46,16 +46,13 @@ namespace controller_switcher {
 				    qApp->desktop()->availableGeometry()));
 
     // force size of the window
-    setFixedSize(965, 800);
+    setFixedSize(765, 700);
 
     // fill controller lists from robot_namespace_/controller_manager/ListControllers
     fill_controllers_list();
 
     // fill controllers command fields with current commands
     fill_controllers_command_fields();
-
-    // fill sensor configuration
-    fill_sensor_configuration();
 
     // connect joints state view update to joints state topic callback
     QObject::connect(&qnode, SIGNAL(jointsStateArrived()), this, SLOT(updateJointsState()));
@@ -153,26 +150,6 @@ namespace controller_switcher {
       service_error_msg_box("FtSensorCalibration");
   }
 
-  void MainWindow::on_buttonEstimateTool_ftsensor_clicked(bool check)
-  {
-    lwr_force_position_controllers::FtSensorToolEstimationMsg response;
-
-    if(!qnode.request_ftsensor_tool_estimation(response))
-      service_error_msg_box("FtSensorToolEstimation");
-    
-    // Update with the new estimation
-    ui.labelWristToolComX->setText(QString::number(response.arm_x));
-    ui.labelWristToolComY->setText(QString::number(response.arm_y));
-    ui.labelWristToolComZ->setText(QString::number(response.arm_z));
-    ui.labelToolMass->setText(QString::number(response.mass));
-  }
-
-  void MainWindow::on_buttonSetBias_ftsensor_clicked(bool check)
-  {
-    if(!qnode.request_ftsensor_bias_setup())
-      service_error_msg_box("FtSensorBiasSetup");
-  }
-
   void MainWindow::on_buttonReload_cartpos_clicked(bool check)
   {
     fill_cartpos_command_fields();
@@ -180,13 +157,11 @@ namespace controller_switcher {
 
   void MainWindow::on_buttonSet_hybrid_clicked(bool check)
   {
-    double position_x, position_y, force_z;
+    double position_x, position_y, position_z, force_z;
     double alpha, beta, gamma;
     double kp, kd, km_f, kd_f, kp_im, kd_im;
-    double frequency, radius;
-    double center_x, center_y;
     double p2p_traj_duration, force_ref_duration;
-    bool circle_trj;
+    bool enable_force;
     bool outcome;
 
     position_x = ui.textPositionX_hybrid->text().toDouble(&outcome);
@@ -200,6 +175,13 @@ namespace controller_switcher {
     if (!outcome)
       {
 	field_error_msg_box("PositionY");
+	return;
+      }
+
+    position_z = ui.textPositionZ_hybrid->text().toDouble(&outcome);
+    if (!outcome)
+      {
+	field_error_msg_box("PositionZ");
 	return;
       }
 
@@ -287,39 +269,12 @@ namespace controller_switcher {
 	return;
       }
 
-    center_x = ui.textCenterX_hybrid->text().toDouble(&outcome);
-    if (!outcome)
-      {
-	field_error_msg_box("Center X");
-	return;
-      }
-
-    center_y = ui.textCenterY_hybrid->text().toDouble(&outcome);
-    if (!outcome)
-      {
-	field_error_msg_box("Center Y");
-	return;
-      }
-
-    frequency = ui.textFrequency_hybrid->text().toDouble(&outcome);
-    if (!outcome)
-      {
-	field_error_msg_box("Frequency");
-	return;
-      }
-
-    radius = ui.textRadius_hybrid->text().toDouble(&outcome);
-    if (!outcome)
-      {
-	field_error_msg_box("Radius");
-	return;
-      }
-
-    circle_trj = ui.checkBoxEnableTraj_hybrid->isChecked();
+    enable_force = ui.checkBoxEnableForce_hybrid->isChecked();
 
     lwr_force_position_controllers::HybridImpedanceCommandMsg command_hybrid;
     command_hybrid.x = position_x;
     command_hybrid.y = position_y;
+    command_hybrid.z = position_z;
     command_hybrid.alpha = alpha;
     command_hybrid.beta = beta;
     command_hybrid.gamma = gamma;
@@ -330,11 +285,7 @@ namespace controller_switcher {
     command_hybrid.kd_f = kd_f;
     command_hybrid.p2p_traj_duration = p2p_traj_duration;
     command_hybrid.force_ref_duration = force_ref_duration;
-    command_hybrid.circle_trj = circle_trj;
-    command_hybrid.center_x = center_x;
-    command_hybrid.center_y = center_y;
-    command_hybrid.frequency = frequency;
-    command_hybrid.radius = radius;	
+    command_hybrid.enable_force = enable_force;
 
     lwr_force_position_controllers::CartesianInverseCommandMsg command_cartesian_inverse;
     command_cartesian_inverse.kp_im = kp_im;
@@ -537,6 +488,7 @@ namespace controller_switcher {
 
     ui.textPositionX_hybrid->setText(QString::number(hybrid_curr_cmd.x,'f', 3));
     ui.textPositionY_hybrid->setText(QString::number(hybrid_curr_cmd.y,'f', 3));
+    ui.textPositionZ_hybrid->setText(QString::number(hybrid_curr_cmd.z,'f', 3));
     ui.textAlpha_hybrid->setText(QString::number(hybrid_curr_cmd.alpha,'f', 3));
     ui.textBeta_hybrid->setText(QString::number(hybrid_curr_cmd.beta,'f', 3));
     ui.textGamma_hybrid->setText(QString::number(hybrid_curr_cmd.gamma,'f', 3));
@@ -547,11 +499,7 @@ namespace controller_switcher {
     ui.textKdf_hybrid->setText(QString::number(hybrid_curr_cmd.kd_f,'f', 3));
     ui.textTraj_duration_hybrid->setText(QString::number(hybrid_curr_cmd.p2p_traj_duration));
     ui.textForce_duration_hybrid->setText(QString::number(hybrid_curr_cmd.force_ref_duration));
-    ui.textCenterX_hybrid->setText(QString::number(hybrid_curr_cmd.center_x,'f', 3));
-    ui.textCenterY_hybrid->setText(QString::number(hybrid_curr_cmd.center_y,'f', 3));
-    ui.textFrequency_hybrid->setText(QString::number(hybrid_curr_cmd.frequency,'f', 3));
-    ui.textRadius_hybrid->setText(QString::number(hybrid_curr_cmd.radius,'f', 3));
-    ui.checkBoxEnableTraj_hybrid->setChecked(hybrid_curr_cmd.circle_trj);
+    ui.checkBoxEnableForce_hybrid->setChecked(hybrid_curr_cmd.enable_force);
     ui.textKp_null_hybrid->setText(QString::number(cartesian_inverse_curr_cmd.kp_im));
     ui.textKd_null_hybrid->setText(QString::number(cartesian_inverse_curr_cmd.kd_im));
   }
@@ -564,20 +512,6 @@ namespace controller_switcher {
     // Hybrid Impedance Controller
     fill_hybrid_command_fields();
 
-  }
-
-  void MainWindow::fill_sensor_configuration()
-  {
-    lwr_force_position_controllers::FtSensorToolEstimationMsg response;
-
-    if(!qnode.get_ftsensor_estimated_tool(response))
-      service_error_msg_box("FtSensorController(get)");
-
-    // Show the last tool estimation
-    ui.labelWristToolComX->setText(QString::number(response.arm_x));
-    ui.labelWristToolComY->setText(QString::number(response.arm_y));
-    ui.labelWristToolComZ->setText(QString::number(response.arm_z));
-    ui.labelToolMass->setText(QString::number(response.mass));
   }
 
   void MainWindow::field_error_msg_box(std::string field_name)

@@ -2,12 +2,15 @@
 <ui version="4.0">
  <class>MainWindowDesign</class>
  <widget class="QMainWindow" name="MainWindowDesign">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1015</width>
-    <height>836</height>
+    <width>596</width>
+    <height>772</height>
    </rect>
   </property>
   <property name="maximumSize">
@@ -32,7 +35,7 @@
    </property>
    <layout class="QHBoxLayout">
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout_6">
+     <layout class="QVBoxLayout" name="MainVertical">
       <property name="leftMargin">
        <number>0</number>
       </property>
@@ -46,7 +49,7 @@
        <number>0</number>
       </property>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_44">
+       <layout class="QHBoxLayout" name="HeaderHorizontal">
         <property name="leftMargin">
          <number>1</number>
         </property>
@@ -60,7 +63,7 @@
          <number>1</number>
         </property>
         <item>
-         <widget class="QLabel" name="label_7">
+         <widget class="QLabel" name="TitleLabel">
           <property name="font">
            <font>
             <family>Sans Serif</family>
@@ -79,7 +82,7 @@
          </widget>
         </item>
         <item>
-         <spacer name="horizontalSpacer_42">
+         <spacer name="TitleButtonQuitSpace">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
@@ -101,7 +104,7 @@
        </layout>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_5">
+       <layout class="QHBoxLayout" name="BodyHorizontal">
         <property name="leftMargin">
          <number>10</number>
         </property>
@@ -115,1352 +118,16 @@
          <number>10</number>
         </property>
         <item>
-         <layout class="QVBoxLayout" name="hybridImpedanceLayout">
-          <property name="leftMargin">
-           <number>0</number>
-          </property>
-          <property name="topMargin">
-           <number>0</number>
-          </property>
-          <property name="rightMargin">
-           <number>0</number>
-          </property>
-          <property name="bottomMargin">
-           <number>0</number>
-          </property>
+         <layout class="QVBoxLayout" name="ControllersVertical">
           <item>
-           <widget class="QLabel" name="label">
-            <property name="text">
-             <string>Hybrid Impedance Controller</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <layout class="QVBoxLayout" name="verticalLayout_4">
-            <property name="leftMargin">
-             <number>5</number>
-            </property>
-            <property name="topMargin">
-             <number>5</number>
-            </property>
-            <property name="rightMargin">
-             <number>5</number>
-            </property>
-            <property name="bottomMargin">
-             <number>5</number>
-            </property>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_12">
-              <item>
-               <widget class="QLabel" name="label_3">
-                <property name="text">
-                 <string>Position X</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_4">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="textPositionX_hybrid">
-                <property name="enabled">
-                 <bool>true</bool>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>60</width>
-                  <height>30</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_13">
-              <item>
-               <widget class="QLabel" name="label_5">
-                <property name="text">
-                 <string>Position Y</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_2">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="textPositionY_hybrid">
-                <property name="enabled">
-                 <bool>true</bool>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>60</width>
-                  <height>30</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_3">
-              <item>
-               <widget class="QLabel" name="label_10">
-                <property name="text">
-                 <string>Force Z    </string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_3">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="textForceZ_hybrid">
-                <property name="enabled">
-                 <bool>true</bool>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>60</width>
-                  <height>30</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_27">
-              <item>
-               <widget class="QLabel" name="label_26">
-                <property name="text">
-                 <string>α (Z)        </string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_28">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="textAlpha_hybrid">
-                <property name="enabled">
-                 <bool>true</bool>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>60</width>
-                  <height>30</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_25">
-              <item>
-               <widget class="QLabel" name="label_25">
-                <property name="text">
-                 <string>ß (Y)        </string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_27">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="textBeta_hybrid">
-                <property name="enabled">
-                 <bool>true</bool>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>60</width>
-                  <height>30</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_24">
-              <item>
-               <widget class="QLabel" name="label_24">
-                <property name="text">
-                 <string>γ (Z)        </string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_26">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="textGamma_hybrid">
-                <property name="enabled">
-                 <bool>true</bool>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>60</width>
-                  <height>30</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_16">
-              <item>
-               <widget class="QLabel" name="label_15">
-                <property name="text">
-                 <string>Kp            </string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_17">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="textKp_hybrid">
-                <property name="enabled">
-                 <bool>true</bool>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>60</width>
-                  <height>30</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_20">
-              <item>
-               <widget class="QLabel" name="label_19">
-                <property name="text">
-                 <string>Kd            </string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_21">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="textKd_hybrid">
-                <property name="enabled">
-                 <bool>true</bool>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>60</width>
-                  <height>30</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_21">
-              <item>
-               <widget class="QLabel" name="label_20">
-                <property name="text">
-                 <string>Km Force  </string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_22">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="textKmf_hybrid">
-                <property name="enabled">
-                 <bool>true</bool>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>60</width>
-                  <height>30</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_36">
-              <item>
-               <widget class="QLabel" name="label_35">
-                <property name="text">
-                 <string>Kd Force   </string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_37">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="textKdf_hybrid">
-                <property name="enabled">
-                 <bool>true</bool>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>60</width>
-                  <height>30</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_45">
-              <item>
-               <widget class="QLabel" name="label_28">
-                <property name="text">
-                 <string>Kp Null     </string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_29">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="textKp_null_hybrid">
-                <property name="enabled">
-                 <bool>true</bool>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>60</width>
-                  <height>30</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_43">
-              <item>
-               <widget class="QLabel" name="label_37">
-                <property name="text">
-                 <string>Kd Null     </string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_41">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="textKd_null_hybrid">
-                <property name="enabled">
-                 <bool>true</bool>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>60</width>
-                  <height>30</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_46">
-              <item>
-               <widget class="QLabel" name="label_38">
-                <property name="text">
-                 <string>Traj D       </string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_43">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="textTraj_duration_hybrid">
-                <property name="enabled">
-                 <bool>true</bool>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>60</width>
-                  <height>30</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_47">
-              <item>
-               <widget class="QLabel" name="label_39">
-                <property name="text">
-                 <string>Force D    </string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_44">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="textForce_duration_hybrid">
-                <property name="enabled">
-                 <bool>true</bool>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>60</width>
-                  <height>30</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_33">
-              <property name="text">
-               <string>Circular trajectory</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_32">
-              <item>
-               <widget class="QLabel" name="label_31">
-                <property name="text">
-                 <string>Center X    </string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_33">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="textCenterX_hybrid">
-                <property name="enabled">
-                 <bool>true</bool>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>60</width>
-                  <height>30</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_33">
-              <item>
-               <widget class="QLabel" name="label_32">
-                <property name="text">
-                 <string>Center Y    </string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_34">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="textCenterY_hybrid">
-                <property name="enabled">
-                 <bool>true</bool>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>60</width>
-                  <height>30</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_22">
-              <item>
-               <widget class="QLabel" name="label_21">
-                <property name="text">
-                 <string>Frequency  </string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_23">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="textFrequency_hybrid">
-                <property name="enabled">
-                 <bool>true</bool>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>60</width>
-                  <height>30</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_23">
-              <item>
-               <widget class="QLabel" name="label_22">
-                <property name="text">
-                 <string>Radius        </string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_24">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="textRadius_hybrid">
-                <property name="enabled">
-                 <bool>true</bool>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>60</width>
-                  <height>30</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_35">
-              <property name="leftMargin">
-               <number>5</number>
-              </property>
-              <property name="topMargin">
-               <number>5</number>
-              </property>
-              <property name="rightMargin">
-               <number>5</number>
-              </property>
-              <property name="bottomMargin">
-               <number>5</number>
-              </property>
-              <item>
-               <spacer name="horizontalSpacer_36">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <widget class="QCheckBox" name="checkBoxEnableTraj_hybrid">
-                <property name="enabled">
-                 <bool>false</bool>
-                </property>
-                <property name="layoutDirection">
-                 <enum>Qt::RightToLeft</enum>
-                </property>
-                <property name="text">
-                 <string>Enable trajectory</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_6">
-              <item>
-               <spacer name="horizontalSpacer">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <widget class="QPushButton" name="buttonSet_hybrid">
-                <property name="enabled">
-                 <bool>true</bool>
-                </property>
-                <property name="text">
-                 <string>Set</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_6">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-             </layout>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <spacer name="verticalSpacer_4">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <spacer name="horizontalSpacer_8">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <layout class="QVBoxLayout" name="cartesianpositionLayout">
-          <property name="leftMargin">
-           <number>0</number>
-          </property>
-          <property name="topMargin">
-           <number>0</number>
-          </property>
-          <property name="rightMargin">
-           <number>0</number>
-          </property>
-          <property name="bottomMargin">
-           <number>0</number>
-          </property>
-          <item>
-           <widget class="QLabel" name="label_2">
-            <property name="text">
-             <string>Cartesian Position Controller</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <layout class="QVBoxLayout" name="verticalLayout_8">
-            <property name="leftMargin">
-             <number>5</number>
-            </property>
-            <property name="topMargin">
-             <number>5</number>
-            </property>
-            <property name="rightMargin">
-             <number>5</number>
-            </property>
-            <property name="bottomMargin">
-             <number>5</number>
-            </property>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_14">
-              <item>
-               <widget class="QLabel" name="label_4">
-                <property name="text">
-                 <string>Position X </string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_9">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="textPositionX_cartpos">
-                <property name="enabled">
-                 <bool>true</bool>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>60</width>
-                  <height>30</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_15">
-              <item>
-               <widget class="QLabel" name="label_11">
-                <property name="text">
-                 <string>Position Y  </string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_10">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="textPositionY_cartpos">
-                <property name="enabled">
-                 <bool>true</bool>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>60</width>
-                  <height>30</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_4">
-              <item>
-               <widget class="QLabel" name="label_12">
-                <property name="text">
-                 <string>Position Z  </string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_11">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="textPositionZ_cartpos">
-                <property name="enabled">
-                 <bool>true</bool>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>60</width>
-                  <height>30</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_17">
-              <item>
-               <widget class="QLabel" name="label_16">
-                <property name="text">
-                 <string>RotX            </string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_18">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="textRoll_cartpos">
-                <property name="enabled">
-                 <bool>true</bool>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>60</width>
-                  <height>30</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_11">
-              <item>
-               <widget class="QLabel" name="label_14">
-                <property name="text">
-                 <string>RotY            </string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_15">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="textPitch_cartpos">
-                <property name="enabled">
-                 <bool>true</bool>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>60</width>
-                  <height>30</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_8">
-              <item>
-               <widget class="QLabel" name="label_13">
-                <property name="text">
-                 <string>RotZ            </string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_14">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="textYaw_cartpos">
-                <property name="enabled">
-                 <bool>true</bool>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>60</width>
-                  <height>30</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_18">
-              <item>
-               <widget class="QLabel" name="label_17">
-                <property name="text">
-                 <string>kp              </string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_19">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="textKp_cartpos">
-                <property name="enabled">
-                 <bool>true</bool>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>60</width>
-                  <height>30</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_19">
-              <item>
-               <widget class="QLabel" name="label_18">
-                <property name="text">
-                 <string>kd              </string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_20">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="textKd_cartpos">
-                <property name="enabled">
-                 <bool>true</bool>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>60</width>
-                  <height>30</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_28">
-              <item>
-               <widget class="QLabel" name="label_30">
-                <property name="text">
-                 <string>Duration    </string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_32">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="textDuration_cartpos">
-                <property name="enabled">
-                 <bool>true</bool>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>60</width>
-                  <height>30</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_29">
-              <item>
-               <spacer name="horizontalSpacer_30">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <widget class="QPushButton" name="buttonReload_cartpos">
-                <property name="enabled">
-                 <bool>true</bool>
-                </property>
-                <property name="text">
-                 <string>Reload position</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_41">
-              <property name="leftMargin">
-               <number>5</number>
-              </property>
-              <property name="topMargin">
-               <number>5</number>
-              </property>
-              <property name="rightMargin">
-               <number>5</number>
-              </property>
-              <property name="bottomMargin">
-               <number>5</number>
-              </property>
-              <item>
-               <spacer name="horizontalSpacer_40">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <widget class="QCheckBox" name="checkBoxUseLastQ_cartpos">
-                <property name="layoutDirection">
-                 <enum>Qt::RightToLeft</enum>
-                </property>
-                <property name="text">
-                 <string>Hold last q found</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_7">
-              <item>
-               <spacer name="horizontalSpacer_12">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <widget class="QPushButton" name="buttonSet_cartpos">
-                <property name="enabled">
-                 <bool>true</bool>
-                </property>
-                <property name="text">
-                 <string>Set</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_13">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-             </layout>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <spacer name="verticalSpacer_5">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <spacer name="horizontalSpacer_16">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <layout class="QVBoxLayout" name="verticalLayout_3">
-          <property name="leftMargin">
-           <number>0</number>
-          </property>
-          <property name="topMargin">
-           <number>0</number>
-          </property>
-          <property name="rightMargin">
-           <number>0</number>
-          </property>
-          <property name="bottomMargin">
-           <number>0</number>
-          </property>
-          <item>
-           <widget class="QLabel" name="label_6">
+           <widget class="QLabel" name="SwitchControllerLabel">
             <property name="text">
              <string>Switch Controller</string>
             </property>
            </widget>
           </item>
           <item>
-           <layout class="QVBoxLayout" name="verticalLayout_7">
+           <layout class="QVBoxLayout" name="SwitcherVertical">
             <property name="leftMargin">
              <number>5</number>
             </property>
@@ -1474,9 +141,9 @@
              <number>5</number>
             </property>
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout">
+             <layout class="QHBoxLayout" name="RunningControllersHorizontal">
               <item>
-               <widget class="QLabel" name="label_8">
+               <widget class="QLabel" name="RunningControllersLabel">
                 <property name="text">
                  <string>Stop</string>
                 </property>
@@ -1495,9 +162,9 @@
              </layout>
             </item>
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_2">
+             <layout class="QHBoxLayout" name="StoppedControllersHorizontal">
               <item>
-               <widget class="QLabel" name="label_9">
+               <widget class="QLabel" name="StoppedControllersLabel">
                 <property name="text">
                  <string>Start</string>
                 </property>
@@ -1516,9 +183,9 @@
              </layout>
             </item>
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_9">
+             <layout class="QHBoxLayout" name="SwitcherButtonHorizontal">
               <item>
-               <spacer name="horizontalSpacer_5">
+               <spacer name="SwitcherButtonSpacer">
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
                 </property>
@@ -1542,227 +209,1253 @@
            </layout>
           </item>
           <item>
-           <widget class="QLabel" name="label_23">
-            <property name="text">
-             <string>Force Torque Sensor Controller</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <layout class="QVBoxLayout" name="verticalLayout_9">
-            <property name="leftMargin">
-             <number>5</number>
-            </property>
-            <property name="topMargin">
-             <number>5</number>
-            </property>
-            <property name="rightMargin">
-             <number>5</number>
-            </property>
-            <property name="bottomMargin">
-             <number>5</number>
-            </property>
+           <layout class="QHBoxLayout" name="ControllersMiddle">
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_26">
-              <item>
-               <spacer name="horizontalSpacer_25">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <widget class="QPushButton" name="buttonCalibrate_ftsensor">
-                <property name="text">
-                 <string>Calibrate</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="buttonEstimateTool_ftsensor">
-                <property name="text">
-                 <string>Estimate tool</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="buttonSetBias_ftsensor">
-                <property name="text">
-                 <string>Set bias</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_27">
-              <property name="text">
-               <string>Estimated parameters</string>
+             <layout class="QVBoxLayout" name="ControllersMiddleLeft">
+              <property name="leftMargin">
+               <number>0</number>
               </property>
-             </widget>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_37">
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
               <item>
-               <widget class="QLabel" name="label_36">
+               <widget class="QLabel" name="HybridLabel">
                 <property name="text">
-                 <string>Wrist-tool CoM X</string>
+                 <string>Hybrid Impedance Controller</string>
                 </property>
                </widget>
               </item>
               <item>
-               <spacer name="horizontalSpacer_38">
+               <layout class="QVBoxLayout" name="HybridVertical">
+                <property name="leftMargin">
+                 <number>5</number>
+                </property>
+                <property name="topMargin">
+                 <number>5</number>
+                </property>
+                <property name="rightMargin">
+                 <number>5</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>5</number>
+                </property>
+                <item>
+                 <layout class="QHBoxLayout" name="HybridSetXHorizontal">
+                  <item>
+                   <widget class="QLabel" name="HybridSetXLabel">
+                    <property name="text">
+                     <string>Position X</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="HybridSetXSpacer">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="textPositionX_hybrid">
+                    <property name="enabled">
+                     <bool>true</bool>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>60</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="HybridSetYHorizontal">
+                  <item>
+                   <widget class="QLabel" name="HybridSetYLabel">
+                    <property name="text">
+                     <string>Position Y</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="HybridSetYSpacer">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="textPositionY_hybrid">
+                    <property name="enabled">
+                     <bool>true</bool>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>60</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="HybridSetZHorizontal">
+                  <item>
+                   <widget class="QLabel" name="HybridSetZLabel">
+                    <property name="text">
+                     <string>Position Z</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="HybridSetZSpacer">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="textPositionZ_hybrid">
+                    <property name="enabled">
+                     <bool>true</bool>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>60</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="HybridSetForceZHorizontal">
+                  <item>
+                   <widget class="QLabel" name="HybridSetForceZLabel">
+                    <property name="text">
+                     <string>Force Z    </string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="HybridSetForceZSpacer">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="textForceZ_hybrid">
+                    <property name="enabled">
+                     <bool>true</bool>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>60</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="HybridSetEnableForceHorizontal">
+                  <property name="leftMargin">
+                   <number>5</number>
+                  </property>
+                  <property name="topMargin">
+                   <number>5</number>
+                  </property>
+                  <property name="rightMargin">
+                   <number>5</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>5</number>
+                  </property>
+                  <item>
+                   <spacer name="HybridSetEnableForceSpacer">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="checkBoxEnableForce_hybrid">
+                    <property name="enabled">
+                     <bool>true</bool>
+                    </property>
+                    <property name="layoutDirection">
+                     <enum>Qt::RightToLeft</enum>
+                    </property>
+                    <property name="text">
+                     <string>Enable Force</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="HybridSetAlphaHorizontal">
+                  <item>
+                   <widget class="QLabel" name="HybridSetAlphaLabel">
+                    <property name="text">
+                     <string>α (Z)        </string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="HybridSetAlphaSpacer">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="textAlpha_hybrid">
+                    <property name="enabled">
+                     <bool>true</bool>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>60</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="HybridSetBetaHorizontal">
+                  <item>
+                   <widget class="QLabel" name="HybridSetBetaLabel">
+                    <property name="text">
+                     <string>ß (Y)        </string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="HybridSetBetaSpacer">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="textBeta_hybrid">
+                    <property name="enabled">
+                     <bool>true</bool>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>60</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="HybridSetGammaHorizontal">
+                  <item>
+                   <widget class="QLabel" name="HybridSetGammaLabel">
+                    <property name="text">
+                     <string>γ (Z)        </string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="HybridSetGammaSpacer">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="textGamma_hybrid">
+                    <property name="enabled">
+                     <bool>true</bool>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>60</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="HybridSetKpHorizontal">
+                  <item>
+                   <widget class="QLabel" name="HybridSetKpLabel">
+                    <property name="text">
+                     <string>Kp            </string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="HybridSetKpSpacer">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="textKp_hybrid">
+                    <property name="enabled">
+                     <bool>true</bool>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>60</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="HybridSetKdHorizontal">
+                  <item>
+                   <widget class="QLabel" name="HybridSetKdLabel">
+                    <property name="text">
+                     <string>Kd            </string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="HybridSetKdSpacer">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="textKd_hybrid">
+                    <property name="enabled">
+                     <bool>true</bool>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>60</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="HybridSetKmForceHorizontal">
+                  <item>
+                   <widget class="QLabel" name="HybridSetKmForceLabel">
+                    <property name="text">
+                     <string>Km Force  </string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="HybridSetKmForceSpacer">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="textKmf_hybrid">
+                    <property name="enabled">
+                     <bool>true</bool>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>60</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="HybridSetKdForceHorizontal">
+                  <item>
+                   <widget class="QLabel" name="HybridSetKdForceLabel">
+                    <property name="text">
+                     <string>Kd Force   </string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="HybridSetKdForceSpacer">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="textKdf_hybrid">
+                    <property name="enabled">
+                     <bool>true</bool>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>60</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="HybridSetKpNullHorizontal">
+                  <item>
+                   <widget class="QLabel" name="HorizontalsetKpNullLabel">
+                    <property name="text">
+                     <string>Kp Null     </string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="HorizontalSetKpNullSpacer">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="textKp_null_hybrid">
+                    <property name="enabled">
+                     <bool>true</bool>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>60</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="HybridSetKdNullHorizontal">
+                  <item>
+                   <widget class="QLabel" name="HybridSetKdNullLabel">
+                    <property name="text">
+                     <string>Kd Null     </string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="HybridSetKdNullSpacer">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="textKd_null_hybrid">
+                    <property name="enabled">
+                     <bool>true</bool>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>60</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="HybridSetTrajDurationHorizontal">
+                  <item>
+                   <widget class="QLabel" name="HybridSetTrajDurationLabel">
+                    <property name="text">
+                     <string>Traj D       </string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="HybridSetTrajDurationSpacer">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="textTraj_duration_hybrid">
+                    <property name="enabled">
+                     <bool>true</bool>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>60</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="HybridSetForceDurationHorizontal">
+                  <item>
+                   <widget class="QLabel" name="HybridSetForceDurationLabel">
+                    <property name="text">
+                     <string>Force D    </string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="HybridSetForceDurationSpacer">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="textForce_duration_hybrid">
+                    <property name="enabled">
+                     <bool>true</bool>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>60</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="HybridSetButtonHorizontal">
+                  <item>
+                   <spacer name="HybridSetButtonSpacer1">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="buttonSet_hybrid">
+                    <property name="enabled">
+                     <bool>true</bool>
+                    </property>
+                    <property name="text">
+                     <string>Set</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="HybridSetButtonSpacer2">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <spacer name="HybridSpacer">
                 <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
+                 <enum>Qt::Vertical</enum>
                 </property>
                 <property name="sizeHint" stdset="0">
                  <size>
-                  <width>40</width>
-                  <height>20</height>
+                  <width>20</width>
+                  <height>40</height>
                  </size>
                 </property>
                </spacer>
-              </item>
-              <item>
-               <widget class="QLabel" name="labelWristToolComX">
-                <property name="text">
-                 <string>?</string>
-                </property>
-               </widget>
               </item>
              </layout>
             </item>
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_34">
-              <item>
-               <widget class="QLabel" name="label_34">
-                <property name="text">
-                 <string>Wrist-tool CoM Y</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_35">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <widget class="QLabel" name="labelWristToolComY">
-                <property name="text">
-                 <string>?</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
+             <spacer name="ControllersMiddleSpacer">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
             </item>
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_30">
+             <layout class="QVBoxLayout" name="ControllersMiddleRight">
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
               <item>
-               <widget class="QLabel" name="label_29">
+               <widget class="QLabel" name="CartPosLabel">
                 <property name="text">
-                 <string>Wrist-tool CoM Z</string>
+                 <string>Cartesian Position Controller</string>
                 </property>
                </widget>
               </item>
               <item>
-               <spacer name="horizontalSpacer_31">
+               <layout class="QVBoxLayout" name="CartesianPositionVertical">
+                <property name="leftMargin">
+                 <number>5</number>
+                </property>
+                <property name="topMargin">
+                 <number>5</number>
+                </property>
+                <property name="rightMargin">
+                 <number>5</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>5</number>
+                </property>
+                <item>
+                 <layout class="QHBoxLayout" name="CartesianSetXHorizontal">
+                  <item>
+                   <widget class="QLabel" name="CartesianSetXLabel">
+                    <property name="text">
+                     <string>Position X </string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="CartesianSetXSpacer">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="textPositionX_cartpos">
+                    <property name="enabled">
+                     <bool>true</bool>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>60</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="CartesianSetYHorizontal">
+                  <item>
+                   <widget class="QLabel" name="CartesianSetYLabel">
+                    <property name="text">
+                     <string>Position Y  </string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="CartesianSetYSpacer">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="textPositionY_cartpos">
+                    <property name="enabled">
+                     <bool>true</bool>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>60</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="CartesianSetZHorizontal">
+                  <item>
+                   <widget class="QLabel" name="CartesianSetZLabel">
+                    <property name="text">
+                     <string>Position Z  </string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="CartesianSetZSpacer">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="textPositionZ_cartpos">
+                    <property name="enabled">
+                     <bool>true</bool>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>60</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="CartesianSetRotXHorizontal">
+                  <item>
+                   <widget class="QLabel" name="CartesianRotXLabel">
+                    <property name="text">
+                     <string>RotX           </string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="CartesianSetRotXSpacer">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="textRoll_cartpos">
+                    <property name="enabled">
+                     <bool>true</bool>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>60</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="CartesianRotYHorizontal">
+                  <item>
+                   <widget class="QLabel" name="CartesianRotYLabel">
+                    <property name="text">
+                     <string>RotY           </string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="CartesianRotYSpacer">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="textPitch_cartpos">
+                    <property name="enabled">
+                     <bool>true</bool>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>60</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="CartesianRotZHorizontal">
+                  <item>
+                   <widget class="QLabel" name="CartesianRotZLabel">
+                    <property name="text">
+                     <string>RotZ           </string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="CartesianRotZSpacer">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="textYaw_cartpos">
+                    <property name="enabled">
+                     <bool>true</bool>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>60</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="CartesianSetKpHorizontal">
+                  <item>
+                   <widget class="QLabel" name="CartesianSetKpLabel">
+                    <property name="text">
+                     <string>kp              </string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="CartesianSetKpSpacer">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="textKp_cartpos">
+                    <property name="enabled">
+                     <bool>true</bool>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>60</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="CartesianSetKdHorizontal">
+                  <item>
+                   <widget class="QLabel" name="CartesianSetKdLabel">
+                    <property name="text">
+                     <string>kd              </string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="CarteisianSetKdSpacer">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="textKd_cartpos">
+                    <property name="enabled">
+                     <bool>true</bool>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>60</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="CartesianSetDurationHorizontal">
+                  <item>
+                   <widget class="QLabel" name="CartesianSetDurationLabel">
+                    <property name="text">
+                     <string>Duration    </string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="CartesianSetDurationSpacer">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="textDuration_cartpos">
+                    <property name="enabled">
+                     <bool>true</bool>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>60</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="CartesianReloadPosHorizontal">
+                  <item>
+                   <spacer name="CartesianReloadPosSpacer">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="buttonReload_cartpos">
+                    <property name="enabled">
+                     <bool>true</bool>
+                    </property>
+                    <property name="text">
+                     <string>Reload position</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="CartesianSetHoldQHorizontal">
+                  <property name="leftMargin">
+                   <number>5</number>
+                  </property>
+                  <property name="topMargin">
+                   <number>5</number>
+                  </property>
+                  <property name="rightMargin">
+                   <number>5</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>5</number>
+                  </property>
+                  <item>
+                   <spacer name="CartesianSetHoldQSpacer">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="checkBoxUseLastQ_cartpos">
+                    <property name="layoutDirection">
+                     <enum>Qt::RightToLeft</enum>
+                    </property>
+                    <property name="text">
+                     <string>Hold last q found</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="CartesianSetButtonHorizontal">
+                  <item>
+                   <spacer name="CartesianSetButtonSpacer1">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="buttonSet_cartpos">
+                    <property name="enabled">
+                     <bool>true</bool>
+                    </property>
+                    <property name="text">
+                     <string>Set</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="CartesianSetButtonSpacer2">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <widget class="QLabel" name="FTSensorLabel">
+                <property name="text">
+                 <string>F/T sensor</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <layout class="QVBoxLayout" name="FtSensorHorizontal">
+                <property name="leftMargin">
+                 <number>5</number>
+                </property>
+                <property name="topMargin">
+                 <number>5</number>
+                </property>
+                <property name="rightMargin">
+                 <number>5</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>5</number>
+                </property>
+                <item>
+                 <layout class="QHBoxLayout" name="FtSensorCalibrateHorizontal">
+                  <item>
+                   <spacer name="FtSensorCalibrateSpacer">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="buttonCalibrate_ftsensor">
+                    <property name="text">
+                     <string>Calibrate</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <spacer name="ControllersMiddleSpacer_2">
                 <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
+                 <enum>Qt::Vertical</enum>
                 </property>
                 <property name="sizeHint" stdset="0">
                  <size>
-                  <width>40</width>
-                  <height>20</height>
+                  <width>20</width>
+                  <height>40</height>
                  </size>
                 </property>
                </spacer>
-              </item>
-              <item>
-               <widget class="QLabel" name="labelWristToolComZ">
-                <property name="text">
-                 <string>?</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_38">
-              <item>
-               <widget class="QLabel" name="label_40">
-                <property name="text">
-                 <string>Tool mass</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_39">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <widget class="QLabel" name="labelToolMass">
-                <property name="text">
-                 <string>?</string>
-                </property>
-               </widget>
               </item>
              </layout>
             </item>
            </layout>
           </item>
-          <item>
-           <spacer name="verticalSpacer">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
          </layout>
         </item>
         <item>
-         <spacer name="horizontalSpacer_54">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <layout class="QVBoxLayout" name="cartesianpositionLayout_4">
+         <layout class="QVBoxLayout" name="DisplayVertical">
           <property name="leftMargin">
            <number>0</number>
           </property>
@@ -1776,14 +1469,14 @@
            <number>0</number>
           </property>
           <item>
-           <widget class="QLabel" name="label_68">
+           <widget class="QLabel" name="JointsDisplayLabel">
             <property name="text">
              <string>Joints position</string>
             </property>
            </widget>
           </item>
           <item>
-           <layout class="QVBoxLayout" name="verticalLayout_14">
+           <layout class="QVBoxLayout" name="JointsDisplayVertical">
             <property name="leftMargin">
              <number>5</number>
             </property>
@@ -1797,16 +1490,16 @@
              <number>5</number>
             </property>
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_75">
+             <layout class="QHBoxLayout" name="JointA1Horizontal">
               <item>
-               <widget class="QLabel" name="labelJoint_a1">
+               <widget class="QLabel" name="JointA1Label">
                 <property name="text">
                  <string>a1 (±170°)</string>
                 </property>
                </widget>
               </item>
               <item>
-               <spacer name="horizontalSpacer_71">
+               <spacer name="JointA1Spacer">
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
                 </property>
@@ -1828,16 +1521,16 @@
              </layout>
             </item>
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_76">
+             <layout class="QHBoxLayout" name="JointA2Horizontal">
               <item>
-               <widget class="QLabel" name="labelJoint_a2">
+               <widget class="QLabel" name="JointA2Spacer">
                 <property name="text">
                  <string>a2 (±120°)</string>
                 </property>
                </widget>
               </item>
               <item>
-               <spacer name="horizontalSpacer_72">
+               <spacer name="JointA2Label">
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
                 </property>
@@ -1859,16 +1552,16 @@
              </layout>
             </item>
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_77">
+             <layout class="QHBoxLayout" name="JointE1Horizontal">
               <item>
-               <widget class="QLabel" name="labelJoint_e1">
+               <widget class="QLabel" name="JointE1Spacer">
                 <property name="text">
                  <string>e1 (±170°)</string>
                 </property>
                </widget>
               </item>
               <item>
-               <spacer name="horizontalSpacer_73">
+               <spacer name="JointE1Label">
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
                 </property>
@@ -1890,16 +1583,16 @@
              </layout>
             </item>
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_78">
+             <layout class="QHBoxLayout" name="JointA3Horizontal">
               <item>
-               <widget class="QLabel" name="labelJoint_a3">
+               <widget class="QLabel" name="JointA3Spacer">
                 <property name="text">
                  <string>a3 (±120°)</string>
                 </property>
                </widget>
               </item>
               <item>
-               <spacer name="horizontalSpacer_74">
+               <spacer name="JointA3Label">
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
                 </property>
@@ -1921,16 +1614,16 @@
              </layout>
             </item>
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_79">
+             <layout class="QHBoxLayout" name="JointA4Horizontal">
               <item>
-               <widget class="QLabel" name="labelJoint_e4">
+               <widget class="QLabel" name="JointA4Label">
                 <property name="text">
                  <string>a4 (±170°)</string>
                 </property>
                </widget>
               </item>
               <item>
-               <spacer name="horizontalSpacer_75">
+               <spacer name="JointA4Spacer">
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
                 </property>
@@ -1952,16 +1645,16 @@
              </layout>
             </item>
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_80">
+             <layout class="QHBoxLayout" name="JointA5Horizontal">
               <item>
-               <widget class="QLabel" name="labelJoint_a5">
+               <widget class="QLabel" name="JointA5Label">
                 <property name="text">
                  <string>a5 (±120°)</string>
                 </property>
                </widget>
               </item>
               <item>
-               <spacer name="horizontalSpacer_76">
+               <spacer name="JointA5Spacer">
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
                 </property>
@@ -1983,16 +1676,16 @@
              </layout>
             </item>
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_81">
+             <layout class="QHBoxLayout" name="JointA6Horizontal">
               <item>
-               <widget class="QLabel" name="labelJoint_a6">
+               <widget class="QLabel" name="JointA6Label">
                 <property name="text">
                  <string>a6 (±170°)</string>
                 </property>
                </widget>
               </item>
               <item>
-               <spacer name="horizontalSpacer_77">
+               <spacer name="JointA6Spacer">
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
                 </property>
@@ -2016,14 +1709,14 @@
            </layout>
           </item>
           <item>
-           <widget class="QLabel" name="label_50">
+           <widget class="QLabel" name="CartesianDisplayLabel">
             <property name="text">
              <string>Cartesian Position Errors</string>
             </property>
            </widget>
           </item>
           <item>
-           <layout class="QVBoxLayout" name="verticalLayout_12">
+           <layout class="QVBoxLayout" name="CartesianDisplayVertical">
             <property name="leftMargin">
              <number>5</number>
             </property>
@@ -2037,16 +1730,16 @@
              <number>5</number>
             </property>
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_53">
+             <layout class="QHBoxLayout" name="CartesianA1Horizontal">
               <item>
-               <widget class="QLabel" name="labelJoint_a1_2">
+               <widget class="QLabel" name="CartesianA1Label">
                 <property name="text">
                  <string>a1</string>
                 </property>
                </widget>
               </item>
               <item>
-               <spacer name="horizontalSpacer_47">
+               <spacer name="CartesianA1Spacer">
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
                 </property>
@@ -2068,16 +1761,16 @@
              </layout>
             </item>
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_54">
+             <layout class="QHBoxLayout" name="CartesianA2Horizontal">
               <item>
-               <widget class="QLabel" name="labelJoint_a2_2">
+               <widget class="QLabel" name="CartesianA2Label">
                 <property name="text">
                  <string>a2</string>
                 </property>
                </widget>
               </item>
               <item>
-               <spacer name="horizontalSpacer_48">
+               <spacer name="CartesianA2Spacer">
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
                 </property>
@@ -2099,16 +1792,16 @@
              </layout>
             </item>
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_55">
+             <layout class="QHBoxLayout" name="CartesianE1Horizontal">
               <item>
-               <widget class="QLabel" name="labelJoint_e1_3">
+               <widget class="QLabel" name="CartesianE1Label">
                 <property name="text">
                  <string>e1</string>
                 </property>
                </widget>
               </item>
               <item>
-               <spacer name="horizontalSpacer_49">
+               <spacer name="CartesianE1Spacer">
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
                 </property>
@@ -2130,16 +1823,16 @@
              </layout>
             </item>
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_56">
+             <layout class="QHBoxLayout" name="CartesianA3Horizontal">
               <item>
-               <widget class="QLabel" name="labelJoint_a3_3">
+               <widget class="QLabel" name="CartesianA3Label">
                 <property name="text">
                  <string>a3</string>
                 </property>
                </widget>
               </item>
               <item>
-               <spacer name="horizontalSpacer_50">
+               <spacer name="CartesianA3Spacer">
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
                 </property>
@@ -2161,16 +1854,16 @@
              </layout>
             </item>
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_57">
+             <layout class="QHBoxLayout" name="CartesianA4Horizontal">
               <item>
-               <widget class="QLabel" name="labelJoint_e4_3">
+               <widget class="QLabel" name="CartesianA4Label">
                 <property name="text">
                  <string>a4</string>
                 </property>
                </widget>
               </item>
               <item>
-               <spacer name="horizontalSpacer_51">
+               <spacer name="CartesianA4Spacer">
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
                 </property>
@@ -2192,16 +1885,16 @@
              </layout>
             </item>
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_58">
+             <layout class="QHBoxLayout" name="CartesianA5Horizontal">
               <item>
-               <widget class="QLabel" name="labelJoint_a5_3">
+               <widget class="QLabel" name="CartesianA5Label">
                 <property name="text">
                  <string>a5</string>
                 </property>
                </widget>
               </item>
               <item>
-               <spacer name="horizontalSpacer_52">
+               <spacer name="CartesianA5Spacer">
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
                 </property>
@@ -2223,16 +1916,16 @@
              </layout>
             </item>
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_59">
+             <layout class="QHBoxLayout" name="CartesianA6Horizontal">
               <item>
-               <widget class="QLabel" name="labelJoint_a6_3">
+               <widget class="QLabel" name="CartesianA6Label">
                 <property name="text">
                  <string>a6</string>
                 </property>
                </widget>
               </item>
               <item>
-               <spacer name="horizontalSpacer_53">
+               <spacer name="CartesianA6Spacer">
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
                 </property>
@@ -2256,14 +1949,14 @@
            </layout>
           </item>
           <item>
-           <widget class="QLabel" name="label_59">
+           <widget class="QLabel" name="HybridDisplayLabel">
             <property name="text">
              <string> Hybrid Impedance Errors</string>
             </property>
            </widget>
           </item>
           <item>
-           <layout class="QVBoxLayout" name="verticalLayout_13">
+           <layout class="QVBoxLayout" name="HybridDisplayVertical">
             <property name="leftMargin">
              <number>5</number>
             </property>
@@ -2277,16 +1970,16 @@
              <number>5</number>
             </property>
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_65">
+             <layout class="QHBoxLayout" name="HybridXHorizontal">
               <item>
-               <widget class="QLabel" name="labelCart_x">
+               <widget class="QLabel" name="HybridXLabel">
                 <property name="text">
                  <string>x (m)</string>
                 </property>
                </widget>
               </item>
               <item>
-               <spacer name="horizontalSpacer_60">
+               <spacer name="HybridXSpacer">
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
                 </property>
@@ -2308,16 +2001,16 @@
              </layout>
             </item>
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_66">
+             <layout class="QHBoxLayout" name="HybridYHorizontal">
               <item>
-               <widget class="QLabel" name="labelCart_y">
+               <widget class="QLabel" name="HybridYLabel">
                 <property name="text">
                  <string>y (m)</string>
                 </property>
                </widget>
               </item>
               <item>
-               <spacer name="horizontalSpacer_61">
+               <spacer name="HybridYSpacer">
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
                 </property>
@@ -2339,16 +2032,16 @@
              </layout>
             </item>
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_67">
+             <layout class="QHBoxLayout" name="HybridFzHorizontal">
               <item>
-               <widget class="QLabel" name="labelCart_Fz">
+               <widget class="QLabel" name="HybridFzLabel">
                 <property name="text">
                  <string>Fz (N)</string>
                 </property>
                </widget>
               </item>
               <item>
-               <spacer name="horizontalSpacer_62">
+               <spacer name="HybridFzSpacer">
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
                 </property>
@@ -2370,16 +2063,16 @@
              </layout>
             </item>
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_68">
+             <layout class="QHBoxLayout" name="HybridAlphaHorizontal">
               <item>
-               <widget class="QLabel" name="labelCart_yaw">
+               <widget class="QLabel" name="HybridAlphaLabel">
                 <property name="text">
                  <string>α (rad)</string>
                 </property>
                </widget>
               </item>
               <item>
-               <spacer name="horizontalSpacer_63">
+               <spacer name="HybridAlphaSpacer">
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
                 </property>
@@ -2401,16 +2094,16 @@
              </layout>
             </item>
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_69">
+             <layout class="QHBoxLayout" name="HybridBetaHorizontal">
               <item>
-               <widget class="QLabel" name="labelCart_pitch">
+               <widget class="QLabel" name="HybridBetaLabel">
                 <property name="text">
                  <string>ß (rad)</string>
                 </property>
                </widget>
               </item>
               <item>
-               <spacer name="horizontalSpacer_64">
+               <spacer name="HybridBetaSpacer">
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
                 </property>
@@ -2432,16 +2125,16 @@
              </layout>
             </item>
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_70">
+             <layout class="QHBoxLayout" name="HybridGammaHorizontal">
               <item>
-               <widget class="QLabel" name="labelCart_roll">
+               <widget class="QLabel" name="HybridGammaLabel">
                 <property name="text">
                  <string>γ (rad)</string>
                 </property>
                </widget>
               </item>
               <item>
-               <spacer name="horizontalSpacer_65">
+               <spacer name="HybridGammaSpacer">
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
                 </property>
@@ -2465,7 +2158,7 @@
            </layout>
           </item>
           <item>
-           <spacer name="verticalSpacer_3">
+           <spacer name="DisplayVerticalSpacer">
             <property name="orientation">
              <enum>Qt::Vertical</enum>
             </property>
