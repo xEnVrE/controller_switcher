@@ -40,30 +40,38 @@ namespace controller_switcher {
 
   private:
     void fill_controllers_list();
-    void fill_controllers_command_fields();
-    void fill_cartpos_command_fields();
-    void fill_hybrid_command_fields();
+    void fill_cartpos_traj_fields();
+    void fill_cartpos_gains_fields();
+    void fill_hybrid_traj_pos_fields();
+    void fill_hybrid_traj_force_fields();
+    void fill_hybrid_gains_fields();
     void change_error_z_label(std::string label_text);
     void field_error_msg_box(std::string field_name);
     void service_error_msg_box(std::string controller_name);
+    void set_send_state_label(QLabel* label, bool accepted, double elapsed, double duration);
+    void set_progress_bar(QProgressBar* bar, double elapsed_time, double total_time);
 
   public Q_SLOTS:
     /******************************************
      ** Auto-connections (connectSlotsByName())
      *******************************************/
     void on_buttonQuit_clicked(bool check);
-    void on_buttonSet_hybrid_clicked(bool check);
-    void on_buttonSet_cartpos_clicked(bool check);
-    void on_buttonReload_cartpos_clicked(bool check);
+    void on_checkBoxEnableForce_hybrid_stateChanged(int state);
     void on_buttonCalibrate_ftsensor_clicked(bool check);
     void on_buttonSwitch_clicked(bool check);
+    void on_buttonSetTraj_cartpos_clicked(bool check);
+    void on_buttonSetGains_cartpos_clicked(bool check);
+    void on_buttonSetTrajPos_hybrid_clicked(bool check);
+    void on_buttonSetTrajForce_hybrid_clicked(bool check);
+    void on_buttonSetGains_hybrid_clicked(bool check);
 
     /******************************************
      ** manual connection
      *******************************************/
-    void updateJointsState();
-    void updateJointsError();
-    void updateCartesianError();
+    void update_joints_state();
+    void update_joints_error();
+    void update_cartesian_error();
+    void update_progress_data();
 
   private:
     Ui::MainWindowDesign ui;

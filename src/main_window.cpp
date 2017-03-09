@@ -46,22 +46,28 @@ namespace controller_switcher {
 				    qApp->desktop()->availableGeometry()));
 
     // force size of the window
-    setFixedSize(765, 700);
+    setFixedSize(760, 760);
 
     // fill controller lists from robot_namespace_/controller_manager/ListControllers
     fill_controllers_list();
 
-    // fill controllers command fields with current commands
-    fill_controllers_command_fields();
+    // fill controllers gains fields with default gains 
+    fill_cartpos_gains_fields();
+    fill_hybrid_gains_fields();
 
     // connect joints state view update to joints state topic callback
-    QObject::connect(&qnode, SIGNAL(jointsStateArrived()), this, SLOT(updateJointsState()));
+    QObject::connect(&qnode, SIGNAL(jointsStateArrived()), this, SLOT(update_joints_state()));
 
     // connect joints error view update to joints error topic callback
-    QObject::connect(&qnode, SIGNAL(jointsErrorArrived()), this, SLOT(updateJointsError()));
+    QObject::connect(&qnode, SIGNAL(jointsErrorArrived()), this, SLOT(update_joints_error()));
 
     // connect cartesian error view update to joints error topic callback
-    QObject::connect(&qnode, SIGNAL(cartesianErrorArrived()), this, SLOT(updateCartesianError()));
+    QObject::connect(&qnode, SIGNAL(cartesianErrorArrived()), this, SLOT(update_cartesian_error()));
+
+    // connect progress bars and send state labels update to progress data service call
+    // service call is done in the run() method of qnode
+    QObject::connect(&qnode, SIGNAL(progressDataArrived()), this, SLOT(update_progress_data()));
+
   }
 
   MainWindow::~MainWindow() {}
@@ -70,7 +76,7 @@ namespace controller_switcher {
    ** Implementation [Slots][manually connected]
    *****************************************************************************/
   
-  void MainWindow::updateJointsState()
+  void MainWindow::update_joints_state()
   {
     std::vector<QLabel*> labels_list;
     std::vector<double> joints_position;
@@ -90,7 +96,7 @@ namespace controller_switcher {
       labels_list.at(i)->setText(QString::number(180.0/3.14 * joints_position.at(i), 'f', 3));
   }
 
-  void MainWindow::updateJointsError()
+  void MainWindow::update_joints_error()
   {
     std::vector<QLabel*> labels_list;
     std::vector<double> joints_error;
@@ -110,7 +116,7 @@ namespace controller_switcher {
       labels_list.at(i)->setText(QString::number(180.0/3.14 * joints_error.at(i), 'f', 3));
   }
 
-  void MainWindow::updateCartesianError()
+  void MainWindow::update_cartesian_error()
   {
     std::vector<QLabel*> labels_list;
     std::vector<double> cartesian_error;
@@ -130,18 +136,89 @@ namespace controller_switcher {
       labels_list.at(i)->setText(QString::number(cartesian_error.at(i), 'f', 3));
   }
 
+  void MainWindow::update_progress_data()
+  { 
+    double cartpos_elapsed, hybrid_pos_elapsed, hybrid_force_elapsed;
+    double cartpos_duration, hybrid_pos_duration, hybrid_force_duration;
+
+    void get_progress_cartpos(double& elapsed, double& duration);
+    void get_progress_hybrid_pos(double& elapsed, double& duration);
+    void get_progress_hybrid_force(double& elapsed, double& duration);
+
+    if (qnode.get_cartpos_controller_state() == true)
+      {
+	qnode.get_progress_cartpos(cartpos_elapsed, cartpos_duration);
+
+	set_progress_bar(ui.progressBar_cartpos, cartpos_elapsed, cartpos_duration);
+
+	set_send_state_label(ui.textSendState_cartpos, false, cartpos_elapsed, cartpos_duration);	
+      }
+    else if(qnode.get_hybrid_controller_state() == true)
+      {
+	qnode.get_progress_hybrid_pos(hybrid_pos_elapsed, hybrid_pos_duration);
+	qnode.get_progress_hybrid_force(hybrid_force_elapsed, hybrid_force_duration);
+
+	set_progress_bar(ui.progressBar_hybrid_pos, hybrid_pos_elapsed, hybrid_pos_duration);
+	set_progress_bar(ui.progressBar_hybrid_force, hybrid_force_elapsed, hybrid_force_duration);
+
+	set_send_state_label(ui.textSendTrajPosState_hybrid, false, hybrid_pos_elapsed, hybrid_pos_duration);
+	set_send_state_label(ui.textSendTrajForceState_hybrid, false, hybrid_force_elapsed, hybrid_force_duration);
+      }
+
+  }
+
+  void MainWindow::set_progress_bar(QProgressBar* bar, double elapsed_time, double total_time)
+  {
+    bar->setValue(elapsed_time / total_time * 100.0);
+  }
+    
   /*****************************************************************************
    ** Implementation [Slots]
    *****************************************************************************/
-
-  /*
-   * These triggers whenever the button is clicked, regardless of whether it
-   * is already checked or not.
-   */
- 
   void MainWindow::on_buttonQuit_clicked(bool check)
   {
     close();    
+  }
+
+  void MainWindow::on_checkBoxEnableForce_hybrid_stateChanged(int state)
+  {
+    bool enable_force;
+    bool outcome;
+
+    enable_force = ui.checkBoxEnableForce_hybrid->isChecked();
+
+    lwr_force_position_controllers::HybridImpedanceSwitchForcePosMsg cmd, response;
+    cmd.enable_force_z = enable_force;
+					      
+    outcome = qnode.set_command<lwr_force_position_controllers::HybridImpedanceSwitchForcePos,\
+    				lwr_force_position_controllers::HybridImpedanceSwitchForcePosMsg>(cmd, response);
+    if(!outcome)
+      {
+	service_error_msg_box("HybridImpedanceController(Switch Force/Position Z)");
+	return;
+      }
+
+    // change the UI depending on the enable force condition
+    if (enable_force)
+      {
+	change_error_z_label("Fz (N)");
+	ui.textForceZ_hybrid->setEnabled(true);
+	ui.buttonSetTrajForce_hybrid->setEnabled(true);
+	ui.textPositionZ_hybrid->setEnabled(false);
+	
+      }
+    else
+      {
+	change_error_z_label("z (m)");
+	ui.textPositionZ_hybrid->setEnabled(true);
+	ui.textForceZ_hybrid->setEnabled(false);
+	ui.buttonSetTrajForce_hybrid->setEnabled(false);
+      }
+
+    // wait to avoid filling with old data
+    sleep(1);
+    fill_hybrid_traj_pos_fields();
+    fill_hybrid_traj_force_fields();
   }
 
   void MainWindow::on_buttonCalibrate_ftsensor_clicked(bool check)
@@ -150,18 +227,11 @@ namespace controller_switcher {
       service_error_msg_box("FtSensorCalibration");
   }
 
-  void MainWindow::on_buttonReload_cartpos_clicked(bool check)
+  void MainWindow::on_buttonSetTrajPos_hybrid_clicked(bool check)
   {
-    fill_cartpos_command_fields();
-  }
-
-  void MainWindow::on_buttonSet_hybrid_clicked(bool check)
-  {
-    double position_x, position_y, position_z, force_z;
+    double position_x, position_y, position_z;
     double alpha, beta, gamma;
-    double kp, kd, km_f, kd_f, kp_im, kd_im;
-    double p2p_traj_duration, force_ref_duration;
-    bool enable_force;
+    double p2p_traj_duration;
     bool outcome;
 
     position_x = ui.textPositionX_hybrid->text().toDouble(&outcome);
@@ -206,12 +276,66 @@ namespace controller_switcher {
 	return;
       }
 
+    p2p_traj_duration = ui.textTraj_duration_hybrid->text().toDouble(&outcome);
+    if (!outcome || (p2p_traj_duration <= 0))
+      {
+	field_error_msg_box("Trajectory Duration");
+	return;
+      }
+
+    lwr_force_position_controllers::HybridImpedanceCommandTrajPosMsg cmd, response;
+    cmd.x = position_x;
+    cmd.y = position_y;
+    cmd.z = position_z;
+    cmd.alpha = alpha;
+    cmd.beta = beta;
+    cmd.gamma = gamma;
+    cmd.p2p_traj_duration = p2p_traj_duration;
+					      
+    outcome = qnode.set_command<lwr_force_position_controllers::HybridImpedanceCommandTrajPos,\
+    				lwr_force_position_controllers::HybridImpedanceCommandTrajPosMsg>(cmd, response);
+    if(!outcome)
+      service_error_msg_box("HybridImpedanceController(Set Position Trajectory)");
+    else
+      set_send_state_label(ui.textSendTrajPosState_hybrid, response.accepted, response.elapsed_time, response.p2p_traj_duration);
+  }
+
+  void MainWindow::on_buttonSetTrajForce_hybrid_clicked(bool check)
+  {
+    double force_z;
+    double force_ref_duration;
+    bool outcome;
+
     force_z = ui.textForceZ_hybrid->text().toDouble(&outcome);
     if (!outcome)
       {
 	field_error_msg_box("ForceZ");
 	return;
       }
+
+    force_ref_duration = ui.textForce_duration_hybrid->text().toDouble(&outcome);
+    if (!outcome || (force_ref_duration <= 0))
+      {
+	field_error_msg_box("Force reference Duration");
+	return;
+      }
+
+    lwr_force_position_controllers::HybridImpedanceCommandTrajForceMsg cmd, response;
+    cmd.forcez = force_z;
+    cmd.force_ref_duration = force_ref_duration;
+
+    outcome = qnode.set_command<lwr_force_position_controllers::HybridImpedanceCommandTrajForce,\
+    				lwr_force_position_controllers::HybridImpedanceCommandTrajForceMsg>(cmd, response);
+    if(!outcome)
+      service_error_msg_box("HybridImpedanceController(Set Force Trajectory)");
+    else
+      set_send_state_label(ui.textSendTrajForceState_hybrid, response.accepted, response.elapsed_time, response.force_ref_duration);
+  }
+
+  void MainWindow::on_buttonSetGains_hybrid_clicked(bool check)
+  {
+    double kp, kd, km_f, kd_f, kp_im, kd_im;
+    bool outcome;
 
     kp = ui.textKp_hybrid->text().toDouble(&outcome);
     if (!outcome || (kp <= 0))
@@ -255,67 +379,24 @@ namespace controller_switcher {
 	return;
       }
 
-    p2p_traj_duration = ui.textTraj_duration_hybrid->text().toDouble(&outcome);
-    if (!outcome || (p2p_traj_duration <= 0))
-      {
-	field_error_msg_box("Trajectory Duration");
-	return;
-      }
+    lwr_force_position_controllers::HybridImpedanceCommandGainsMsg cmd, response;
+    cmd.kp = kp;
+    cmd.kd = kd;
+    cmd.km_f = km_f;
+    cmd.kd_f = kd_f;
+    cmd.kp_im = kp_im;
+    cmd.kd_im = kd_im;
 
-    force_ref_duration = ui.textForce_duration_hybrid->text().toDouble(&outcome);
-    if (!outcome || (force_ref_duration <= 0))
-      {
-	field_error_msg_box("Force reference Duration");
-	return;
-      }
-
-    enable_force = ui.checkBoxEnableForce_hybrid->isChecked();
-
-    lwr_force_position_controllers::HybridImpedanceCommandMsg command_hybrid;
-    command_hybrid.x = position_x;
-    command_hybrid.y = position_y;
-    command_hybrid.z = position_z;
-    command_hybrid.alpha = alpha;
-    command_hybrid.beta = beta;
-    command_hybrid.gamma = gamma;
-    command_hybrid.forcez = force_z;
-    command_hybrid.kp = kp;
-    command_hybrid.kd = kd;
-    command_hybrid.km_f = km_f;
-    command_hybrid.kd_f = kd_f;
-    command_hybrid.p2p_traj_duration = p2p_traj_duration;
-    command_hybrid.force_ref_duration = force_ref_duration;
-    command_hybrid.enable_force = enable_force;
-
-    lwr_force_position_controllers::CartesianInverseCommandMsg command_cartesian_inverse;
-    command_cartesian_inverse.kp_im = kp_im;
-    command_cartesian_inverse.kd_im = kd_im;
-					      
-    outcome = qnode.set_command<lwr_force_position_controllers::HybridImpedanceCommand,\
-    				lwr_force_position_controllers::HybridImpedanceCommandMsg>(command_hybrid);
+    outcome = qnode.set_command<lwr_force_position_controllers::HybridImpedanceCommandGains,\
+    				lwr_force_position_controllers::HybridImpedanceCommandGainsMsg>(cmd, response);
     if(!outcome)
-      service_error_msg_box("HybridImpedanceController(set)");
-
-    outcome = qnode.set_command<lwr_force_position_controllers::CartesianInverseCommand,\
-    				lwr_force_position_controllers::CartesianInverseCommandMsg>(command_cartesian_inverse);
-    if(!outcome)
-      service_error_msg_box("CartesianInverseController(set)");
-
-    // change the UI depending on the enable force condition
-    if (enable_force)
-      change_error_z_label("Fz (N)");
-    else
-      change_error_z_label("z (m)");
-
-    // reload controller configuration
-    fill_hybrid_command_fields();
+      service_error_msg_box("HybridImpedanceController(Set Gains)");
   }
-
-  void MainWindow::on_buttonSet_cartpos_clicked(bool check)
+    
+  void MainWindow::on_buttonSetTraj_cartpos_clicked(bool check)
   {
     double position_x, position_y, position_z;
     double yaw, pitch, roll;
-    double kp, kd;
     double p2p_traj_duration;
     bool hold_last_qdes_found;
     bool outcome;
@@ -362,6 +443,35 @@ namespace controller_switcher {
 	return;
       }
 
+    p2p_traj_duration = ui.textDuration_cartpos->text().toDouble(&outcome);
+    if (!outcome || (p2p_traj_duration <= 0))
+      {
+	field_error_msg_box("Duration");
+	return;
+      }
+
+    lwr_force_position_controllers::CartesianPositionCommandTrajMsg command, response;
+    command.x = position_x;
+    command.y = position_y;
+    command.z = position_z;
+    command.yaw = yaw;
+    command.pitch = pitch;
+    command.roll = roll;
+    command.p2p_traj_duration = p2p_traj_duration;
+
+    outcome = qnode.set_command<lwr_force_position_controllers::CartesianPositionCommandTraj,\
+    				lwr_force_position_controllers::CartesianPositionCommandTrajMsg>(command, response);
+    if(!outcome)
+      service_error_msg_box("CartesianPositionController(Set Traj)");
+    else
+      set_send_state_label(ui.textSendState_cartpos, response.accepted, response.elapsed_time, response.p2p_traj_duration);
+  }
+
+  void MainWindow::on_buttonSetGains_cartpos_clicked(bool check)
+  {
+    bool outcome;
+    double kp, kd;
+
     kp = ui.textKp_cartpos->text().toDouble(&outcome);
     if (!outcome || (kp <= 0))
       {
@@ -376,32 +486,14 @@ namespace controller_switcher {
 	return;
       }
 
-    p2p_traj_duration = ui.textDuration_cartpos->text().toDouble(&outcome);
-    if (!outcome || (p2p_traj_duration <= 0))
-      {
-	field_error_msg_box("Duration");
-	return;
-      }
-
-
-    hold_last_qdes_found = ui.checkBoxUseLastQ_cartpos->isChecked();
-
-    lwr_force_position_controllers::CartesianPositionCommandMsg command;
-    command.x = position_x;
-    command.y = position_y;
-    command.z = position_z;
-    command.yaw = yaw;
-    command.pitch = pitch;
-    command.roll = roll;
+    lwr_force_position_controllers::CartesianPositionCommandGainsMsg command, response;
     command.kp = kp;
     command.kd = kd;
-    command.p2p_traj_duration = p2p_traj_duration;
-    command.hold_last_qdes_found = hold_last_qdes_found;
 
-    outcome = qnode.set_command<lwr_force_position_controllers::CartesianPositionCommand,\
-    				lwr_force_position_controllers::CartesianPositionCommandMsg>(command);
+    outcome = qnode.set_command<lwr_force_position_controllers::CartesianPositionCommandGains,\
+    				lwr_force_position_controllers::CartesianPositionCommandGainsMsg>(command, response);
     if(!outcome)
-      service_error_msg_box("CartesianPositionController(set)");
+      service_error_msg_box("CartesianPositionController(Set Gains)");
   }
 
   void MainWindow::on_buttonSwitch_clicked(bool check)
@@ -409,8 +501,12 @@ namespace controller_switcher {
     std::string stop_controller = ui.comboRunningCtl->currentText().toStdString();
     std::string start_controller = ui.comboStoppedCtl->currentText().toStdString();
 
-    if(qnode.switch_controllers(start_controller, stop_controller))
+    bool switch_succeded;
+    if(qnode.switch_controllers(start_controller, stop_controller, switch_succeded) && switch_succeded)
       {
+	// wait before reloading controllers because after the service call
+	// it is not sure that controller list provided by controller manager is updated
+	sleep(1);
 	// if controller switch succeded reload controller list in combo boxes
 	fill_controllers_list();
 	// Let the ros node knows that cartesian position controller is started
@@ -419,9 +515,16 @@ namespace controller_switcher {
 	qnode.set_hybrid_controller_state(start_controller == "hybrid_impedance_controller");
 
 	if(start_controller == "cartesian_position_controller")
-	  fill_cartpos_command_fields();
+	  {
+	    fill_cartpos_traj_fields();
+	    fill_cartpos_gains_fields();
+	  }
 	if(start_controller == "hybrid_impedance_controller")
-	  fill_hybrid_command_fields();
+	  {
+	    fill_hybrid_traj_pos_fields();
+	    fill_hybrid_traj_force_fields();
+	    fill_hybrid_gains_fields();
+	  }
 
       }
   }
@@ -452,64 +555,95 @@ namespace controller_switcher {
       ui.comboStoppedCtl->addItem(QString::fromStdString(*it));
   }
 
-  void MainWindow::fill_cartpos_command_fields()
+  void MainWindow::fill_cartpos_traj_fields()
   {
     bool outcome;
 
     // Cartesian Position Controller
-    lwr_force_position_controllers::CartesianPositionCommandMsg cartpos_current_cmd;
+    lwr_force_position_controllers::CartesianPositionCommandTrajMsg cartpos_current_traj;
 						      
-    outcome = qnode.get_current_cmd<lwr_force_position_controllers::CartesianPositionCommand,\
-    				    lwr_force_position_controllers::CartesianPositionCommandMsg>(cartpos_current_cmd);
+    outcome = qnode.get_current_cmd<lwr_force_position_controllers::CartesianPositionCommandTraj,\
+    				    lwr_force_position_controllers::CartesianPositionCommandTrajMsg>(cartpos_current_traj);
     if(!outcome)
-      service_error_msg_box("CartesianPositionController(get)");
+      service_error_msg_box("CartesianPositionController(Get Current Traj)");
 
-    ui.textPositionX_cartpos->setText(QString::number(cartpos_current_cmd.x,'f', 3));
-    ui.textPositionY_cartpos->setText(QString::number(cartpos_current_cmd.y,'f', 3));
-    ui.textPositionZ_cartpos->setText(QString::number(cartpos_current_cmd.z,'f', 3));
-    ui.textYaw_cartpos->setText(QString::number(cartpos_current_cmd.yaw,'f', 3));
-    ui.textPitch_cartpos->setText(QString::number(cartpos_current_cmd.pitch,'f', 3));
-    ui.textRoll_cartpos->setText(QString::number(cartpos_current_cmd.roll,'f', 3));
-    ui.textKp_cartpos->setText(QString::number(cartpos_current_cmd.kp,'f', 3));
-    ui.textKd_cartpos->setText(QString::number(cartpos_current_cmd.kd,'f', 3));
-    ui.textDuration_cartpos->setText(QString::number(cartpos_current_cmd.p2p_traj_duration,'f', 3));
+    ui.textPositionX_cartpos->setText(QString::number(cartpos_current_traj.x,'f', 3));
+    ui.textPositionY_cartpos->setText(QString::number(cartpos_current_traj.y,'f', 3));
+    ui.textPositionZ_cartpos->setText(QString::number(cartpos_current_traj.z,'f', 3));
+    ui.textYaw_cartpos->setText(QString::number(cartpos_current_traj.yaw,'f', 3));
+    ui.textPitch_cartpos->setText(QString::number(cartpos_current_traj.pitch,'f', 3));
+    ui.textRoll_cartpos->setText(QString::number(cartpos_current_traj.roll,'f', 3));
+    ui.textDuration_cartpos->setText(QString::number(cartpos_current_traj.p2p_traj_duration,'f', 3));
   }
 
-  void MainWindow::fill_hybrid_command_fields()
+  void MainWindow::fill_cartpos_gains_fields()
   {
-
     bool outcome;
 
-    lwr_force_position_controllers::HybridImpedanceCommandMsg hybrid_curr_cmd;
-    lwr_force_position_controllers::CartesianInverseCommandMsg cartesian_inverse_curr_cmd;
-
-    outcome = qnode.get_current_cmd<lwr_force_position_controllers::HybridImpedanceCommand,\
-    				    lwr_force_position_controllers::HybridImpedanceCommandMsg>(hybrid_curr_cmd);
+    lwr_force_position_controllers::CartesianPositionCommandGainsMsg cartpos_current_gains;
+						      
+    outcome = qnode.get_current_cmd<lwr_force_position_controllers::CartesianPositionCommandGains,\
+    				    lwr_force_position_controllers::CartesianPositionCommandGainsMsg>(cartpos_current_gains);
     if(!outcome)
-      service_error_msg_box("HybridImpedanceController(get)");
+      service_error_msg_box("CartesianPositionController(Get Current Gains)");
 
-    outcome = qnode.get_current_cmd<lwr_force_position_controllers::CartesianInverseCommand,\
-    				    lwr_force_position_controllers::CartesianInverseCommandMsg>(cartesian_inverse_curr_cmd);
+    ui.textKp_cartpos->setText(QString::number(cartpos_current_gains.kp,'f', 0));
+    ui.textKd_cartpos->setText(QString::number(cartpos_current_gains.kd,'f', 0));
+  }
 
+
+  void MainWindow::fill_hybrid_traj_pos_fields()
+  {
+    bool outcome;
+
+    lwr_force_position_controllers::HybridImpedanceCommandTrajPosMsg current_cmd;
+
+    outcome = qnode.get_current_cmd<lwr_force_position_controllers::HybridImpedanceCommandTrajPos,\
+    				    lwr_force_position_controllers::HybridImpedanceCommandTrajPosMsg>(current_cmd);
     if(!outcome)
-      service_error_msg_box("CartesianInverseController(get)");
+      service_error_msg_box("HybridImpedanceController(Get Position Trajectory)");
 
-    ui.textPositionX_hybrid->setText(QString::number(hybrid_curr_cmd.x,'f', 3));
-    ui.textPositionY_hybrid->setText(QString::number(hybrid_curr_cmd.y,'f', 3));
-    ui.textPositionZ_hybrid->setText(QString::number(hybrid_curr_cmd.z,'f', 3));
-    ui.textAlpha_hybrid->setText(QString::number(hybrid_curr_cmd.alpha,'f', 3));
-    ui.textBeta_hybrid->setText(QString::number(hybrid_curr_cmd.beta,'f', 3));
-    ui.textGamma_hybrid->setText(QString::number(hybrid_curr_cmd.gamma,'f', 3));
-    ui.textForceZ_hybrid->setText(QString::number(hybrid_curr_cmd.forcez,'f', 3));
-    ui.textKp_hybrid->setText(QString::number(hybrid_curr_cmd.kp,'f', 3));
-    ui.textKd_hybrid->setText(QString::number(hybrid_curr_cmd.kd,'f', 3));
-    ui.textKmf_hybrid->setText(QString::number(hybrid_curr_cmd.km_f,'f', 3));
-    ui.textKdf_hybrid->setText(QString::number(hybrid_curr_cmd.kd_f,'f', 3));
-    ui.textTraj_duration_hybrid->setText(QString::number(hybrid_curr_cmd.p2p_traj_duration));
-    ui.textForce_duration_hybrid->setText(QString::number(hybrid_curr_cmd.force_ref_duration));
-    ui.checkBoxEnableForce_hybrid->setChecked(hybrid_curr_cmd.enable_force);
-    ui.textKp_null_hybrid->setText(QString::number(cartesian_inverse_curr_cmd.kp_im));
-    ui.textKd_null_hybrid->setText(QString::number(cartesian_inverse_curr_cmd.kd_im));
+    ui.textPositionX_hybrid->setText(QString::number(current_cmd.x,'f', 3));
+    ui.textPositionY_hybrid->setText(QString::number(current_cmd.y,'f', 3));
+    ui.textPositionZ_hybrid->setText(QString::number(current_cmd.z,'f', 3));
+    ui.textAlpha_hybrid->setText(QString::number(current_cmd.alpha,'f', 3));
+    ui.textBeta_hybrid->setText(QString::number(current_cmd.beta,'f', 3));
+    ui.textGamma_hybrid->setText(QString::number(current_cmd.gamma,'f', 3));
+    ui.textTraj_duration_hybrid->setText(QString::number(current_cmd.p2p_traj_duration));
+  }
+
+  void MainWindow::fill_hybrid_traj_force_fields()
+  {
+    bool outcome;
+
+    lwr_force_position_controllers::HybridImpedanceCommandTrajForceMsg current_cmd;
+
+    outcome = qnode.get_current_cmd<lwr_force_position_controllers::HybridImpedanceCommandTrajForce,\
+    				    lwr_force_position_controllers::HybridImpedanceCommandTrajForceMsg>(current_cmd);
+    if(!outcome)
+      service_error_msg_box("HybridImpedanceController(Get Force Trajectory)");
+
+    ui.textForceZ_hybrid->setText(QString::number(current_cmd.forcez,'f', 3));
+    ui.textForce_duration_hybrid->setText(QString::number(current_cmd.force_ref_duration));
+  }
+
+  void MainWindow::fill_hybrid_gains_fields()
+  {
+    bool outcome;
+
+    lwr_force_position_controllers::HybridImpedanceCommandGainsMsg current_cmd;
+
+    outcome = qnode.get_current_cmd<lwr_force_position_controllers::HybridImpedanceCommandGains,\
+    				    lwr_force_position_controllers::HybridImpedanceCommandGainsMsg>(current_cmd);
+    if(!outcome)
+      service_error_msg_box("HybridImpedanceController(Get Gains)");
+
+    ui.textKp_hybrid->setText(QString::number(current_cmd.kp,'f', 0));
+    ui.textKd_hybrid->setText(QString::number(current_cmd.kd,'f', 0));
+    ui.textKmf_hybrid->setText(QString::number(current_cmd.km_f,'f', 0));
+    ui.textKdf_hybrid->setText(QString::number(current_cmd.kd_f,'f', 0));
+    ui.textKp_null_hybrid->setText(QString::number(current_cmd.kp_im, 'f', 0));
+    ui.textKd_null_hybrid->setText(QString::number(current_cmd.kd_im, 'f', 0));
   }
 
   void MainWindow::change_error_z_label(std::string label_text)
@@ -517,14 +651,23 @@ namespace controller_switcher {
     ui.HybridZLabel->setText(QString::fromStdString(label_text));
   }
 
-  void MainWindow::fill_controllers_command_fields()
+  void MainWindow::set_send_state_label(QLabel* label, bool accepted, double elapsed, double duration)
   {
-    // Cartesian Position Controller
-    fill_cartpos_command_fields();
+    QString label_text;
 
-    // Hybrid Impedance Controller
-    fill_hybrid_command_fields();
+    if(accepted)
+      label_text = QString::fromStdString("Accepted");
+    else 
+      {
+	if (elapsed >= duration)
+	  label_text = QString::fromStdString("Completed ");
+	else
+	  label_text = QString::fromStdString("Wait ") +\
+	    QString::number(duration - elapsed, 'f', 0) +\
+	    QString::fromStdString(" s");
+      }
 
+    label->setText(label_text);
   }
 
   void MainWindow::field_error_msg_box(std::string field_name)

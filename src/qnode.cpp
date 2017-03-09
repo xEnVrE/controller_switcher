@@ -58,14 +58,18 @@ namespace controller_switcher {
     				    &controller_switcher::QNode::joints_state_callback, this);
 
     sub_joints_error_ = n.subscribe("/" + robot_namespace_ + "/cartesian_position_controller/error", 1000,\
-				     &controller_switcher::QNode::joints_error_callback, this);
+				    &controller_switcher::QNode::joints_error_callback, this);
 
     sub_cartesian_error_ = n.subscribe("/" + robot_namespace_ + "/hybrid_impedance_controller/error", 1000,\
-				     &controller_switcher::QNode::cartesian_error_callback, this);
+				       &controller_switcher::QNode::cartesian_error_callback, this);
 
 
     // sleep so that controller spawner can load all the controllers
     ros::Duration(3).sleep();
+
+    // reset controller state
+    is_cartpos_controller_active_ = false;
+    is_hybrid_controller_active_ = false;
 
     return true;
   }
@@ -162,7 +166,7 @@ namespace controller_switcher {
     return true;
   }
 
-  bool QNode::switch_controllers(const std::string start_controller, const std::string stop_controller)
+  bool QNode::switch_controllers(const std::string start_controller, const std::string stop_controller, bool& switch_ok)
   {
     ros::NodeHandle n;
     ros::ServiceClient client = n.serviceClient<controller_manager_msgs::SwitchController>("/" + robot_namespace_ + "/controller_manager/switch_controller");
@@ -178,8 +182,9 @@ namespace controller_switcher {
     if(!client.call(service))
       return false;
 
-    return true;
+    switch_ok = service.response.ok;
 
+    return true;
   }
 
   void QNode::set_robot_namespace(std::string name)
@@ -194,19 +199,59 @@ namespace controller_switcher {
     std_srvs::Empty service;
 
     client = n.serviceClient<std_srvs::Empty>("/my_sensor/ft_sensor_hw/calibrate");
-   
+
     return client.call(service);
 
   }
 
+  void QNode::get_trajectories_progress()
+  {
+    get_current_cmd<lwr_force_position_controllers::CartesianPositionCommandTraj,\
+		    lwr_force_position_controllers::CartesianPositionCommandTrajMsg>(progress_cartpos_);
+    get_current_cmd<lwr_force_position_controllers::HybridImpedanceCommandTrajPos,\
+		    lwr_force_position_controllers::HybridImpedanceCommandTrajPosMsg>(progress_hybrid_pos_);
+    get_current_cmd<lwr_force_position_controllers::HybridImpedanceCommandTrajForce,\
+		    lwr_force_position_controllers::HybridImpedanceCommandTrajForceMsg>(progress_hybrid_force_);
+  }
+
+  void QNode::get_progress_cartpos(double& elapsed, double& duration)
+  {
+    elapsed = progress_cartpos_.elapsed_time;
+    duration = progress_cartpos_.p2p_traj_duration;
+  }
+  void QNode::get_progress_hybrid_pos(double& elapsed, double& duration)
+  {
+    elapsed = progress_hybrid_pos_.elapsed_time;
+    duration = progress_hybrid_pos_.p2p_traj_duration;
+  }
+  void QNode::get_progress_hybrid_force(double& elapsed, double& duration)
+  {
+    elapsed = progress_hybrid_force_.elapsed_time;
+    duration = progress_hybrid_force_.force_ref_duration;
+  }
+
   void QNode::run()
   {
-    //ros::Rate loop_rate(1);
-    //while ( ros::ok() ) {
-    //ros::spinOnce();
-    //loop_rate.sleep();
-    //}
-    ros::spin();
+    double frequency = 100;
+    double step = 1.0 / frequency;
+
+    ros::Rate loop_rate(33);
+    double elapsed = 0;
+    while ( ros::ok() ) 
+      {
+	ros::spinOnce();
+	loop_rate.sleep();
+
+	// get progress of trajectories at about 1Hz
+	elapsed += step;
+	if (elapsed > 1)
+	  {
+	    elapsed = 0;
+	    get_trajectories_progress();
+	    Q_EMIT progressDataArrived();
+	  }
+      }
+    //ros::spin();
     //Q_EMIT rosShutdown(); // used to signal the gui for a shutdown (useful to roslaunch)
   }
 
