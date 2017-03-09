@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>596</width>
-    <height>772</height>
+    <width>648</width>
+    <height>824</height>
    </rect>
   </property>
   <property name="maximumSize">
@@ -381,55 +381,13 @@
                   <item>
                    <widget class="QLineEdit" name="textForceZ_hybrid">
                     <property name="enabled">
-                     <bool>true</bool>
+                     <bool>false</bool>
                     </property>
                     <property name="maximumSize">
                      <size>
                       <width>60</width>
                       <height>30</height>
                      </size>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </item>
-                <item>
-                 <layout class="QHBoxLayout" name="HybridSetEnableForceHorizontal">
-                  <property name="leftMargin">
-                   <number>5</number>
-                  </property>
-                  <property name="topMargin">
-                   <number>5</number>
-                  </property>
-                  <property name="rightMargin">
-                   <number>5</number>
-                  </property>
-                  <property name="bottomMargin">
-                   <number>5</number>
-                  </property>
-                  <item>
-                   <spacer name="HybridSetEnableForceSpacer">
-                    <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>40</width>
-                      <height>20</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
-                  <item>
-                   <widget class="QCheckBox" name="checkBoxEnableForce_hybrid">
-                    <property name="enabled">
-                     <bool>true</bool>
-                    </property>
-                    <property name="layoutDirection">
-                     <enum>Qt::RightToLeft</enum>
-                    </property>
-                    <property name="text">
-                     <string>Enable Force</string>
                     </property>
                    </widget>
                   </item>
@@ -543,6 +501,240 @@
                      </size>
                     </property>
                    </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="HybridSetTrajDurationHorizontal">
+                  <item>
+                   <widget class="QLabel" name="HybridSetTrajDurationLabel">
+                    <property name="text">
+                     <string>Traj D       </string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="HybridSetTrajDurationSpacer">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="textTraj_duration_hybrid">
+                    <property name="enabled">
+                     <bool>true</bool>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>60</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="HybridSetForceDurationHorizontal">
+                  <item>
+                   <widget class="QLabel" name="HybridSetForceDurationLabel">
+                    <property name="text">
+                     <string>Force D    </string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="HybridSetForceDurationSpacer">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="textForce_duration_hybrid">
+                    <property name="enabled">
+                     <bool>true</bool>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>60</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="HybridSetButtonHorizontal">
+                  <item>
+                   <widget class="QPushButton" name="buttonSetTrajPos_hybrid">
+                    <property name="enabled">
+                     <bool>true</bool>
+                    </property>
+                    <property name="text">
+                     <string>Set Trajectory</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="HybridSetButtonSpacer">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="buttonSetTrajForce_hybrid">
+                    <property name="enabled">
+                     <bool>false</bool>
+                    </property>
+                    <property name="text">
+                     <string>Set Force</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="HybridSendStateHorizontal">
+                  <item>
+                   <widget class="QLabel" name="textSendTrajPosState_hybrid">
+                    <property name="text">
+                     <string/>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="HybridSendStateSpacer">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="textSendTrajForceState_hybrid">
+                    <property name="text">
+                     <string/>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="HybridProgressBarHorizontal">
+                  <item>
+                   <widget class="QProgressBar" name="progressBar_hybrid_pos">
+                    <property name="value">
+                     <number>0</number>
+                    </property>
+                    <property name="textVisible">
+                     <bool>false</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="HybridProgressBarHorizontalSpacer">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QProgressBar" name="progressBar_hybrid_force">
+                    <property name="value">
+                     <number>0</number>
+                    </property>
+                    <property name="textVisible">
+                     <bool>false</bool>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="HybridSetEnableForceHorizontal">
+                  <property name="leftMargin">
+                   <number>5</number>
+                  </property>
+                  <property name="topMargin">
+                   <number>5</number>
+                  </property>
+                  <property name="rightMargin">
+                   <number>5</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>5</number>
+                  </property>
+                  <item>
+                   <spacer name="HybridSetEnableForceSpacer">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="checkBoxEnableForce_hybrid">
+                    <property name="enabled">
+                     <bool>true</bool>
+                    </property>
+                    <property name="layoutDirection">
+                     <enum>Qt::RightToLeft</enum>
+                    </property>
+                    <property name="text">
+                     <string>Enable Force</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="HybridSetEnableForceSpacer2">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
                   </item>
                  </layout>
                 </item>
@@ -769,16 +961,9 @@
                  </layout>
                 </item>
                 <item>
-                 <layout class="QHBoxLayout" name="HybridSetTrajDurationHorizontal">
+                 <layout class="QHBoxLayout" name="HybridSetGainsButtonHorizontal">
                   <item>
-                   <widget class="QLabel" name="HybridSetTrajDurationLabel">
-                    <property name="text">
-                     <string>Traj D       </string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <spacer name="HybridSetTrajDurationSpacer">
+                   <spacer name="HybridSetGainsButtonSpacer1">
                     <property name="orientation">
                      <enum>Qt::Horizontal</enum>
                     </property>
@@ -791,84 +976,17 @@
                    </spacer>
                   </item>
                   <item>
-                   <widget class="QLineEdit" name="textTraj_duration_hybrid">
-                    <property name="enabled">
-                     <bool>true</bool>
-                    </property>
-                    <property name="maximumSize">
-                     <size>
-                      <width>60</width>
-                      <height>30</height>
-                     </size>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </item>
-                <item>
-                 <layout class="QHBoxLayout" name="HybridSetForceDurationHorizontal">
-                  <item>
-                   <widget class="QLabel" name="HybridSetForceDurationLabel">
-                    <property name="text">
-                     <string>Force D    </string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <spacer name="HybridSetForceDurationSpacer">
-                    <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>40</width>
-                      <height>20</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
-                  <item>
-                   <widget class="QLineEdit" name="textForce_duration_hybrid">
-                    <property name="enabled">
-                     <bool>true</bool>
-                    </property>
-                    <property name="maximumSize">
-                     <size>
-                      <width>60</width>
-                      <height>30</height>
-                     </size>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </item>
-                <item>
-                 <layout class="QHBoxLayout" name="HybridSetButtonHorizontal">
-                  <item>
-                   <spacer name="HybridSetButtonSpacer1">
-                    <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>40</width>
-                      <height>20</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
-                  <item>
-                   <widget class="QPushButton" name="buttonSet_hybrid">
+                   <widget class="QPushButton" name="buttonSetGains_hybrid">
                     <property name="enabled">
                      <bool>true</bool>
                     </property>
                     <property name="text">
-                     <string>Set</string>
+                     <string>Set Gains</string>
                     </property>
                    </widget>
                   </item>
                   <item>
-                   <spacer name="HybridSetButtonSpacer2">
+                   <spacer name="HybridSetGainsButtonSpacer2">
                     <property name="orientation">
                      <enum>Qt::Horizontal</enum>
                     </property>
@@ -1170,6 +1288,160 @@
                  </layout>
                 </item>
                 <item>
+                 <layout class="QHBoxLayout" name="CartesianSetDurationHorizontal">
+                  <item>
+                   <widget class="QLabel" name="CartesianSetDurationLabel">
+                    <property name="text">
+                     <string>Duration    </string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="CartesianSetDurationSpacer">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="textDuration_cartpos">
+                    <property name="enabled">
+                     <bool>true</bool>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>60</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="CartesianSetTrajButtonHorizontal">
+                  <item>
+                   <spacer name="CartesianSetTrajButtonSpacer1">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="buttonSetTraj_cartpos">
+                    <property name="enabled">
+                     <bool>true</bool>
+                    </property>
+                    <property name="text">
+                     <string>Set Trajectory</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="CartesianSetTrajButtonSpacer2">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="CartesianSendStateHorizontal">
+                  <item>
+                   <spacer name="CartesianSendStateSpacer1">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="textSendState_cartpos">
+                    <property name="text">
+                     <string/>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="CartesianSendStateSpacer2">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="CartesianProgressBarHorizontal">
+                  <item>
+                   <spacer name="CartesianProgressBar1">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QProgressBar" name="progressBar_cartpos">
+                    <property name="value">
+                     <number>0</number>
+                    </property>
+                    <property name="textVisible">
+                     <bool>false</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="CartesianProgressBar2">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                 </layout>
+                </item>
+                <item>
                  <layout class="QHBoxLayout" name="CartesianSetKpHorizontal">
                   <item>
                    <widget class="QLabel" name="CartesianSetKpLabel">
@@ -1244,16 +1516,9 @@
                  </layout>
                 </item>
                 <item>
-                 <layout class="QHBoxLayout" name="CartesianSetDurationHorizontal">
+                 <layout class="QHBoxLayout" name="CartesianSetGainsButtonHorizontal">
                   <item>
-                   <widget class="QLabel" name="CartesianSetDurationLabel">
-                    <property name="text">
-                     <string>Duration    </string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <spacer name="CartesianSetDurationSpacer">
+                   <spacer name="CartesianSetGainsButtonSpacer1">
                     <property name="orientation">
                      <enum>Qt::Horizontal</enum>
                     </property>
@@ -1266,113 +1531,17 @@
                    </spacer>
                   </item>
                   <item>
-                   <widget class="QLineEdit" name="textDuration_cartpos">
-                    <property name="enabled">
-                     <bool>true</bool>
-                    </property>
-                    <property name="maximumSize">
-                     <size>
-                      <width>60</width>
-                      <height>30</height>
-                     </size>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </item>
-                <item>
-                 <layout class="QHBoxLayout" name="CartesianReloadPosHorizontal">
-                  <item>
-                   <spacer name="CartesianReloadPosSpacer">
-                    <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>40</width>
-                      <height>20</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
-                  <item>
-                   <widget class="QPushButton" name="buttonReload_cartpos">
+                   <widget class="QPushButton" name="buttonSetGains_cartpos">
                     <property name="enabled">
                      <bool>true</bool>
                     </property>
                     <property name="text">
-                     <string>Reload position</string>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </item>
-                <item>
-                 <layout class="QHBoxLayout" name="CartesianSetHoldQHorizontal">
-                  <property name="leftMargin">
-                   <number>5</number>
-                  </property>
-                  <property name="topMargin">
-                   <number>5</number>
-                  </property>
-                  <property name="rightMargin">
-                   <number>5</number>
-                  </property>
-                  <property name="bottomMargin">
-                   <number>5</number>
-                  </property>
-                  <item>
-                   <spacer name="CartesianSetHoldQSpacer">
-                    <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>40</width>
-                      <height>20</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
-                  <item>
-                   <widget class="QCheckBox" name="checkBoxUseLastQ_cartpos">
-                    <property name="layoutDirection">
-                     <enum>Qt::RightToLeft</enum>
-                    </property>
-                    <property name="text">
-                     <string>Hold last q found</string>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </item>
-                <item>
-                 <layout class="QHBoxLayout" name="CartesianSetButtonHorizontal">
-                  <item>
-                   <spacer name="CartesianSetButtonSpacer1">
-                    <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>40</width>
-                      <height>20</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
-                  <item>
-                   <widget class="QPushButton" name="buttonSet_cartpos">
-                    <property name="enabled">
-                     <bool>true</bool>
-                    </property>
-                    <property name="text">
-                     <string>Set</string>
+                     <string>Set Gains</string>
                     </property>
                    </widget>
                   </item>
                   <item>
-                   <spacer name="CartesianSetButtonSpacer2">
+                   <spacer name="CartesianSetGainsButtonSpacer2">
                     <property name="orientation">
                      <enum>Qt::Horizontal</enum>
                     </property>
@@ -1430,6 +1599,19 @@
                      <string>Calibrate</string>
                     </property>
                    </widget>
+                  </item>
+                  <item>
+                   <spacer name="FtSensorCalibrateSpacer2">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
                   </item>
                  </layout>
                 </item>
@@ -2183,7 +2365,7 @@
   </widget>
  </widget>
  <tabstops>
-  <tabstop>buttonSet_hybrid</tabstop>
+  <tabstop>buttonSetGains_hybrid</tabstop>
  </tabstops>
  <resources>
   <include location="../resources/images.qrc"/>
