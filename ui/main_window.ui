@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>648</width>
-    <height>824</height>
+    <width>776</width>
+    <height>914</height>
    </rect>
   </property>
   <property name="maximumSize">
@@ -109,7 +109,7 @@
          <number>10</number>
         </property>
         <property name="topMargin">
-         <number>10</number>
+         <number>0</number>
         </property>
         <property name="rightMargin">
          <number>10</number>
@@ -119,13 +119,6 @@
         </property>
         <item>
          <layout class="QVBoxLayout" name="ControllersVertical">
-          <item>
-           <widget class="QLabel" name="SwitchControllerLabel">
-            <property name="text">
-             <string>Switch Controller</string>
-            </property>
-           </widget>
-          </item>
           <item>
            <layout class="QVBoxLayout" name="SwitcherVertical">
             <property name="leftMargin">
@@ -184,6 +177,13 @@
             </item>
             <item>
              <layout class="QHBoxLayout" name="SwitcherButtonHorizontal">
+              <item>
+               <widget class="QLabel" name="SwitchControllerLabel">
+                <property name="text">
+                 <string>Switch Controller</string>
+                </property>
+               </widget>
+              </item>
               <item>
                <spacer name="SwitcherButtonSpacer">
                 <property name="orientation">
@@ -741,14 +741,14 @@
                 <item>
                  <layout class="QHBoxLayout" name="HybridSetKpHorizontal">
                   <item>
-                   <widget class="QLabel" name="HybridSetKpLabel">
+                   <widget class="QLabel" name="HybridSetKpPosLabel">
                     <property name="text">
-                     <string>Kp            </string>
+                     <string>Kp (pos)</string>
                     </property>
                    </widget>
                   </item>
                   <item>
-                   <spacer name="HybridSetKpSpacer">
+                   <spacer name="HybridSetKpSpacer1">
                     <property name="orientation">
                      <enum>Qt::Horizontal</enum>
                     </property>
@@ -761,7 +761,40 @@
                    </spacer>
                   </item>
                   <item>
-                   <widget class="QLineEdit" name="textKp_hybrid">
+                   <widget class="QLineEdit" name="textKp_pos_hybrid">
+                    <property name="enabled">
+                     <bool>true</bool>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>60</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="HybridSetKpAttLabel">
+                    <property name="text">
+                     <string>Kp (att)</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="HybridSetKpSpacer2">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="textKp_att_hybrid">
                     <property name="enabled">
                      <bool>true</bool>
                     </property>
@@ -889,14 +922,14 @@
                 <item>
                  <layout class="QHBoxLayout" name="HybridSetKpNullHorizontal">
                   <item>
-                   <widget class="QLabel" name="HorizontalsetKpNullLabel">
+                   <widget class="QLabel" name="HorizontalsetKpNullZLabel">
                     <property name="text">
-                     <string>Kp Null     </string>
+                     <string>Kp Null (z)</string>
                     </property>
                    </widget>
                   </item>
                   <item>
-                   <spacer name="HorizontalSetKpNullSpacer">
+                   <spacer name="HorizontalSetKpNullSpacer1">
                     <property name="orientation">
                      <enum>Qt::Horizontal</enum>
                     </property>
@@ -909,7 +942,40 @@
                    </spacer>
                   </item>
                   <item>
-                   <widget class="QLineEdit" name="textKp_null_hybrid">
+                   <widget class="QLineEdit" name="textKp_null_z_hybrid">
+                    <property name="enabled">
+                     <bool>true</bool>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>60</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="HorizontalsetKpNullAttLabel">
+                    <property name="text">
+                     <string>Kp Null (att)</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="HorizontalSetKpNullSpacer2">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="textKp_null_att_hybrid">
                     <property name="enabled">
                      <bool>true</bool>
                     </property>
@@ -1446,7 +1512,7 @@
                   <item>
                    <widget class="QLabel" name="CartesianSetKpLabel">
                     <property name="text">
-                     <string>kp              </string>
+                     <string>Kp              </string>
                     </property>
                    </widget>
                   </item>
@@ -1479,11 +1545,85 @@
                  </layout>
                 </item>
                 <item>
+                 <layout class="QHBoxLayout" name="CartesianSetKpHorizontal_">
+                  <item>
+                   <widget class="QLabel" name="CartesianSetKpA5Label">
+                    <property name="text">
+                     <string>Kp (a5) </string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="CartesianSetKpA5Spacer">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="textKp_a5_cartpos">
+                    <property name="enabled">
+                     <bool>true</bool>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>60</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="CartesianSetKpA6Horizontal">
+                  <item>
+                   <widget class="QLabel" name="CartesianSetKpA6Label">
+                    <property name="text">
+                     <string>Kp (a6) </string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="CartesianSetKpSpacer_5">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="textKp_a6_cartpos">
+                    <property name="enabled">
+                     <bool>true</bool>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>60</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
                  <layout class="QHBoxLayout" name="CartesianSetKdHorizontal">
                   <item>
                    <widget class="QLabel" name="CartesianSetKdLabel">
                     <property name="text">
-                     <string>kd              </string>
+                     <string>Kd              </string>
                     </property>
                    </widget>
                   </item>

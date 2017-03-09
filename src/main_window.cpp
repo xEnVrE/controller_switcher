@@ -46,7 +46,7 @@ namespace controller_switcher {
 				    qApp->desktop()->availableGeometry()));
 
     // force size of the window
-    setFixedSize(760, 760);
+    setFixedSize(760, 800);
 
     // fill controller lists from robot_namespace_/controller_manager/ListControllers
     fill_controllers_list();
@@ -334,13 +334,20 @@ namespace controller_switcher {
 
   void MainWindow::on_buttonSetGains_hybrid_clicked(bool check)
   {
-    double kp, kd, km_f, kd_f, kp_im, kd_im;
+    double kp_pos, kp_att, kd, km_f, kd_f, kp_z_im, kp_att_im, kd_im;
     bool outcome;
 
-    kp = ui.textKp_hybrid->text().toDouble(&outcome);
-    if (!outcome || (kp <= 0))
+    kp_pos = ui.textKp_pos_hybrid->text().toDouble(&outcome);
+    if (!outcome || (kp_pos <= 0))
       {
-	field_error_msg_box("Kp");
+	field_error_msg_box("Kp (pos)");
+	return;
+      }
+
+    kp_att = ui.textKp_att_hybrid->text().toDouble(&outcome);
+    if (!outcome || (kp_att <= 0))
+      {
+	field_error_msg_box("Kp (att)");
 	return;
       }
 
@@ -365,10 +372,17 @@ namespace controller_switcher {
 	return;
       }
 
-    kp_im = ui.textKp_null_hybrid->text().toDouble(&outcome);
-    if (!outcome || (kp_im <= 0))
+    kp_z_im = ui.textKp_null_z_hybrid->text().toDouble(&outcome);
+    if (!outcome || (kp_z_im <= 0))
       {
-	field_error_msg_box("Kp Null");
+	field_error_msg_box("Kp Null (z)");
+	return;
+      }
+
+    kp_att_im = ui.textKp_null_att_hybrid->text().toDouble(&outcome);
+    if (!outcome || (kp_att_im <= 0))
+      {
+	field_error_msg_box("Kp Null (att)");
 	return;
       }
 
@@ -380,11 +394,13 @@ namespace controller_switcher {
       }
 
     lwr_force_position_controllers::HybridImpedanceCommandGainsMsg cmd, response;
-    cmd.kp = kp;
+    cmd.kp_pos = kp_pos;
+    cmd.kp_att = kp_att;
     cmd.kd = kd;
     cmd.km_f = km_f;
     cmd.kd_f = kd_f;
-    cmd.kp_im = kp_im;
+    cmd.kp_z_im = kp_z_im;
+    cmd.kp_att_im = kp_att_im;
     cmd.kd_im = kd_im;
 
     outcome = qnode.set_command<lwr_force_position_controllers::HybridImpedanceCommandGains,\
@@ -470,12 +486,26 @@ namespace controller_switcher {
   void MainWindow::on_buttonSetGains_cartpos_clicked(bool check)
   {
     bool outcome;
-    double kp, kd;
+    double kp, kp_a5, kp_a6, kd;
 
     kp = ui.textKp_cartpos->text().toDouble(&outcome);
     if (!outcome || (kp <= 0))
       {
 	field_error_msg_box("kp");
+	return;
+      }
+
+    kp_a5 = ui.textKp_a5_cartpos->text().toDouble(&outcome);
+    if (!outcome || (kp_a5 <= 0))
+      {
+	field_error_msg_box("kp (a5)");
+	return;
+      }
+
+    kp_a6 = ui.textKp_a6_cartpos->text().toDouble(&outcome);
+    if (!outcome || (kp_a6 <= 0))
+      {
+	field_error_msg_box("kp (a6)");
 	return;
       }
 
@@ -488,6 +518,8 @@ namespace controller_switcher {
 
     lwr_force_position_controllers::CartesianPositionCommandGainsMsg command, response;
     command.kp = kp;
+    command.kp_a5 = kp_a5;
+    command.kp_a6 = kp_a6;
     command.kd = kd;
 
     outcome = qnode.set_command<lwr_force_position_controllers::CartesianPositionCommandGains,\
@@ -588,6 +620,8 @@ namespace controller_switcher {
       service_error_msg_box("CartesianPositionController(Get Current Gains)");
 
     ui.textKp_cartpos->setText(QString::number(cartpos_current_gains.kp,'f', 0));
+    ui.textKp_a5_cartpos->setText(QString::number(cartpos_current_gains.kp_a5,'f', 0));
+    ui.textKp_a6_cartpos->setText(QString::number(cartpos_current_gains.kp_a6,'f', 0));
     ui.textKd_cartpos->setText(QString::number(cartpos_current_gains.kd,'f', 0));
   }
 
@@ -638,11 +672,13 @@ namespace controller_switcher {
     if(!outcome)
       service_error_msg_box("HybridImpedanceController(Get Gains)");
 
-    ui.textKp_hybrid->setText(QString::number(current_cmd.kp,'f', 0));
+    ui.textKp_pos_hybrid->setText(QString::number(current_cmd.kp_pos,'f', 0));
+    ui.textKp_att_hybrid->setText(QString::number(current_cmd.kp_att,'f', 0));
     ui.textKd_hybrid->setText(QString::number(current_cmd.kd,'f', 0));
     ui.textKmf_hybrid->setText(QString::number(current_cmd.km_f,'f', 0));
     ui.textKdf_hybrid->setText(QString::number(current_cmd.kd_f,'f', 0));
-    ui.textKp_null_hybrid->setText(QString::number(current_cmd.kp_im, 'f', 0));
+    ui.textKp_null_z_hybrid->setText(QString::number(current_cmd.kp_z_im, 'f', 0));
+    ui.textKp_null_att_hybrid->setText(QString::number(current_cmd.kp_att_im, 'f', 0));
     ui.textKd_null_hybrid->setText(QString::number(current_cmd.kd_im, 'f', 0));
   }
 
