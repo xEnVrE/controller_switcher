@@ -39,6 +39,7 @@ namespace controller_switcher {
     ~MainWindow();
 
   private:
+    void switch_tab(int index);
     void fill_controllers_list();
     void fill_cartpos_traj_fields();
     void fill_cartpos_gains_fields();

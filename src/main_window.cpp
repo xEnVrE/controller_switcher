@@ -46,7 +46,7 @@ namespace controller_switcher {
 				    qApp->desktop()->availableGeometry()));
 
     // force size of the window
-    setFixedSize(760, 800);
+    setFixedSize(690, 690);
 
     // fill controller lists from robot_namespace_/controller_manager/ListControllers
     fill_controllers_list();
@@ -550,12 +550,14 @@ namespace controller_switcher {
 	  {
 	    fill_cartpos_traj_fields();
 	    fill_cartpos_gains_fields();
+	    switch_tab(0);
 	  }
 	if(start_controller == "hybrid_impedance_controller")
 	  {
 	    fill_hybrid_traj_pos_fields();
 	    fill_hybrid_traj_force_fields();
 	    fill_hybrid_gains_fields();
+	    switch_tab(1);
 	  }
 
       }
@@ -564,6 +566,12 @@ namespace controller_switcher {
   /*****************************************************************************
    ** Implementation
    *****************************************************************************/
+
+  void MainWindow::switch_tab(int index)
+  {
+    ui.ErrorsTabWidget->setCurrentIndex(index);
+    ui.ControllersTabWidget->setCurrentIndex(index);
+  }
 
   void MainWindow::fill_controllers_list()
   {
