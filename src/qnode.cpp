@@ -201,7 +201,50 @@ namespace controller_switcher {
     client = n.serviceClient<std_srvs::Empty>("/my_sensor/ft_sensor_hw/calibrate");
 
     return client.call(service);
+  }
 
+  bool QNode::request_ftsensor_home()
+  {
+    ros::NodeHandle n;
+    ros::ServiceClient client;
+    std_srvs::Empty service;
+
+    client = n.serviceClient<std_srvs::Empty>("");
+
+    return client.call(service);
+  }
+
+  bool QNode::request_ftsensor_next_pose()
+  {
+    ros::NodeHandle n;
+    ros::ServiceClient client;
+    std_srvs::Empty service;
+
+    client = n.serviceClient<std_srvs::Empty>("/lwr/ft_sensor_calib_controller/move_next_calib_pose");
+
+    return client.call(service);
+  }
+
+  bool QNode::request_ftsensor_record()
+  {
+    ros::NodeHandle n;
+    ros::ServiceClient client;
+    std_srvs::Empty service;
+
+    client = n.serviceClient<std_srvs::Empty>("");
+
+    return client.call(service);
+  }
+
+  bool QNode::request_ftsensor_save()
+  {
+    ros::NodeHandle n;
+    ros::ServiceClient client;
+    std_srvs::Empty service;
+
+    client = n.serviceClient<std_srvs::Empty>("");
+
+    return client.call(service);
   }
 
   void QNode::get_trajectories_progress()

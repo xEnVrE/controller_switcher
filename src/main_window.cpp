@@ -562,7 +562,31 @@ namespace controller_switcher {
 
       }
   }
-    
+
+  void MainWindow::on_buttonHome_ftsensor_clicked(bool check)
+  {
+    if(!qnode.request_ftsensor_home())
+      service_error_msg_box("FtSensorHome");
+  }
+
+  void MainWindow::on_buttonNextPose_ftsensor_clicked(bool check)
+  {
+    if(!qnode.request_ftsensor_next_pose())
+      service_error_msg_box("FtSensorNextPose");
+  }
+
+  void MainWindow::on_buttonRecord_ftsensor_clicked(bool check)
+  {
+    if(!qnode.request_ftsensor_record())
+      service_error_msg_box("FtSensorRecord");
+  }
+
+  void MainWindow::on_buttonSave_ftsensor_clicked(bool check)
+  {
+    if(!qnode.request_ftsensor_save())
+      service_error_msg_box("FtSensorSave");
+  }
+
   /*****************************************************************************
    ** Implementation
    *****************************************************************************/

@@ -57,6 +57,10 @@ namespace controller_switcher {
     template <class ServiceType, class ServiceMessageType>
     bool get_current_cmd(ServiceMessageType& current_command);
     bool request_ftsensor_calibration();
+    bool request_ftsensor_home();
+    bool request_ftsensor_next_pose();
+    bool request_ftsensor_record();
+    bool request_ftsensor_save();
     bool get_controllers_list(std::vector<std::string>& running_list, std::vector<std::string>& stopped_list);
     bool switch_controllers(const std::string start_controller, const std::string stop_controller, bool& switch_ok);
     void set_robot_namespace(std::string name);
