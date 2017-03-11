@@ -13,7 +13,6 @@
 #include <QMessageBox>
 #include <iostream>
 #include "../include/controller_switcher/main_window.hpp"
-#include <lwr_force_position_controllers/FtSensorToolEstimationMsg.h>
 
 /*****************************************************************************
  ** Namespaces
@@ -580,6 +579,13 @@ namespace controller_switcher {
     if(!qnode.request_ftsensor_record())
       service_error_msg_box("FtSensorRecord");
   }
+
+  void MainWindow::on_buttonEstimate_ftsensor_clicked(bool check)
+  {
+    if(!qnode.request_ftsensor_estimate())
+      service_error_msg_box("FtSensorEstimate");
+  }
+
 
   void MainWindow::on_buttonSave_ftsensor_clicked(bool check)
   {

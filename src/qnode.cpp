@@ -18,8 +18,6 @@
 #include <controller_manager_msgs/ListControllers.h>
 #include <controller_manager_msgs/SwitchController.h>
 #include <controller_manager_msgs/ControllerState.h>
-#include <lwr_force_position_controllers/FtSensorToolEstimation.h>
-#include <lwr_force_position_controllers/FtSensorSetBias.h>
 #include <std_srvs/Empty.h>
 
 /*****************************************************************************
@@ -209,7 +207,7 @@ namespace controller_switcher {
     ros::ServiceClient client;
     std_srvs::Empty service;
 
-    client = n.serviceClient<std_srvs::Empty>("");
+    client = n.serviceClient<std_srvs::Empty>("/lwr/ft_sensor_calib_controller/move_home_pose");
 
     return client.call(service);
   }
@@ -236,13 +234,24 @@ namespace controller_switcher {
     return client.call(service);
   }
 
-  bool QNode::request_ftsensor_save()
+  bool QNode::request_ftsensor_estimate()
   {
     ros::NodeHandle n;
     ros::ServiceClient client;
     std_srvs::Empty service;
 
     client = n.serviceClient<std_srvs::Empty>("");
+
+    return client.call(service);
+  }
+
+  bool QNode::request_ftsensor_save()
+  {
+    ros::NodeHandle n;
+    ros::ServiceClient client;
+    std_srvs::Empty service;
+
+    client = n.serviceClient<std_srvs::Empty>("/lwr/ft_sensor_calib_controller/save_calib_data");
 
     return client.call(service);
   }

@@ -23,7 +23,6 @@
 #include <QStringListModel>
 #include <QMutex>
 
-#include <lwr_force_position_controllers/CartesianInverseCommand.h>
 #include <lwr_force_position_controllers/CartesianPositionCommandGains.h>
 #include <lwr_force_position_controllers/CartesianPositionCommandTraj.h>
 #include <lwr_force_position_controllers/HybridImpedanceCommandTrajPos.h>
@@ -61,6 +60,7 @@ namespace controller_switcher {
     bool request_ftsensor_next_pose();
     bool request_ftsensor_record();
     bool request_ftsensor_save();
+    bool request_ftsensor_estimate();
     bool get_controllers_list(std::vector<std::string>& running_list, std::vector<std::string>& stopped_list);
     bool switch_controllers(const std::string start_controller, const std::string stop_controller, bool& switch_ok);
     void set_robot_namespace(std::string name);
