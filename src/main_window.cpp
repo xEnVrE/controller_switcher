@@ -45,7 +45,7 @@ namespace controller_switcher {
 				    qApp->desktop()->availableGeometry()));
 
     // force size of the window
-    setFixedSize(690, 690);
+    setFixedSize(706, 681);
 
     // fill controller lists from robot_namespace_/controller_manager/ListControllers
     fill_controllers_list();
@@ -572,12 +572,6 @@ namespace controller_switcher {
   {
     if(!qnode.request_ftsensor_next_pose())
       service_error_msg_box("FtSensorNextPose");
-  }
-
-  void MainWindow::on_buttonRecord_ftsensor_clicked(bool check)
-  {
-    if(!qnode.request_ftsensor_record())
-      service_error_msg_box("FtSensorRecord");
   }
 
   void MainWindow::on_buttonEstimate_ftsensor_clicked(bool check)

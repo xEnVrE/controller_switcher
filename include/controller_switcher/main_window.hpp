@@ -67,7 +67,6 @@ namespace controller_switcher {
     void on_buttonSetGains_hybrid_clicked(bool check);
     void on_buttonHome_ftsensor_clicked(bool check);
     void on_buttonNextPose_ftsensor_clicked(bool check);
-    void on_buttonRecord_ftsensor_clicked(bool check);
     void on_buttonEstimate_ftsensor_clicked(bool check);
     void on_buttonSave_ftsensor_clicked(bool check);
 

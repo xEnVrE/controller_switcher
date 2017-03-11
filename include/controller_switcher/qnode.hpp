@@ -58,7 +58,6 @@ namespace controller_switcher {
     bool request_ftsensor_calibration();
     bool request_ftsensor_home();
     bool request_ftsensor_next_pose();
-    bool request_ftsensor_record();
     bool request_ftsensor_save();
     bool request_ftsensor_estimate();
     bool get_controllers_list(std::vector<std::string>& running_list, std::vector<std::string>& stopped_list);

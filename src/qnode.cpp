@@ -223,24 +223,13 @@ namespace controller_switcher {
     return client.call(service);
   }
 
-  bool QNode::request_ftsensor_record()
-  {
-    ros::NodeHandle n;
-    ros::ServiceClient client;
-    std_srvs::Empty service;
-
-    client = n.serviceClient<std_srvs::Empty>("");
-
-    return client.call(service);
-  }
-
   bool QNode::request_ftsensor_estimate()
   {
     ros::NodeHandle n;
     ros::ServiceClient client;
     std_srvs::Empty service;
 
-    client = n.serviceClient<std_srvs::Empty>("");
+    client = n.serviceClient<std_srvs::Empty>("/lwr/ft_sensor_calib_controller/do_estimation_step");
 
     return client.call(service);
   }
