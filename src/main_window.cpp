@@ -580,6 +580,11 @@ namespace controller_switcher {
       service_error_msg_box("FtSensorEstimate");
   }
 
+  void MainWindow::on_buttonStart_compensation_ftsensor_clicked(bool check)
+  {
+    if(!qnode.request_ftsensor_start_compensation())
+      service_error_msg_box("FtStartCompensation");
+  }
 
   void MainWindow::on_buttonSave_ftsensor_clicked(bool check)
   {

@@ -60,6 +60,7 @@ namespace controller_switcher {
     bool request_ftsensor_next_pose();
     bool request_ftsensor_save();
     bool request_ftsensor_estimate();
+    bool request_ftsensor_start_compensation();
     bool get_controllers_list(std::vector<std::string>& running_list, std::vector<std::string>& stopped_list);
     bool switch_controllers(const std::string start_controller, const std::string stop_controller, bool& switch_ok);
     void set_robot_namespace(std::string name);
