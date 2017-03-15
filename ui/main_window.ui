@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>670</width>
+    <width>874</width>
     <height>665</height>
    </rect>
   </property>
@@ -476,18 +476,18 @@ QGroupBox::title {
                <string>Gains</string>
               </property>
               <layout class="QGridLayout" name="gridLayout_3">
-               <item row="0" column="5">
-                <spacer name="CartesianSetKpSpacer2_2">
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
+               <item row="1" column="11">
+                <widget class="QLineEdit" name="textKd_a6_cartpos">
+                 <property name="enabled">
+                  <bool>true</bool>
                  </property>
-                 <property name="sizeHint" stdset="0">
+                 <property name="maximumSize">
                   <size>
-                   <width>40</width>
-                   <height>20</height>
+                   <width>60</width>
+                   <height>30</height>
                   </size>
                  </property>
-                </spacer>
+                </widget>
                </item>
                <item row="0" column="0">
                 <widget class="QLabel" name="CartesianSetKpLabel1">
@@ -516,48 +516,8 @@ QGroupBox::title {
                  </property>
                 </widget>
                </item>
-               <item row="0" column="2">
-                <spacer name="CartesianSetKpSpacer2">
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>40</width>
-                   <height>20</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
-               <item row="0" column="3">
-                <widget class="QLabel" name="CartesianSetKpA5Label">
-                 <property name="text">
-                  <string>kp (a5)</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="4">
-                <widget class="QLineEdit" name="textKp_a5_cartpos">
-                 <property name="enabled">
-                  <bool>true</bool>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>60</width>
-                   <height>30</height>
-                  </size>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="6">
-                <widget class="QLabel" name="CartesianSetKpA6Label">
-                 <property name="text">
-                  <string>kp (a6)</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="7">
-                <widget class="QLineEdit" name="textKp_a6_cartpos">
+               <item row="0" column="5">
+                <widget class="QLineEdit" name="textKp_a4_cartpos">
                  <property name="enabled">
                   <bool>true</bool>
                  </property>
@@ -582,7 +542,179 @@ QGroupBox::title {
                  </property>
                 </widget>
                </item>
-               <item row="1" column="6" colspan="2">
+               <item row="0" column="6">
+                <spacer name="CartesianSetKpSpacer2_4">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item row="1" column="4">
+                <widget class="QLabel" name="CartesianSetKpA5Label_3">
+                 <property name="text">
+                  <string>kd (a4)</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="5">
+                <widget class="QLineEdit" name="textKd_a4_cartpos">
+                 <property name="enabled">
+                  <bool>true</bool>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>60</width>
+                   <height>30</height>
+                  </size>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="4">
+                <widget class="QLabel" name="CartesianSetKpA5Label">
+                 <property name="text">
+                  <string>kp (a4)</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="7">
+                <widget class="QLabel" name="CartesianSetKpA5Label_4">
+                 <property name="text">
+                  <string>kd (a5)</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="8">
+                <widget class="QLineEdit" name="textKp_a5_cartpos">
+                 <property name="enabled">
+                  <bool>true</bool>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>60</width>
+                   <height>30</height>
+                  </size>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="3">
+                <spacer name="CartesianSetKpSpacer2_3">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item row="0" column="10">
+                <widget class="QLabel" name="CartesianSetKpA6Label">
+                 <property name="text">
+                  <string>kp (a6)</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="9">
+                <spacer name="CartesianSetKpSpacer2_8">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item row="1" column="3">
+                <spacer name="CartesianSetKpSpacer2_5">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item row="0" column="9">
+                <spacer name="CartesianSetKpSpacer2_2">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item row="1" column="6">
+                <spacer name="CartesianSetKpSpacer2_7">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item row="0" column="11">
+                <widget class="QLineEdit" name="textKp_a6_cartpos">
+                 <property name="enabled">
+                  <bool>true</bool>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>60</width>
+                   <height>30</height>
+                  </size>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="8">
+                <widget class="QLineEdit" name="textKd_a5_cartpos">
+                 <property name="enabled">
+                  <bool>true</bool>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>60</width>
+                   <height>30</height>
+                  </size>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="10">
+                <widget class="QLabel" name="CartesianSetKpA6Label_2">
+                 <property name="text">
+                  <string>kd (a6)</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="7">
+                <widget class="QLabel" name="CartesianSetKpA5Label_2">
+                 <property name="text">
+                  <string>kp (a5)</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="10" colspan="2">
                 <layout class="QHBoxLayout" name="CartPosGainsHorizontal">
                  <item>
                   <spacer name="CartPosGainsSpacer">
@@ -992,6 +1124,13 @@ QGroupBox::title {
                  </property>
                 </widget>
                </item>
+               <item row="0" column="6">
+                <widget class="QLabel" name="HybridSetZLabel_2">
+                 <property name="text">
+                  <string/>
+                 </property>
+                </widget>
+               </item>
                <item row="0" column="4">
                 <widget class="QLineEdit" name="textForce_duration_hybrid">
                  <property name="enabled">
@@ -1058,13 +1197,6 @@ QGroupBox::title {
                  </layout>
                 </widget>
                </item>
-               <item row="0" column="6">
-                <widget class="QLabel" name="HybridSetZLabel_2">
-                 <property name="text">
-                  <string/>
-                 </property>
-                </widget>
-               </item>
                <item row="1" column="0" colspan="2">
                 <widget class="QPushButton" name="buttonSetTrajForce_hybrid">
                  <property name="enabled">
@@ -1096,8 +1228,22 @@ QGroupBox::title {
                <string>Gains</string>
               </property>
               <layout class="QGridLayout" name="gridLayout_7">
+               <item row="0" column="3">
+                <widget class="QLabel" name="HybridSetKpAttLabel">
+                 <property name="text">
+                  <string>Kp (att)</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="0">
+                <widget class="QLabel" name="HybridSetKpPosLabel">
+                 <property name="text">
+                  <string>Kp (pos)</string>
+                 </property>
+                </widget>
+               </item>
                <item row="4" column="1">
-                <widget class="QLineEdit" name="textKd_null_hybrid">
+                <widget class="QLineEdit" name="textKd_null_pos_hybrid">
                  <property name="enabled">
                   <bool>true</bool>
                  </property>
@@ -1122,35 +1268,8 @@ QGroupBox::title {
                  </property>
                 </widget>
                </item>
-               <item row="4" column="3" colspan="2">
-                <layout class="QHBoxLayout" name="HybridGainsHorizontal">
-                 <item>
-                  <spacer name="horizontalSpacer_5">
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>40</width>
-                     <height>20</height>
-                    </size>
-                   </property>
-                  </spacer>
-                 </item>
-                 <item>
-                  <widget class="QPushButton" name="buttonSetGains_hybrid">
-                   <property name="enabled">
-                    <bool>true</bool>
-                   </property>
-                   <property name="text">
-                    <string>Set Gains</string>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </item>
-               <item row="3" column="4">
-                <widget class="QLineEdit" name="textKp_null_att_hybrid">
+               <item row="0" column="7">
+                <widget class="QLineEdit" name="textKp_gamma_hybrid">
                  <property name="enabled">
                   <bool>true</bool>
                  </property>
@@ -1162,30 +1281,23 @@ QGroupBox::title {
                  </property>
                 </widget>
                </item>
-               <item row="0" column="2">
-                <spacer name="HybridSetKpSpacer">
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
+               <item row="3" column="4">
+                <widget class="QLineEdit" name="textKp_null_gamma_hybrid">
+                 <property name="enabled">
+                  <bool>true</bool>
                  </property>
-                 <property name="sizeHint" stdset="0">
+                 <property name="maximumSize">
                   <size>
-                   <width>40</width>
-                   <height>20</height>
+                   <width>60</width>
+                   <height>30</height>
                   </size>
-                 </property>
-                </spacer>
-               </item>
-               <item row="0" column="0">
-                <widget class="QLabel" name="HybridSetKpPosLabel">
-                 <property name="text">
-                  <string>Kp (pos)</string>
                  </property>
                 </widget>
                </item>
                <item row="1" column="0">
                 <widget class="QLabel" name="HybridSetKdLabel">
                  <property name="text">
-                  <string>Kd</string>
+                  <string>Kd (pos)</string>
                  </property>
                 </widget>
                </item>
@@ -1209,8 +1321,15 @@ QGroupBox::title {
                  </property>
                 </widget>
                </item>
+               <item row="2" column="3">
+                <widget class="QLabel" name="HybridSetKdForceLabel">
+                 <property name="text">
+                  <string>Kd Force</string>
+                 </property>
+                </widget>
+               </item>
                <item row="1" column="1">
-                <widget class="QLineEdit" name="textKd_hybrid">
+                <widget class="QLineEdit" name="textKd_pos_hybrid">
                  <property name="enabled">
                   <bool>true</bool>
                  </property>
@@ -1219,20 +1338,6 @@ QGroupBox::title {
                    <width>60</width>
                    <height>30</height>
                   </size>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="3">
-                <widget class="QLabel" name="HybridSetKpAttLabel">
-                 <property name="text">
-                  <string>Kp (att)</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="2" column="3">
-                <widget class="QLabel" name="HybridSetKdForceLabel">
-                 <property name="text">
-                  <string>Kd Force</string>
                  </property>
                 </widget>
                </item>
@@ -1249,16 +1354,10 @@ QGroupBox::title {
                  </property>
                 </widget>
                </item>
-               <item row="0" column="4">
-                <widget class="QLineEdit" name="textKp_att_hybrid">
-                 <property name="enabled">
-                  <bool>true</bool>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>60</width>
-                   <height>30</height>
-                  </size>
+               <item row="3" column="3">
+                <widget class="QLabel" name="HorizontalsetKpNullAttLabel">
+                 <property name="text">
+                  <string>Kp Null (γ)</string>
                  </property>
                 </widget>
                </item>
@@ -1275,17 +1374,24 @@ QGroupBox::title {
                  </property>
                 </widget>
                </item>
-               <item row="3" column="3">
-                <widget class="QLabel" name="HorizontalsetKpNullAttLabel">
+               <item row="0" column="6">
+                <widget class="QLabel" name="HybridSetKpAttLabel_2">
                  <property name="text">
-                  <string>Kp Null (att)</string>
+                  <string>Kp (γ)</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="0">
+                <widget class="QLabel" name="HorizontalsetKpNullZLabel">
+                 <property name="text">
+                  <string>Kp Null (z)</string>
                  </property>
                 </widget>
                </item>
                <item row="4" column="0">
                 <widget class="QLabel" name="HybridSetKdNullLabel">
                  <property name="text">
-                  <string>Kd Null</string>
+                  <string>Kd Null (pos)</string>
                  </property>
                 </widget>
                </item>
@@ -1302,13 +1408,6 @@ QGroupBox::title {
                  </property>
                 </spacer>
                </item>
-               <item row="3" column="0">
-                <widget class="QLabel" name="HorizontalsetKpNullZLabel">
-                 <property name="text">
-                  <string>Kp Null (z)</string>
-                 </property>
-                </widget>
-               </item>
                <item row="2" column="2">
                 <spacer name="HybridSetKmForceSpacer">
                  <property name="orientation">
@@ -1321,6 +1420,158 @@ QGroupBox::title {
                   </size>
                  </property>
                 </spacer>
+               </item>
+               <item row="0" column="4">
+                <widget class="QLineEdit" name="textKp_att_hybrid">
+                 <property name="enabled">
+                  <bool>true</bool>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>60</width>
+                   <height>30</height>
+                  </size>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="5">
+                <spacer name="HybridSetKpSpacer_2">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item row="0" column="2">
+                <spacer name="HybridSetKpSpacer">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item row="1" column="2">
+                <spacer name="HybridSetKpSpacer_5">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item row="4" column="2">
+                <spacer name="HorizontalSetKpNullSpacer_3">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item row="1" column="5">
+                <spacer name="HybridSetKpSpacer_6">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item row="1" column="7">
+                <widget class="QLineEdit" name="textKd_gamma_hybrid">
+                 <property name="enabled">
+                  <bool>true</bool>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>60</width>
+                   <height>30</height>
+                  </size>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="3">
+                <widget class="QLabel" name="HybridSetKpAttLabel_5">
+                 <property name="text">
+                  <string>Kd (att)</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="3">
+                <widget class="QLabel" name="HorizontalsetKpNullAttLabel_3">
+                 <property name="text">
+                  <string>Kd Null (att)</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="6">
+                <widget class="QLabel" name="HybridSetKpAttLabel_6">
+                 <property name="text">
+                  <string>Kd (γ)</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="4">
+                <widget class="QLineEdit" name="textKd_att_hybrid">
+                 <property name="enabled">
+                  <bool>true</bool>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>60</width>
+                   <height>30</height>
+                  </size>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="4">
+                <widget class="QLineEdit" name="textKd_null_att_hybrid">
+                 <property name="enabled">
+                  <bool>true</bool>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>60</width>
+                   <height>30</height>
+                  </size>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="6" colspan="2">
+                <layout class="QHBoxLayout" name="HybridGainsHorizontal">
+                 <item>
+                  <widget class="QPushButton" name="buttonSetGains_hybrid">
+                   <property name="enabled">
+                    <bool>true</bool>
+                   </property>
+                   <property name="text">
+                    <string>Set Gains</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
                </item>
               </layout>
              </widget>
@@ -2105,9 +2356,13 @@ QGroupBox::title {
   <tabstop>textDuration_cartpos</tabstop>
   <tabstop>buttonSetTraj_cartpos</tabstop>
   <tabstop>textKp_cartpos</tabstop>
+  <tabstop>textKp_a4_cartpos</tabstop>
   <tabstop>textKp_a5_cartpos</tabstop>
   <tabstop>textKp_a6_cartpos</tabstop>
   <tabstop>textKd_cartpos</tabstop>
+  <tabstop>textKd_a4_cartpos</tabstop>
+  <tabstop>textKd_a5_cartpos</tabstop>
+  <tabstop>textKd_a6_cartpos</tabstop>
   <tabstop>buttonSetGains_cartpos</tabstop>
   <tabstop>textPositionX_hybrid</tabstop>
   <tabstop>textPositionY_hybrid</tabstop>
@@ -2123,20 +2378,35 @@ QGroupBox::title {
   <tabstop>buttonSetTrajForce_hybrid</tabstop>
   <tabstop>textKp_pos_hybrid</tabstop>
   <tabstop>textKp_att_hybrid</tabstop>
-  <tabstop>textKd_hybrid</tabstop>
+  <tabstop>textKp_gamma_hybrid</tabstop>
+  <tabstop>textKd_pos_hybrid</tabstop>
+  <tabstop>textKd_att_hybrid</tabstop>
+  <tabstop>textKd_gamma_hybrid</tabstop>
   <tabstop>textKmf_hybrid</tabstop>
   <tabstop>textKdf_hybrid</tabstop>
   <tabstop>textKp_null_z_hybrid</tabstop>
-  <tabstop>textKp_null_att_hybrid</tabstop>
-  <tabstop>textKd_null_hybrid</tabstop>
+  <tabstop>textKp_null_gamma_hybrid</tabstop>
+  <tabstop>textKd_null_pos_hybrid</tabstop>
+  <tabstop>textKd_null_att_hybrid</tabstop>
   <tabstop>buttonSetGains_hybrid</tabstop>
   <tabstop>buttonHome_ftsensor</tabstop>
   <tabstop>buttonCalibrate_ftsensor</tabstop>
+  <tabstop>buttonStart_compensation_ftsensor</tabstop>
   <tabstop>buttonNextPose_ftsensor</tabstop>
   <tabstop>buttonEstimate_ftsensor</tabstop>
   <tabstop>buttonSave_ftsensor</tabstop>
   <tabstop>ErrorsTabWidget</tabstop>
   <tabstop>buttonQuit</tabstop>
+  <tabstop>textKp_att_gamma_hybrid_2</tabstop>
+  <tabstop>textKp_null_att_hybrid_2</tabstop>
+  <tabstop>textKmf_hybrid_2</tabstop>
+  <tabstop>textKd_pos_hybrid_2</tabstop>
+  <tabstop>textKp_null_z_hybrid_2</tabstop>
+  <tabstop>textKdf_hybrid_2</tabstop>
+  <tabstop>textKp_att_hybrid_2</tabstop>
+  <tabstop>buttonSetGains_hybrid_2</tabstop>
+  <tabstop>textKd_null_hybrid_2</tabstop>
+  <tabstop>textKp_pos_hybrid_2</tabstop>
  </tabstops>
  <resources>
   <include location="../resources/images.qrc"/>

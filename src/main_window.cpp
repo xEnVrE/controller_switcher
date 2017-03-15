@@ -45,7 +45,7 @@ namespace controller_switcher {
 				    qApp->desktop()->availableGeometry()));
 
     // force size of the window
-    setFixedSize(706, 681);
+    //setFixedSize(706, 681);
 
     // fill controller lists from robot_namespace_/controller_manager/ListControllers
     fill_controllers_list();
@@ -333,9 +333,13 @@ namespace controller_switcher {
 
   void MainWindow::on_buttonSetGains_hybrid_clicked(bool check)
   {
-    double kp_pos, kp_att, kd, km_f, kd_f, kp_z_im, kp_att_im, kd_im;
+    double kp_pos, kp_att, kp_gamma;
+    double kd_pos, kd_att, kd_gamma;
+    double km_f, kd_f;
+    double kp_z_im, kp_gamma_im, kd_pos_im, kd_att_im;
     bool outcome;
 
+    /////////////// proportional //////////////////
     kp_pos = ui.textKp_pos_hybrid->text().toDouble(&outcome);
     if (!outcome || (kp_pos <= 0))
       {
@@ -350,13 +354,36 @@ namespace controller_switcher {
 	return;
       }
 
-    kd = ui.textKd_hybrid->text().toDouble(&outcome);
-    if (!outcome || (kd <= 0))
+    kp_gamma = ui.textKp_gamma_hybrid->text().toDouble(&outcome);
+    if (!outcome || (kp_gamma <= 0))
       {
-	field_error_msg_box("Kd");
+	field_error_msg_box("Kp (gamma)");
 	return;
       }
 
+    /////////////// derivative //////////////////
+    kd_pos = ui.textKd_pos_hybrid->text().toDouble(&outcome);
+    if (!outcome || (kd_pos <= 0))
+      {
+	field_error_msg_box("Kd (pos)");
+	return;
+      }
+
+    kd_att = ui.textKd_att_hybrid->text().toDouble(&outcome);
+    if (!outcome || (kd_att <= 0))
+      {
+	field_error_msg_box("Kd (att)");
+	return;
+      }
+
+    kd_gamma = ui.textKd_gamma_hybrid->text().toDouble(&outcome);
+    if (!outcome || (kd_gamma <= 0))
+      {
+	field_error_msg_box("Kd (gamma)");
+	return;
+      }
+
+    /////////////// force //////////////////
     km_f = ui.textKmf_hybrid->text().toDouble(&outcome);
     if (!outcome || (km_f <= 0))
       {
@@ -371,6 +398,7 @@ namespace controller_switcher {
 	return;
       }
 
+    /////////////// internal motion  //////////////////
     kp_z_im = ui.textKp_null_z_hybrid->text().toDouble(&outcome);
     if (!outcome || (kp_z_im <= 0))
       {
@@ -378,29 +406,40 @@ namespace controller_switcher {
 	return;
       }
 
-    kp_att_im = ui.textKp_null_att_hybrid->text().toDouble(&outcome);
-    if (!outcome || (kp_att_im <= 0))
+    kp_gamma_im = ui.textKp_null_gamma_hybrid->text().toDouble(&outcome);
+    if (!outcome || (kp_gamma_im <= 0))
       {
-	field_error_msg_box("Kp Null (att)");
+	field_error_msg_box("Kp Null (gamma)");
 	return;
       }
 
-    kd_im = ui.textKd_null_hybrid->text().toDouble(&outcome);
-    if (!outcome || (kd_im <= 0))
+    kd_pos_im = ui.textKd_null_pos_hybrid->text().toDouble(&outcome);
+    if (!outcome || (kd_pos_im <= 0))
       {
-	field_error_msg_box("Kd Null");
+	field_error_msg_box("Kd Null (pos)");
+	return;
+      }
+
+    kd_att_im = ui.textKd_null_att_hybrid->text().toDouble(&outcome);
+    if (!outcome || (kd_att_im <= 0))
+      {
+	field_error_msg_box("Kd Null (att)");
 	return;
       }
 
     lwr_force_position_controllers::HybridImpedanceCommandGainsMsg cmd, response;
     cmd.kp_pos = kp_pos;
     cmd.kp_att = kp_att;
-    cmd.kd = kd;
+    cmd.kp_gamma = kp_gamma;
+    cmd.kd_pos = kd_pos;
+    cmd.kd_att = kd_att;
+    cmd.kd_gamma = kd_gamma;
     cmd.km_f = km_f;
     cmd.kd_f = kd_f;
     cmd.kp_z_im = kp_z_im;
-    cmd.kp_att_im = kp_att_im;
-    cmd.kd_im = kd_im;
+    cmd.kp_gamma_im = kp_gamma_im;
+    cmd.kd_pos_im = kd_pos_im;
+    cmd.kd_att_im = kd_att_im;
 
     outcome = qnode.set_command<lwr_force_position_controllers::HybridImpedanceCommandGains,\
     				lwr_force_position_controllers::HybridImpedanceCommandGainsMsg>(cmd, response);
@@ -431,7 +470,7 @@ namespace controller_switcher {
       }
 
     position_z = ui.textPositionZ_cartpos->text().toDouble(&outcome);
-    if (!outcome || (position_z < 0.09))
+    if (!outcome)
       {
 	field_error_msg_box("PositionZ");
 	return;
@@ -485,7 +524,8 @@ namespace controller_switcher {
   void MainWindow::on_buttonSetGains_cartpos_clicked(bool check)
   {
     bool outcome;
-    double kp, kp_a5, kp_a6, kd;
+    double kp, kp_a4, kp_a5, kp_a6;
+    double kd, kd_a4, kd_a5, kd_a6;
 
     kp = ui.textKp_cartpos->text().toDouble(&outcome);
     if (!outcome || (kp <= 0))
@@ -494,6 +534,13 @@ namespace controller_switcher {
 	return;
       }
 
+    kp_a4 = ui.textKp_a4_cartpos->text().toDouble(&outcome);
+    if (!outcome || (kp_a4 <= 0))
+      {
+	field_error_msg_box("kp (a4)");
+	return;
+      }
+    
     kp_a5 = ui.textKp_a5_cartpos->text().toDouble(&outcome);
     if (!outcome || (kp_a5 <= 0))
       {
@@ -515,12 +562,39 @@ namespace controller_switcher {
 	return;
       }
 
+    kd_a4 = ui.textKd_a4_cartpos->text().toDouble(&outcome);
+    if (!outcome || (kd_a4 <= 0))
+      {
+	field_error_msg_box("kd (a4)");
+	return;
+      }
+    
+    kd_a5 = ui.textKd_a5_cartpos->text().toDouble(&outcome);
+    if (!outcome || (kd_a5 <= 0))
+      {
+	field_error_msg_box("kd (a5)");
+	return;
+      }
+
+    kd_a6 = ui.textKd_a6_cartpos->text().toDouble(&outcome);
+    if (!outcome || (kd_a6 <= 0))
+      {
+	field_error_msg_box("kd (a6)");
+	return;
+      }
+
+    
     lwr_force_position_controllers::CartesianPositionCommandGainsMsg command, response;
     command.kp = kp;
+    command.kp_a4 = kp_a4;
     command.kp_a5 = kp_a5;
     command.kp_a6 = kp_a6;
     command.kd = kd;
+    command.kd_a4 = kd_a4;
+    command.kd_a5 = kd_a5;
+    command.kd_a6 = kd_a6;
 
+    
     outcome = qnode.set_command<lwr_force_position_controllers::CartesianPositionCommandGains,\
     				lwr_force_position_controllers::CartesianPositionCommandGainsMsg>(command, response);
     if(!outcome)
@@ -657,9 +731,14 @@ namespace controller_switcher {
       service_error_msg_box("CartesianPositionController(Get Current Gains)");
 
     ui.textKp_cartpos->setText(QString::number(cartpos_current_gains.kp,'f', 0));
+    ui.textKp_a4_cartpos->setText(QString::number(cartpos_current_gains.kp_a4,'f', 0));
     ui.textKp_a5_cartpos->setText(QString::number(cartpos_current_gains.kp_a5,'f', 0));
     ui.textKp_a6_cartpos->setText(QString::number(cartpos_current_gains.kp_a6,'f', 0));
     ui.textKd_cartpos->setText(QString::number(cartpos_current_gains.kd,'f', 0));
+    ui.textKd_a4_cartpos->setText(QString::number(cartpos_current_gains.kd_a4,'f', 0));
+    ui.textKd_a5_cartpos->setText(QString::number(cartpos_current_gains.kd_a5,'f', 0));
+    ui.textKd_a6_cartpos->setText(QString::number(cartpos_current_gains.kd_a6,'f', 0));
+
   }
 
 
@@ -711,12 +790,19 @@ namespace controller_switcher {
 
     ui.textKp_pos_hybrid->setText(QString::number(current_cmd.kp_pos,'f', 0));
     ui.textKp_att_hybrid->setText(QString::number(current_cmd.kp_att,'f', 0));
-    ui.textKd_hybrid->setText(QString::number(current_cmd.kd,'f', 0));
+    ui.textKp_gamma_hybrid->setText(QString::number(current_cmd.kp_gamma,'f', 0));
+
+    ui.textKd_pos_hybrid->setText(QString::number(current_cmd.kd_pos,'f', 0));
+    ui.textKd_att_hybrid->setText(QString::number(current_cmd.kd_att,'f', 0));
+    ui.textKd_gamma_hybrid->setText(QString::number(current_cmd.kd_gamma,'f', 0));
+
     ui.textKmf_hybrid->setText(QString::number(current_cmd.km_f,'f', 0));
     ui.textKdf_hybrid->setText(QString::number(current_cmd.kd_f,'f', 0));
-    ui.textKp_null_z_hybrid->setText(QString::number(current_cmd.kp_z_im, 'f', 0));
-    ui.textKp_null_att_hybrid->setText(QString::number(current_cmd.kp_att_im, 'f', 0));
-    ui.textKd_null_hybrid->setText(QString::number(current_cmd.kd_im, 'f', 0));
+
+    ui.textKp_null_z_hybrid->setText(QString::number(current_cmd.kp_z_im, 'f', 3));
+    ui.textKp_null_gamma_hybrid->setText(QString::number(current_cmd.kp_gamma_im, 'f', 3));
+    ui.textKd_null_pos_hybrid->setText(QString::number(current_cmd.kd_pos_im, 'f', 0));
+    ui.textKd_null_att_hybrid->setText(QString::number(current_cmd.kd_att_im, 'f', 0));
   }
 
   void MainWindow::change_error_z_label(std::string label_text)
