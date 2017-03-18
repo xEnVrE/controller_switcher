@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>874</width>
+    <width>738</width>
     <height>665</height>
    </rect>
   </property>
@@ -1664,6 +1664,13 @@ QGroupBox::title {
                  </property>
                 </widget>
                </item>
+               <item row="0" column="2">
+                <widget class="QPushButton" name="buttonAutonomusEst_ftsensor">
+                 <property name="text">
+                  <string>Autonomus Est</string>
+                 </property>
+                </widget>
+               </item>
               </layout>
              </widget>
             </item>
@@ -1933,6 +1940,13 @@ QGroupBox::title {
             <string>Cart Pos errors</string>
            </attribute>
            <layout class="QGridLayout" name="gridLayout_10">
+            <item row="2" column="2">
+             <widget class="QLabel" name="textJoint_e1_err">
+              <property name="text">
+               <string>?</string>
+              </property>
+             </widget>
+            </item>
             <item row="1" column="0">
              <widget class="QLabel" name="CartesianA2Label">
               <property name="text">
@@ -2019,13 +2033,6 @@ QGroupBox::title {
               </property>
              </spacer>
             </item>
-            <item row="2" column="2">
-             <widget class="QLabel" name="textJoint_e1_err">
-              <property name="text">
-               <string>?</string>
-              </property>
-             </widget>
-            </item>
             <item row="1" column="2">
              <widget class="QLabel" name="textJoint_a2_err">
               <property name="text">
@@ -2033,10 +2040,10 @@ QGroupBox::title {
               </property>
              </widget>
             </item>
-            <item row="3" column="2">
-             <widget class="QLabel" name="textJoint_a3_err">
+            <item row="2" column="0">
+             <widget class="QLabel" name="CartesianE1Label">
               <property name="text">
-               <string>?</string>
+               <string>e1</string>
               </property>
              </widget>
             </item>
@@ -2047,10 +2054,10 @@ QGroupBox::title {
               </property>
              </widget>
             </item>
-            <item row="2" column="0">
-             <widget class="QLabel" name="CartesianE1Label">
+            <item row="3" column="2">
+             <widget class="QLabel" name="textJoint_a3_err">
               <property name="text">
-               <string>e1</string>
+               <string>?</string>
               </property>
              </widget>
             </item>
@@ -2203,10 +2210,10 @@ QGroupBox::title {
               </property>
              </widget>
             </item>
-            <item row="3" column="0">
-             <widget class="QLabel" name="HybridAlphaLabel">
+            <item row="2" column="2">
+             <widget class="QLabel" name="textCart_z_err">
               <property name="text">
-               <string>α (rad)</string>
+               <string>?</string>
               </property>
              </widget>
             </item>
@@ -2214,6 +2221,20 @@ QGroupBox::title {
              <widget class="QLabel" name="HybridYLabel">
               <property name="text">
                <string>y (m)</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QLabel" name="HybridAlphaLabel">
+              <property name="text">
+               <string>α (rad)</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="2">
+             <widget class="QLabel" name="textCart_alpha_err">
+              <property name="text">
+               <string>?</string>
               </property>
              </widget>
             </item>
@@ -2230,15 +2251,15 @@ QGroupBox::title {
               </property>
              </spacer>
             </item>
-            <item row="2" column="2">
-             <widget class="QLabel" name="textCart_z_err">
+            <item row="0" column="2">
+             <widget class="QLabel" name="textCart_x_err">
               <property name="text">
                <string>?</string>
               </property>
              </widget>
             </item>
-            <item row="3" column="2">
-             <widget class="QLabel" name="textCart_alpha_err">
+            <item row="5" column="2">
+             <widget class="QLabel" name="textCart_gamma_err">
               <property name="text">
                <string>?</string>
               </property>
@@ -2267,13 +2288,6 @@ QGroupBox::title {
               </property>
              </spacer>
             </item>
-            <item row="0" column="2">
-             <widget class="QLabel" name="textCart_x_err">
-              <property name="text">
-               <string>?</string>
-              </property>
-             </widget>
-            </item>
             <item row="2" column="1">
              <spacer name="HybridFzSpacer">
               <property name="orientation">
@@ -2286,13 +2300,6 @@ QGroupBox::title {
                </size>
               </property>
              </spacer>
-            </item>
-            <item row="5" column="2">
-             <widget class="QLabel" name="textCart_gamma_err">
-              <property name="text">
-               <string>?</string>
-              </property>
-             </widget>
             </item>
            </layout>
           </widget>
@@ -2397,16 +2404,6 @@ QGroupBox::title {
   <tabstop>buttonSave_ftsensor</tabstop>
   <tabstop>ErrorsTabWidget</tabstop>
   <tabstop>buttonQuit</tabstop>
-  <tabstop>textKp_att_gamma_hybrid_2</tabstop>
-  <tabstop>textKp_null_att_hybrid_2</tabstop>
-  <tabstop>textKmf_hybrid_2</tabstop>
-  <tabstop>textKd_pos_hybrid_2</tabstop>
-  <tabstop>textKp_null_z_hybrid_2</tabstop>
-  <tabstop>textKdf_hybrid_2</tabstop>
-  <tabstop>textKp_att_hybrid_2</tabstop>
-  <tabstop>buttonSetGains_hybrid_2</tabstop>
-  <tabstop>textKd_null_hybrid_2</tabstop>
-  <tabstop>textKp_pos_hybrid_2</tabstop>
  </tabstops>
  <resources>
   <include location="../resources/images.qrc"/>

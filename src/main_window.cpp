@@ -29,14 +29,16 @@ namespace controller_switcher {
   MainWindow::MainWindow(int argc, char** argv, QWidget *parent)
     : QMainWindow(parent)
     , qnode(argc,argv)
+    , qnode_estimation(argc,argv)
   {
     // setup the ui and
     // connect all ui's triggers to on_...() callbacks
     ui.setupUi(this); 
 
-    // init ros node
+    // init ros nodes
     qnode.set_robot_namespace(argv[1]);
     qnode.init();
+    qnode_estimation.init();
 
     // move the window to the center
     setGeometry(QStyle::alignedRect(Qt::LeftToRight,
@@ -652,6 +654,11 @@ namespace controller_switcher {
   {
     if(!qnode.request_ftsensor_estimate())
       service_error_msg_box("FtSensorEstimate");
+  }
+
+  void MainWindow::on_buttonAutonomusEst_ftsensor_clicked(bool check)
+  {
+    qnode_estimation.request_ftsensor_autonomus_est();
   }
 
   void MainWindow::on_buttonStart_compensation_ftsensor_clicked(bool check)

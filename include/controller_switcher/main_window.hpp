@@ -17,6 +17,7 @@
 #ifndef Q_MOC_RUN
 #include "ui_main_window.h"
 #include "qnode.hpp"
+#include "qnode_estimation.hpp"
 #endif
 
 /*****************************************************************************
@@ -68,6 +69,7 @@ namespace controller_switcher {
     void on_buttonHome_ftsensor_clicked(bool check);
     void on_buttonNextPose_ftsensor_clicked(bool check);
     void on_buttonEstimate_ftsensor_clicked(bool check);
+    void on_buttonAutonomusEst_ftsensor_clicked(bool check);
     void on_buttonStart_compensation_ftsensor_clicked(bool check);
     void on_buttonSave_ftsensor_clicked(bool check);
 
@@ -82,6 +84,7 @@ namespace controller_switcher {
   private:
     Ui::MainWindowDesign ui;
     QNode qnode;
+    QNodeEstimation qnode_estimation;
   };
 
 }  // namespace controller_switcher
