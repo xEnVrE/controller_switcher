@@ -185,11 +185,21 @@ namespace controller_switcher {
   {
     bool enable_force;
     bool outcome;
+    double forcez0;
 
     enable_force = ui.checkBoxEnableForce_hybrid->isChecked();
 
+    forcez0 = ui.textForceZ0_hybrid->text().toDouble(&outcome);
+    if (!outcome)
+      {
+	field_error_msg_box("ForceZ0");
+	return;
+      }
+
+
     lwr_force_position_controllers::HybridImpedanceSwitchForcePosMsg cmd, response;
     cmd.enable_force_z = enable_force;
+    cmd.forcez0 = forcez0;
 					      
     outcome = qnode.set_command<lwr_force_position_controllers::HybridImpedanceSwitchForcePos,\
     				lwr_force_position_controllers::HybridImpedanceSwitchForcePosMsg>(cmd, response);
@@ -781,7 +791,9 @@ namespace controller_switcher {
       service_error_msg_box("HybridImpedanceController(Get Force Trajectory)");
 
     ui.textForceZ_hybrid->setText(QString::number(current_cmd.forcez,'f', 3));
+    ui.textForceZ0_hybrid->setText(QString::number(current_cmd.forcez0));
     ui.textForce_duration_hybrid->setText(QString::number(current_cmd.force_ref_duration));
+
   }
 
   void MainWindow::fill_hybrid_gains_fields()

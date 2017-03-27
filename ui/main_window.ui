@@ -1061,7 +1061,7 @@ QGroupBox::title {
                <bool>false</bool>
               </property>
               <layout class="QGridLayout" name="gridLayout_6">
-               <item row="0" column="7">
+               <item row="0" column="11">
                 <widget class="QCheckBox" name="checkBoxEnableForce_hybrid">
                  <property name="enabled">
                   <bool>true</bool>
@@ -1100,7 +1100,7 @@ QGroupBox::title {
                  </property>
                 </widget>
                </item>
-               <item row="1" column="6" colspan="2">
+               <item row="1" column="10" colspan="2">
                 <widget class="QProgressBar" name="progressBar_hybrid_force">
                  <property name="value">
                   <number>0</number>
@@ -1110,7 +1110,7 @@ QGroupBox::title {
                  </property>
                 </widget>
                </item>
-               <item row="0" column="3">
+               <item row="0" column="7">
                 <widget class="QLabel" name="HybridSetForceDurationLabel">
                  <property name="text">
                   <string>Δt</string>
@@ -1124,14 +1124,14 @@ QGroupBox::title {
                  </property>
                 </widget>
                </item>
-               <item row="0" column="6">
+               <item row="0" column="10">
                 <widget class="QLabel" name="HybridSetZLabel_2">
                  <property name="text">
                   <string/>
                  </property>
                 </widget>
                </item>
-               <item row="0" column="4">
+               <item row="0" column="8">
                 <widget class="QLineEdit" name="textForce_duration_hybrid">
                  <property name="enabled">
                   <bool>true</bool>
@@ -1144,7 +1144,7 @@ QGroupBox::title {
                  </property>
                 </widget>
                </item>
-               <item row="0" column="5">
+               <item row="0" column="9">
                 <spacer name="HybridSetEnableForceZSpacer1">
                  <property name="orientation">
                   <enum>Qt::Horizontal</enum>
@@ -1157,7 +1157,50 @@ QGroupBox::title {
                  </property>
                 </spacer>
                </item>
-               <item row="1" column="3" colspan="2">
+               <item row="1" column="0" colspan="2">
+                <widget class="QPushButton" name="buttonSetTrajForce_hybrid">
+                 <property name="enabled">
+                  <bool>false</bool>
+                 </property>
+                 <property name="text">
+                  <string>Send Force</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="6">
+                <spacer name="HybridSetEnableForceZSpacer2_2">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item row="0" column="5">
+                <widget class="QLineEdit" name="textForceZ0_hybrid">
+                 <property name="enabled">
+                  <bool>true</bool>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>60</width>
+                   <height>30</height>
+                  </size>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="4">
+                <widget class="QLabel" name="HybridSetForceZ0Label">
+                 <property name="text">
+                  <string>Z0</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="6" colspan="2">
                 <widget class="QFrame" name="frame_3">
                  <property name="frameShape">
                   <enum>QFrame::StyledPanel</enum>
@@ -1195,16 +1238,6 @@ QGroupBox::title {
                    </widget>
                   </item>
                  </layout>
-                </widget>
-               </item>
-               <item row="1" column="0" colspan="2">
-                <widget class="QPushButton" name="buttonSetTrajForce_hybrid">
-                 <property name="enabled">
-                  <bool>false</bool>
-                 </property>
-                 <property name="text">
-                  <string>Send Force</string>
-                 </property>
                 </widget>
                </item>
               </layout>
